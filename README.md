@@ -16,11 +16,11 @@ How-to Install
 1. Copy ace-for-txp folder in /textpattern directory
 2. copy the 3 lines below in "Extensions > Write Tab customize > Additional js code textarea" and Save
 
-'''html
+```html
 <link rel="stylesheet" href="ace-for-txp/theme-sacripant.css" />
 <script src="ace-for-txp/src/ace.js" type="text/javascript"></script>
 <script src="ace-for-txp/ace-for-write-tab.js" type="text/javascript"></script>
-'''
+```
 	
 That's It
 
