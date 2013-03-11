@@ -13,13 +13,13 @@ Need [bot_write-tab-customize](http://forum.textpattern.com/viewtopic.php?id=321
 How-to Install
 --------------
 
-1. Copy ace-for-txp folder in /textpattern directory
-2. copy the 3 lines below in "Extensions > Write Tab customize > Additional js code textarea" and Save
+1. Copy `*ace-for-txp-master* folder in /textpattern directory
+2. copy the 3 lines below in *Extensions > Write Tab customize > Additional js code textarea* and Save
 
 ```html
-<link rel="stylesheet" href="ace-for-txp/theme-sacripant.css" />
-<script src="ace-for-txp/src/ace.js" type="text/javascript"></script>
-<script src="ace-for-txp/ace-for-write-tab.js" type="text/javascript"></script>
+<link rel="stylesheet" href="ace-for-txp-master/theme-sacripant.css" />
+<script src="ace-for-txp-master/src/ace.js" type="text/javascript"></script>
+<script src="ace-for-txp-master/ace-for-write-tab.js" type="text/javascript"></script>
 ```
 	
 That's It
