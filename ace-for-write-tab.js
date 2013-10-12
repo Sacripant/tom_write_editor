@@ -8,7 +8,9 @@
 								<h1 class="ace-article_title"></h1>                                \
 								<div id="ace-editor"></div>                                        \
 								<div class="ace-actions ace-fixed">                                \
-									<button class="hide-ace ace-show-hide ace-fixed">close</button> \
+									<button class="hide-ace ace-show-hide ace-fixed">               \
+										<kbd>esc</kbd> close                                         \
+									</button>																		 \
 								</div>                                                             \
 							</div>                                                                \
 							').appendTo('body');
@@ -37,13 +39,15 @@
 			// synchronize with textarea
 		editor.getSession().on('change', function(){
 				body.val(editor.getSession().getValue());
-		});	
+		});
 		
 		// show Editor
 		$('.show-ace').click(function() {
 
 			// copy textarea content in Ace editor
 			editor.getSession().setValue(body.val());
+			// add focus in top on Editor
+			editor.focus();
 			
 			// Clone titre article to Fullscreen
 			var titre = $('#title').val();
@@ -67,5 +71,16 @@
 			// Hide Editor
 			$('html').removeClass('ace-editor-on');				
 		});
+		
+		// Shortcut
+		$(document).keydown(function(e) {
+			if ($('html').is('.ace-editor-on')) {
+				// esc = hide Editor
+				if (e.keyCode == 27) { 
+					$('.hide-ace').click();
+				}   				
+			}
+		});
+		
 	};
 })();

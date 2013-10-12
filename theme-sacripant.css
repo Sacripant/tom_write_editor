@@ -20,7 +20,6 @@
 	padding: 0;	
 }
 
-
 /*Hide write page scrolbar*/
 .ace-editor-on body {
 	overflow: hidden; 
@@ -29,6 +28,10 @@
 .ace-editor-on .txp-header {
 	position: static;
 }
+
+/*
+*	Fullscrenn panel
+*/
 		
 #ace-fullscreen {
 	display: none;
@@ -49,8 +52,6 @@
 	display: block;
 	visibility: visible;
 }	
-
-
 
 .ace-article_title {
 	font-size: 24px;
@@ -77,26 +78,41 @@
 	line-height: 1.4em;
 }
 
+/*
+*	buttons
+*/
+/*keyboard help in button*/
+button kbd {
+	border: 0 none;
+	background-color: transparent;
+	
+   color: #535353;
+   font-size: 0.8em;
+	font-weight: normal;
+}
+button kbd:after {
+	content: "|";
+}
+/*close button*/
 .hide-ace {
 	position: fixed;
 	bottom: 25px;
 	right: 40px;
+	height: 2.5em;
+	font-weight: bold;
 }
-
+/*save button*/
 .ace-editor-on .publish {
 	position: fixed;
 	bottom: 60px;
 	right: 40px;
-	z-index: 200000;
+	z-index: 20000;
+	height: 2.5em !important;
 }
 
 /*	
 *	ACE Editor
 */ 
-
-
-
-
 .ace_editor { }
 
 .ace_focus .ace_scroller {}
