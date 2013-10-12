@@ -21,22 +21,26 @@
 }
 
 
-
+/*Hide write page scrolbar*/
 .ace-editor-on body {
 	overflow: hidden; 
+}
+/*Show messagepane top on Editor*/
+.ace-editor-on .txp-header {
+	position: static;
 }
 		
 #ace-fullscreen {
 	display: none;
 	visibility: hidden;
-	position: absolute;
+	position: fixed;
 	top:	0;
 	left: 0;
 	height: 100%;
 	width: 100%;
 	background-color: rgba(20,20,20,0.95);
 	color: #ddd;
-	z-index: 100000;
+	z-index: 15000;
 /*	background-color: #fff;*/
 /*	padding: 10px 0;*/
 }
