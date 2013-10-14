@@ -1,4 +1,4 @@
-(function () {
+(function ($) {
 	// Add button fullsceen		
 	var showAce	=	$('<a class="show-ace ace-show-hide"><i>fullscreen</i></a>').prependTo('p.body');
 	
@@ -9,7 +9,7 @@
 								<div id="ace-editor"></div>                                        \
 								<div class="ace-actions ace-fixed">                                \
 									<button class="hide-ace ace-show-hide ace-fixed">               \
-										<kbd>esc</kbd> close                                         \
+										close <kbd>esc</kbd>                                         \
 									</button>																		 \
 								</div>                                                             \
 							</div>                                                                \
@@ -73,14 +73,32 @@
 		});
 		
 		// Shortcut
+		var key = "ctrl"
+		,	 saveBtn = $('.publish');
+		;
+		
+		if (navigator.userAgent.indexOf('Mac OS X') !== -1)
+			key = '⌘';
+						
+		// add shortcut to save button
+		saveBtn[0].value += ' | '+key+'+s';
+		
 		$(document).keydown(function(e) {
-			if ($('html').is('.ace-editor-on')) {
-				// esc = hide Editor
-				if (e.keyCode == 27) { 
-					$('.hide-ace').click();
-				}   				
-			}
+			console.log(e.keyCode);
+			console.log(e);
+			if ($('html').is('.ace-editor-on')) 
+				{
+					// esc = hide Editor
+					if (e.keyCode === 27) 
+						$('.hide-ace').click(); 				
+				}
+			// Save
+			if (e.keyCode == 83 && (e.metaKey || e.ctrlKey))
+				{
+					e.preventDefault();
+					saveBtn.eq(0).click();
+				}
 		});
 		
 	};
-})();
+})(jQuery);

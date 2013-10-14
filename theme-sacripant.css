@@ -90,8 +90,8 @@ button kbd {
    font-size: 0.8em;
 	font-weight: normal;
 }
-button kbd:after {
-	content: "|";
+button kbd:before {
+	content: "| ";
 }
 /*close button*/
 .hide-ace {
