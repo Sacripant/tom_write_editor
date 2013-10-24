@@ -54,25 +54,35 @@
 }	
 
 .ace-article_title {
-	font-size: 24px;
-	line-height: 60px;
-	text-align: center;
-	color: #fff;
+	font-size: 20px;
+	line-height: 50px;
+	text-align: left;
+	color: #eee;
 	width: 100%;
 	position: fixed;
-	margin: 0;
+	padding-left: 55px;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+/*	margin: 0;*/
+	
+}
+
+.editor-wrapper {
+	height: -webkit-calc(100% - 75px);
+		height: -moz-calc(100% - 75px);
+			  height: calc(100% - 75px);
+	position: relative;
+	padding-top: 60px;		
 }
 
 #ace-editor {
-	height: -moz-calc(100% - 75px);
-	height: -webkit-calc(100% - 75px);
-	height: calc(100% - 75px);
 	overflow: visible;
-	position: relative;
-	top: 70px;
-	width: 100%;
+	position: static;
+	width: 100%; height: 100%;
 	max-width: 50em;
-	margin: 0 auto;
+/*	margin: 0 auto;*/
+/*	padding: 0 30px;*/
 	z-index: 0;
 	font-size: 16px;
 	line-height: 1.4em;
@@ -119,7 +129,9 @@ button kbd:before {
 
 .ace-sacripant .ace_content { }
 .ace-sacripant .ace_gutter-layer .ace_gutter-cell {
-    color: #666;
+	color: #666;
+	font-size: 0.9em;
+	/*padding: 0;*/
 }
 .ace-sacripant .ace_print_margin {
     width: 1px;
@@ -129,11 +141,7 @@ button kbd:before {
     /*max-width: 850px;*/
     overflow: hidden; 
 }
-.ace-sacripant .ace_scrollbar {
-    position: absolute;      
-    right: -50px;        
-    top: 0;        
-}
+.ace-sacripant .ace_scrollbar	{  }
 .ace-sacripant .ace_text-layer {
     cursor: text;
     color: #ddd;
