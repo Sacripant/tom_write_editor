@@ -1,0 +1,192 @@
+/*	
+*	ACE editor Wrapper & BTN
+*/ 
+
+.show-ace:before {
+	content: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4KPCFET0NUWVBFIHN2ZyBQVUJMSUMgIi0vL1czQy8vRFREIFNWRyAxLjEvL0VOIiAiaHR0cDovL3d3dy53My5vcmcvR3JhcGhpY3MvU1ZHLzEuMS9EVEQvc3ZnMTEuZHRkIj4KPHN2ZyB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHg9IjBweCIgeT0iMHB4IgoJIHdpZHRoPSIxNnhwIiBoZWlnaHQ9IjE2cHgiIHZpZXdCb3g9IjAgMCA1MTIgNTEyIiBlbmFibGUtYmFja2dyb3VuZD0ibmV3IDAgMCA1MTIgNTEyIiB4bWw6c3BhY2U9InByZXNlcnZlIj4KPHBvbHlnb24gaWQ9InJlc2l6ZS0xMS1pY29uIiBwb2ludHM9IjQ2MiwyMzIuNDI4IDQ2Miw1MCAyNzkuNTcyLDUwIDMyNC4yMzgsOTQuNzQzIDEwMCwzMTguOTgyIDEwMCwxMDAgMjI5LjUsMTAwIDIyOS41LDUwIDUwLDUwIAoJNTAsNDYyIDQ2Miw0NjIgNDYyLDI3OS43ODYgNDEyLDI3OS43ODYgNDEyLDQxMiAxOTMuMDIxLDQxMiA0MTcuMjU5LDE4Ny43NjMgIi8+Cjwvc3ZnPgoK);
+	vertical-align: text-bottom;
+}
+.show-ace {
+	margin-right: 0.4em;
+}
+.show-ace i {
+	display: inline-block;
+	width: 0;
+	text-indent: -9999em;
+}
+.ace-editor-on,
+.ace-editor-on body  {
+	height: 100%;
+	padding: 0;	
+}
+
+/*Hide write page scrolbar*/
+.ace-editor-on body {
+	overflow: hidden; 
+}
+/*Show messagepane top on Editor*/
+.ace-editor-on .txp-header {
+	position: static;
+}
+
+/*
+*	Fullscrenn panel
+*/
+		
+#ace-fullscreen {
+	display: none;
+	visibility: hidden;
+	position: fixed;
+	top:	0;
+	left: 0;
+	height: 100%;
+	width: 100%;
+	background-color: rgba(20,20,20,0.95);
+	color: #ddd;
+	z-index: 15000;
+/*	background-color: #fff;*/
+/*	padding: 10px 0;*/
+}
+
+.ace-editor-on #ace-fullscreen {
+	display: block;
+	visibility: visible;
+}	
+
+.ace-article_title {
+	font-size: 20px;
+	line-height: 50px;
+	text-align: left;
+	color: #eee;
+	width: 100%;
+	position: fixed;
+	padding-left: 55px;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+/*	margin: 0;*/
+	
+}
+
+.editor-wrapper {
+	height: -webkit-calc(100% - 75px);
+		height: -moz-calc(100% - 75px);
+			  height: calc(100% - 75px);
+	position: relative;
+	padding-top: 60px;		
+}
+
+#ace-editor {
+	overflow: visible;
+	position: static;
+	width: 100%; height: 100%;
+	max-width: 50em;
+/*	margin: 0 auto;*/
+/*	padding: 0 30px;*/
+	z-index: 0;
+	font-size: 16px;
+	line-height: 1.4em;
+}
+
+/*
+*	buttons
+*/
+/*keyboard help in button*/
+button kbd {
+	border: 0 none;
+	background-color: transparent;
+	
+   color: #535353;
+   font-size: 0.8em;
+	font-weight: normal;
+}
+button kbd:before {
+	content: "| ";
+}
+/*close button*/
+.hide-ace {
+	position: fixed;
+	bottom: 25px;
+	right: 40px;
+	height: 2.5em;
+	font-weight: bold;
+}
+/*save button*/
+.ace-editor-on .publish {
+	position: fixed;
+	bottom: 60px;
+	right: 40px;
+	z-index: 20000;
+	height: 2.5em !important;
+}
+
+/*	
+*	ACE Editor
+*/ 
+.ace_editor { }
+
+.ace_focus .ace_scroller {}
+
+.ace-sacripant .ace_content { }
+.ace-sacripant .ace_gutter-layer .ace_gutter-cell {
+	color: #666;
+	font-size: 0.9em;
+	/*padding: 0;*/
+}
+.ace-sacripant .ace_print_margin {
+    width: 1px;
+    background:#fff;
+}
+.ace-sacripant .ace_scroller {
+    /*max-width: 850px;*/
+    overflow: hidden; 
+}
+.ace-sacripant .ace_scrollbar	{  }
+.ace-sacripant .ace_text-layer {
+    cursor: text;
+    color: #ddd;
+    overflow: visible;
+}
+.ace-sacripant .ace_cursor {
+    border-left: 1px solid #8AC164;
+}
+.ace-sacripant .ace_cursor.ace_overwrite {
+    border-left: 0px;
+    border-bottom: 1px solid #000000;
+}
+.ace-sacripant .ace_marker-layer .ace_selection {
+    background: rgba(38, 171, 63, 0.5);
+}
+
+.ace-sacripant .ace_marker-layer .ace_step {
+    background: rgb(198, 219, 174);
+}
+.ace-sacripant .ace_marker-layer .ace_bracket {
+    margin: -1px 0 0 -1px;
+    border: 1px solid rgba(75, 75, 126, 0.50);
+}
+.ace-sacripant .ace_marker-layer .ace_active_line {
+    background: rgba(0, 0, 0, 0.6);
+}
+       
+.ace-sacripant .ace_invisible {
+    color: rgba(75, 75, 126, 0.50);
+}
+
+.ace-sacripant .ace_line {
+	outline: 1px dotted #222;
+/*	 white-space: normal;*/
+}
+
+/*HIGHITING*/
+
+.ace-sacripant .ace_markup {
+	color: #9E88BE;
+}
+.ace-sacripant .ace_keyword {
+	color: #9298E1;
+}
+.ace-sacripant .ace_string {
+	color: #9E88BE;
+	font-style: italic;
+}
