@@ -13,7 +13,7 @@ Need [bot_write-tab-customize](http://forum.textpattern.com/viewtopic.php?id=321
 How-to Install
 ==============
 
-1. Copy `*ace-for-write-tab* folder in /textpattern directory
+1. Copy *ace-for-write-tab* folder in /textpattern directory
 2. copy the 3 lines below in *Extensions > Write Tab customize > Additional js code textarea* and Save
 
 ```html
@@ -21,6 +21,9 @@ How-to Install
 <script src="ace-for-write-tab/src/ace.js" type="text/javascript"></script>
 <script src="ace-for-write-tab/ace-for-write-tab.js" type="text/javascript"></script>
 ```
+
+That's It!
+
 
 How-to Use
 ===========
@@ -38,5 +41,5 @@ Additional Keyboard Shortcuts
 - **esc** for close editor. 
 
 	
-That's It
+
 
