@@ -3,19 +3,19 @@
 	var showAce	=	$('<a class="show-ace ace-show-hide"><i>fullscreen</i></a>').prependTo('p.body');
 	
 	// Initiation code html wrapper-fullscreen
-	var fullscreen	=	$('                                                                  \
-							<div id="ace-fullscreen" class="show">                               \
-								<h1 class="ace-article_title"></h1>                               \
-								<div class="editor-wrapper">                                      \
-									<div id="ace-editor"></div>                                    \
-									<div class="ace-actions ace-fixed">                            \
-										<button class="hide-ace ace-show-hide ace-fixed">           \
-											close <kbd>esc</kbd>                                     \
-										</button>																	\
-									</div>                                                         \
-								</div>                                                            \
-							</div>                                                               \
-							').appendTo('body');
+	// var fullscreen	=	$('                                                                  \
+	// 						<div id="ace-fullscreen" class="show">                               \
+	// 							<h1 class="ace-article_title"></h1>                               \
+	// 							<div class="editor-wrapper">                                      \
+	// 								<div id="ace-editor"></div>                                    \
+	// 								<div class="ace-actions ace-fixed">                            \
+	// 									<button class="hide-ace ace-show-hide ace-fixed">           \
+	// 										close <kbd>esc</kbd>                                     \
+	// 									</button>																	\
+	// 								</div>                                                         \
+	// 							</div>                                                            \
+	// 						</div>                                                               \
+	// 						').appendTo('body');
 	
 	var aceEditor = document.getElementById('ace-editor');				
 	// aceEditor.style.fontSize='15px';

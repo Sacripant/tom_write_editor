@@ -207,9 +207,29 @@ var textpattern = {
 	<li class="recent-article"><a href="http://localhost/textpattern-4.5.5/textpattern/?event=article&amp;step=edit&amp;ID=3">Sans titre&nbsp;3</a></li>
 	<li class="recent-article"><a href="http://localhost/textpattern-4.5.5/textpattern/?event=article&amp;step=edit&amp;ID=2">Mon nouvel article</a></li>
 	<li class="recent-article"><a href="http://localhost/textpattern-4.5.5/textpattern/?event=article&amp;step=edit&amp;ID=1">Welcome to Your Site!</a></li></ul></div></div></div></td>
+
+
 <td id="article-main"><div id="main_content"><div class="text">
-<p class="title"><label for="title">Titre</label>&nbsp;<a rel="help" target="_top" href="http://rpc.textpattern.com/help/?item=title&amp;language=fr-fr" onclick="popWin(this.href); return false;" class="pophelp">?</a><br><input spellcheck="true" id="title" name="Title" value="" size="40" tabindex="1" type="text"></p>
-<p class="body"><label for="body">Corps</label>&nbsp;<a rel="help" target="_top" href="http://rpc.textpattern.com/help/?item=body&amp;language=fr-fr" onclick="popWin(this.href); return false;" class="pophelp">?</a><br><textarea spellcheck="true" id="body" name="Body" cols="64" rows="32" tabindex="2"></textarea></p>
+
+<p class="title">
+	<label for="title">Titre</label>&nbsp;<a rel="help" target="_top" href="http://rpc.textpattern.com/help/?item=title&amp;language=fr-fr" onclick="popWin(this.href); return false;" class="pophelp">?</a><br>
+	<input spellcheck="true" id="title" name="Title" value="Un titre s'il vous plait" size="40" tabindex="1" type="text">
+</p>
+<p class="body">
+	<label for="body">Corps</label>&nbsp;<a rel="help" target="_top" href="http://rpc.textpattern.com/help/?item=body&amp;language=fr-fr" onclick="popWin(this.href); return false;" class="pophelp">?</a><br>
+	<textarea spellcheck="true" id="body" name="Body" cols="64" rows="32" tabindex="2">
+h2. Textile
+
+* is a _shorthand syntax_ used to generate valid HTML,
+* is *easy* to read and *easy* to write,
+* can generate complex pages,
+* including headers, quotes, lists, tables, and figures.
+
+p{font-size:0.8em}. *TxStyle* is a documentation project of Textile for "Textpattern CMS":http://textpattern.com.
+
+	</textarea>
+
+</p>
 <p class="excerpt"><label for="excerpt">Résumé</label>&nbsp;<a rel="help" target="_top" href="http://rpc.textpattern.com/help/?item=excerpt&amp;language=fr-fr" onclick="popWin(this.href); return false;" class="pophelp">?</a><br><textarea id="excerpt" name="Excerpt" cols="64" rows="8" tabindex="3"></textarea></p><input value="text" name="from_view" type="hidden"></div></div></td><td id="article-tabs"><div id="view_modes"><ul><li class="view-mode text" id="tab-textup" title="Mode saisie">text</li><li class="view-mode html" id="tab-htmldown" title="Vue HTML"><a href="javascript:document.article_form.view.value='html';document.article_form.submit();">html</a></li><li class="view-mode preview" id="tab-previewdown" title="Aperçu de l’article"><a href="javascript:document.article_form.view.value='preview';document.article_form.submit();">Aperçu</a></li></ul></div></td><td id="article-col-2"><div id="supporting_content">
 
 <fieldset id="write-status">
@@ -309,6 +329,17 @@ textpattern.textarray = {"form_submission_error":"D\u00e9sol\u00e9, le formulair
 <!-- 
 	Ace-for-txp 
 -->
+<div id="ace-fullscreen" class="show">                        
+	<h1 class="ace-article_title"></h1>                        
+	<div class="editor-wrapper">                               
+		<div id="ace-editor"></div>                             
+		<div class="ace-actions ace-fixed">                     
+			<button class="hide-ace ace-show-hide ace-fixed">    
+				close <kbd>esc</kbd>                              
+			</button>																	\
+		</div>                                                  
+	</div>                                                     
+</div> 
 
 <link   href="../ace-for-write-tab/theme-sacripant.css" rel="stylesheet" />
 <script src="../ace-for-write-tab/src/ace.js" type="text/javascript"></script>
