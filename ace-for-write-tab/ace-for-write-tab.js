@@ -23,19 +23,24 @@
 	window.onload = function() {
 		
 		var editor	= ace.edit("ace-editor")		// Initilize Editor
-		,	 body	= $('#body')
-		,	 aceArticleTitle = document.getElementsByClassName('ace-article_title')
+		,	body	= $('#body')
+		,	aceArticleTitle = document.getElementsByClassName('ace-article_title')
 		;
 		
+		// THEME
+		editor.setTheme("ace/theme/sacripant");
+		// MODE			
 		editor.getSession().setMode("ace/mode/textile");
-			// Soft wrap
+		// Editor options
 		editor.getSession().setUseWrapMode(true);
 		editor.setShowPrintMargin(true);
-			// THEME
-		editor.setTheme("ace/theme/sacripant");			
-			// synchronize with textarea
+		editor.setOptions({
+        	enableSnippets: true
+	    });
+
+		// synchronize with textarea
 		editor.getSession().on('change', function(){
-				body.val(editor.getSession().getValue());
+			body.val(editor.getSession().getValue());
 		});
 				
 		// show Editor
@@ -47,7 +52,7 @@
 			// add focus in top on Editor
 			editor.focus();
 						
-			// Clone titre article to Fullscreen
+			// Clone article title
 			var titre = $('#title').val();
 			$(aceArticleTitle).text(titre);
 						
