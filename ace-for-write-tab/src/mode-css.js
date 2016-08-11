@@ -1,125 +1,103 @@
-/* ***** BEGIN LICENSE BLOCK *****
- * Distributed under the BSD license:
- *
- * Copyright (c) 2010, Ajax.org B.V.
- * All rights reserved.
- * 
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions are met:
- *     * Redistributions of source code must retain the above copyright
- *       notice, this list of conditions and the following disclaimer.
- *     * Redistributions in binary form must reproduce the above copyright
- *       notice, this list of conditions and the following disclaimer in the
- *       documentation and/or other materials provided with the distribution.
- *     * Neither the name of Ajax.org B.V. nor the
- *       names of its contributors may be used to endorse or promote products
- *       derived from this software without specific prior written permission.
- * 
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
- * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
- * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
- * DISCLAIMED. IN NO EVENT SHALL AJAX.ORG B.V. BE LIABLE FOR ANY
- * DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
- * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
- * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
- * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
- * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
- * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
- *
- * ***** END LICENSE BLOCK ***** */
-
-define('ace/mode/css', ['require', 'exports', 'module' , 'ace/lib/oop', 'ace/mode/text', 'ace/tokenizer', 'ace/mode/css_highlight_rules', 'ace/mode/matching_brace_outdent', 'ace/worker/worker_client', 'ace/mode/folding/cstyle'], function(require, exports, module) {
-
-
-var oop = require("../lib/oop");
-var TextMode = require("./text").Mode;
-var Tokenizer = require("../tokenizer").Tokenizer;
-var CssHighlightRules = require("./css_highlight_rules").CssHighlightRules;
-var MatchingBraceOutdent = require("./matching_brace_outdent").MatchingBraceOutdent;
-var WorkerClient = require("../worker/worker_client").WorkerClient;
-var CStyleFoldMode = require("./folding/cstyle").FoldMode;
-
-var Mode = function() {
-    this.$tokenizer = new Tokenizer(new CssHighlightRules().getRules(), "i");
-    this.$outdent = new MatchingBraceOutdent();
-    this.foldingRules = new CStyleFoldMode();
-};
-oop.inherits(Mode, TextMode);
-
-(function() {
-
-    this.foldingRules = "cStyle";
-
-    this.getNextLineIndent = function(state, line, tab) {
-        var indent = this.$getIndent(line);
-        var tokens = this.$tokenizer.getLineTokens(line, state).tokens;
-        if (tokens.length && tokens[tokens.length-1].type == "comment") {
-            return indent;
-        }
-
-        var match = line.match(/^.*\{\s*$/);
-        if (match) {
-            indent += tab;
-        }
-
-        return indent;
-    };
-
-    this.checkOutdent = function(state, line, input) {
-        return this.$outdent.checkOutdent(line, input);
-    };
-
-    this.autoOutdent = function(state, doc, row) {
-        this.$outdent.autoOutdent(doc, row);
-    };
-
-    this.createWorker = function(session) {
-        var worker = new WorkerClient(["ace"], "ace/mode/css_worker", "Worker");
-        worker.attachToDocument(session.getDocument());
-
-        worker.on("csslint", function(e) {
-            session.setAnnotations(e.data);
-        });
-
-        worker.on("terminate", function() {
-            session.clearAnnotations();
-        });
-
-        return worker;
-    };
-
-}).call(Mode.prototype);
-
-exports.Mode = Mode;
-
-});
-
-define('ace/mode/css_highlight_rules', ['require', 'exports', 'module' , 'ace/lib/oop', 'ace/lib/lang', 'ace/mode/text_highlight_rules'], function(require, exports, module) {
-
+define("ace/mode/css_highlight_rules",["require","exports","module","ace/lib/oop","ace/lib/lang","ace/mode/text_highlight_rules"], function(require, exports, module) {
+"use strict";
 
 var oop = require("../lib/oop");
 var lang = require("../lib/lang");
 var TextHighlightRules = require("./text_highlight_rules").TextHighlightRules;
+var supportType = exports.supportType = "align-content|align-items|align-self|all|animation|animation-delay|animation-direction|animation-duration|animation-fill-mode|animation-iteration-count|animation-name|animation-play-state|animation-timing-function|backface-visibility|background|background-attachment|background-blend-mode|background-clip|background-color|background-image|background-origin|background-position|background-repeat|background-size|border|border-bottom|border-bottom-color|border-bottom-left-radius|border-bottom-right-radius|border-bottom-style|border-bottom-width|border-collapse|border-color|border-image|border-image-outset|border-image-repeat|border-image-slice|border-image-source|border-image-width|border-left|border-left-color|border-left-style|border-left-width|border-radius|border-right|border-right-color|border-right-style|border-right-width|border-spacing|border-style|border-top|border-top-color|border-top-left-radius|border-top-right-radius|border-top-style|border-top-width|border-width|bottom|box-shadow|box-sizing|caption-side|clear|clip|color|column-count|column-fill|column-gap|column-rule|column-rule-color|column-rule-style|column-rule-width|column-span|column-width|columns|content|counter-increment|counter-reset|cursor|direction|display|empty-cells|filter|flex|flex-basis|flex-direction|flex-flow|flex-grow|flex-shrink|flex-wrap|float|font|font-family|font-size|font-size-adjust|font-stretch|font-style|font-variant|font-weight|hanging-punctuation|height|justify-content|left|letter-spacing|line-height|list-style|list-style-image|list-style-position|list-style-type|margin|margin-bottom|margin-left|margin-right|margin-top|max-height|max-width|min-height|min-width|nav-down|nav-index|nav-left|nav-right|nav-up|opacity|order|outline|outline-color|outline-offset|outline-style|outline-width|overflow|overflow-x|overflow-y|padding|padding-bottom|padding-left|padding-right|padding-top|page-break-after|page-break-before|page-break-inside|perspective|perspective-origin|position|quotes|resize|right|tab-size|table-layout|text-align|text-align-last|text-decoration|text-decoration-color|text-decoration-line|text-decoration-style|text-indent|text-justify|text-overflow|text-shadow|text-transform|top|transform|transform-origin|transform-style|transition|transition-delay|transition-duration|transition-property|transition-timing-function|unicode-bidi|vertical-align|visibility|white-space|width|word-break|word-spacing|word-wrap|z-index";
+var supportFunction = exports.supportFunction = "rgb|rgba|url|attr|counter|counters";
+var supportConstant = exports.supportConstant = "absolute|after-edge|after|all-scroll|all|alphabetic|always|antialiased|armenian|auto|avoid-column|avoid-page|avoid|balance|baseline|before-edge|before|below|bidi-override|block-line-height|block|bold|bolder|border-box|both|bottom|box|break-all|break-word|capitalize|caps-height|caption|center|central|char|circle|cjk-ideographic|clone|close-quote|col-resize|collapse|column|consider-shifts|contain|content-box|cover|crosshair|cubic-bezier|dashed|decimal-leading-zero|decimal|default|disabled|disc|disregard-shifts|distribute-all-lines|distribute-letter|distribute-space|distribute|dotted|double|e-resize|ease-in|ease-in-out|ease-out|ease|ellipsis|end|exclude-ruby|fill|fixed|georgian|glyphs|grid-height|groove|hand|hanging|hebrew|help|hidden|hiragana-iroha|hiragana|horizontal|icon|ideograph-alpha|ideograph-numeric|ideograph-parenthesis|ideograph-space|ideographic|inactive|include-ruby|inherit|initial|inline-block|inline-box|inline-line-height|inline-table|inline|inset|inside|inter-ideograph|inter-word|invert|italic|justify|katakana-iroha|katakana|keep-all|last|left|lighter|line-edge|line-through|line|linear|list-item|local|loose|lower-alpha|lower-greek|lower-latin|lower-roman|lowercase|lr-tb|ltr|mathematical|max-height|max-size|medium|menu|message-box|middle|move|n-resize|ne-resize|newspaper|no-change|no-close-quote|no-drop|no-open-quote|no-repeat|none|normal|not-allowed|nowrap|nw-resize|oblique|open-quote|outset|outside|overline|padding-box|page|pointer|pre-line|pre-wrap|pre|preserve-3d|progress|relative|repeat-x|repeat-y|repeat|replaced|reset-size|ridge|right|round|row-resize|rtl|s-resize|scroll|se-resize|separate|slice|small-caps|small-caption|solid|space|square|start|static|status-bar|step-end|step-start|steps|stretch|strict|sub|super|sw-resize|table-caption|table-cell|table-column-group|table-column|table-footer-group|table-header-group|table-row-group|table-row|table|tb-rl|text-after-edge|text-before-edge|text-bottom|text-size|text-top|text|thick|thin|transparent|underline|upper-alpha|upper-latin|upper-roman|uppercase|use-script|vertical-ideographic|vertical-text|visible|w-resize|wait|whitespace|z-index|zero";
+var supportConstantColor = exports.supportConstantColor = "aqua|black|blue|fuchsia|gray|green|lime|maroon|navy|olive|orange|purple|red|silver|teal|white|yellow";
+var supportConstantFonts = exports.supportConstantFonts = "arial|century|comic|courier|cursive|fantasy|garamond|georgia|helvetica|impact|lucida|symbol|system|tahoma|times|trebuchet|utopia|verdana|webdings|sans-serif|serif|monospace";
+
+var numRe = exports.numRe = "\\-?(?:(?:[0-9]+)|(?:[0-9]*\\.[0-9]+))";
+var pseudoElements = exports.pseudoElements = "(\\:+)\\b(after|before|first-letter|first-line|moz-selection|selection)\\b";
+var pseudoClasses  = exports.pseudoClasses =  "(:)\\b(active|checked|disabled|empty|enabled|first-child|first-of-type|focus|hover|indeterminate|invalid|last-child|last-of-type|link|not|nth-child|nth-last-child|nth-last-of-type|nth-of-type|only-child|only-of-type|required|root|target|valid|visited)\\b";
 
 var CssHighlightRules = function() {
+
     var keywordMapper = this.createKeywordMapper({
-        "support.function": "rgb|rgba|url|attr|counter|counters",
-        "support.constant": "absolute|after-edge|after|all-scroll|all|alphabetic|always|antialiased|armenian|auto|avoid-column|avoid-page|avoid|balance|baseline|before-edge|before|below|bidi-override|block-line-height|block|bold|bolder|border-box|both|bottom|box|break-all|break-word|capitalize|caps-height|caption|center|central|char|circle|cjk-ideographic|clone|close-quote|col-resize|collapse|column|consider-shifts|contain|content-box|cover|crosshair|cubic-bezier|dashed|decimal-leading-zero|decimal|default|disabled|disc|disregard-shifts|distribute-all-lines|distribute-letter|distribute-space|distribute|dotted|double|e-resize|ease-in|ease-in-out|ease-out|ease|ellipsis|end|exclude-ruby|fill|fixed|georgian|glyphs|grid-height|groove|hand|hanging|hebrew|help|hidden|hiragana-iroha|hiragana|horizontal|icon|ideograph-alpha|ideograph-numeric|ideograph-parenthesis|ideograph-space|ideographic|inactive|include-ruby|inherit|initial|inline-block|inline-box|inline-line-height|inline-table|inline|inset|inside|inter-ideograph|inter-word|invert|italic|justify|katakana-iroha|katakana|keep-all|last|left|lighter|line-edge|line-through|line|linear|list-item|local|loose|lower-alpha|lower-greek|lower-latin|lower-roman|lowercase|lr-tb|ltr|mathematical|max-height|max-size|medium|menu|message-box|middle|move|n-resize|ne-resize|newspaper|no-change|no-close-quote|no-drop|no-open-quote|no-repeat|none|normal|not-allowed|nowrap|nw-resize|oblique|open-quote|outset|outside|overline|padding-box|page|pointer|pre-line|pre-wrap|pre|preserve-3d|progress|relative|repeat-x|repeat-y|repeat|replaced|reset-size|ridge|right|round|row-resize|rtl|s-resize|scroll|se-resize|separate|slice|small-caps|small-caption|solid|space|square|start|static|status-bar|step-end|step-start|steps|stretch|strict|sub|super|sw-resize|table-caption|table-cell|table-column-group|table-column|table-footer-group|table-header-group|table-row-group|table-row|table|tb-rl|text-after-edge|text-before-edge|text-bottom|text-size|text-top|text|thick|thin|transparent|underline|upper-alpha|upper-latin|upper-roman|uppercase|use-script|vertical-ideographic|vertical-text|visible|w-resize|wait|whitespace|z-index|zero",
-        "support.type": "animation-fill-mode|alignment-adjust|alignment-baseline|animation-delay|animation-direction|animation-duration|animation-iteration-count|animation-name|animation-play-state|animation-timing-function|animation|appearance|azimuth|backface-visibility|background-attachment|background-break|background-clip|background-color|background-image|background-origin|background-position|background-repeat|background-size|background|baseline-shift|binding|bleed|bookmark-label|bookmark-level|bookmark-state|bookmark-target|border-bottom|border-bottom-color|border-bottom-left-radius|border-bottom-right-radius|border-bottom-style|border-bottom-width|border-collapse|border-color|border-image|border-image-outset|border-image-repeat|border-image-slice|border-image-source|border-image-width|border-left|border-left-color|border-left-style|border-left-width|border-radius|border-right|border-right-color|border-right-style|border-right-width|border-spacing|border-style|border-top|border-top-color|border-top-left-radius|border-top-right-radius|border-top-style|border-top-width|border-width|border|bottom|box-align|box-decoration-break|box-direction|box-flex-group|box-flex|box-lines|box-ordinal-group|box-orient|box-pack|box-shadow|box-sizing|break-after|break-before|break-inside|caption-side|clear|clip|color-profile|color|column-count|column-fill|column-gap|column-rule|column-rule-color|column-rule-style|column-rule-width|column-span|column-width|columns|content|counter-increment|counter-reset|crop|cue-after|cue-before|cue|cursor|direction|display|dominant-baseline|drop-initial-after-adjust|drop-initial-after-align|drop-initial-before-adjust|drop-initial-before-align|drop-initial-size|drop-initial-value|elevation|empty-cells|fit|fit-position|float-offset|float|font-family|font-size|font-size-adjust|font-stretch|font-style|font-variant|font-weight|font|grid-columns|grid-rows|hanging-punctuation|height|hyphenate-after|hyphenate-before|hyphenate-character|hyphenate-lines|hyphenate-resource|hyphens|icon|image-orientation|image-rendering|image-resolution|inline-box-align|left|letter-spacing|line-height|line-stacking-ruby|line-stacking-shift|line-stacking-strategy|line-stacking|list-style-image|list-style-position|list-style-type|list-style|margin-bottom|margin-left|margin-right|margin-top|margin|mark-after|mark-before|mark|marks|marquee-direction|marquee-play-count|marquee-speed|marquee-style|max-height|max-width|min-height|min-width|move-to|nav-down|nav-index|nav-left|nav-right|nav-up|opacity|orphans|outline-color|outline-offset|outline-style|outline-width|outline|overflow-style|overflow-x|overflow-y|overflow|padding-bottom|padding-left|padding-right|padding-top|padding|page-break-after|page-break-before|page-break-inside|page-policy|page|pause-after|pause-before|pause|perspective-origin|perspective|phonemes|pitch-range|pitch|play-during|position|presentation-level|punctuation-trim|quotes|rendering-intent|resize|rest-after|rest-before|rest|richness|right|rotation-point|rotation|ruby-align|ruby-overhang|ruby-position|ruby-span|size|speak-header|speak-numeral|speak-punctuation|speak|speech-rate|stress|string-set|table-layout|target-name|target-new|target-position|target|text-align-last|text-align|text-decoration|text-emphasis|text-height|text-indent|text-justify|text-outline|text-shadow|text-transform|text-wrap|top|transform-origin|transform-style|transform|transition-delay|transition-duration|transition-property|transition-timing-function|transition|unicode-bidi|vertical-align|visibility|voice-balance|voice-duration|voice-family|voice-pitch-range|voice-pitch|voice-rate|voice-stress|voice-volume|volume|white-space-collapse|white-space|widows|width|word-break|word-spacing|word-wrap|z-index",
-        "support.constant.color": "aqua|black|blue|fuchsia|gray|green|lime|maroon|navy|olive|orange|purple|red|silver|teal|white|yellow",
-        "support.constant.fonts": "arial|century|comic|courier|garamond|georgia|helvetica|impact|lucida|symbol|system|tahoma|times|trebuchet|utopia|verdana|webdings|sans-serif|serif|monospace"
+        "support.function": supportFunction,
+        "support.constant": supportConstant,
+        "support.type": supportType,
+        "support.constant.color": supportConstantColor,
+        "support.constant.fonts": supportConstantFonts
     }, "text", true);
 
-    var numRe = "\\-?(?:(?:[0-9]+)|(?:[0-9]*\\.[0-9]+))";
-    var pseudoElements = "(\\:+)\\b(after|before|first-letter|first-line|moz-selection|selection)\\b";
-    var pseudoClasses = "(:)\\b(active|checked|disabled|empty|enabled|first-child|first-of-type|focus|hover|indeterminate|invalid|last-child|last-of-type|link|not|nth-child|nth-last-child|nth-last-of-type|nth-of-type|only-child|only-of-type|required|root|target|valid|visited)\\b";
-
-    var base_ruleset = [
-        {
+    this.$rules = {
+        "start" : [{
             token : "comment", // multi line comment
-            merge : true,
             regex : "\\/\\*",
-            next : "ruleset_comment"
+            push : "comment"
+        }, {
+            token: "paren.lparen",
+            regex: "\\{",
+            push:  "ruleset"
+        }, {
+            token: "string",
+            regex: "@.*?{",
+            push:  "media"
+        }, {
+            token: "keyword",
+            regex: "#[a-z0-9-_]+"
+        }, {
+            token: "variable",
+            regex: "\\.[a-z0-9-_]+"
+        }, {
+            token: "string",
+            regex: ":[a-z0-9-_]+"
+        }, {
+            token: "constant",
+            regex: "[a-z0-9-_]+"
+        }, {
+            caseInsensitive: true
+        }],
+
+        "media" : [{
+            token : "comment", // multi line comment
+            regex : "\\/\\*",
+            push : "comment"
+        }, {
+            token: "paren.lparen",
+            regex: "\\{",
+            push:  "ruleset"
+        }, {
+            token: "string",
+            regex: "\\}",
+            next:  "pop"
+        }, {
+            token: "keyword",
+            regex: "#[a-z0-9-_]+"
+        }, {
+            token: "variable",
+            regex: "\\.[a-z0-9-_]+"
+        }, {
+            token: "string",
+            regex: ":[a-z0-9-_]+"
+        }, {
+            token: "constant",
+            regex: "[a-z0-9-_]+"
+        }, {
+            caseInsensitive: true
+        }],
+
+        "comment" : [{
+            token : "comment",
+            regex : "\\*\\/",
+            next : "pop"
+        }, {
+            defaultToken : "comment"
+        }],
+
+        "ruleset" : [
+        {
+            token : "paren.rparen",
+            regex : "\\}",
+            next:   "pop"
+        }, {
+            token : "comment", // multi line comment
+            regex : "\\/\\*",
+            push : "comment"
         }, {
             token : "string", // single line
             regex : '["](?:(?:\\\\.)|(?:[^"\\\\]))*?["]'
@@ -130,8 +108,8 @@ var CssHighlightRules = function() {
             token : ["constant.numeric", "keyword"],
             regex : "(" + numRe + ")(ch|cm|deg|em|ex|fr|gd|grad|Hz|in|kHz|mm|ms|pc|pt|px|rad|rem|s|turn|vh|vm|vw|%)"
         }, {
-            token : ["constant.numeric"],
-            regex : "([0-9]+)"
+            token : "constant.numeric",
+            regex : numRe
         }, {
             token : "constant.numeric",  // hex6 color
             regex : "#[a-f0-9]{6}"
@@ -145,115 +123,17 @@ var CssHighlightRules = function() {
             token : ["punctuation", "entity.other.attribute-name.pseudo-class.css"],
             regex : pseudoClasses
         }, {
+            token : ["support.function", "string", "support.function"],
+            regex : "(url\\()(.*)(\\))"
+        }, {
             token : keywordMapper,
             regex : "\\-?[a-zA-Z_][a-zA-Z0-9_\\-]*"
-        }
-      ];
-
-    var ruleset = lang.copyArray(base_ruleset);
-    ruleset.unshift({
-        token : "paren.rparen",
-        regex : "\\}",
-        next:   "start"
-    });
-
-    var media_ruleset = lang.copyArray( base_ruleset );
-    media_ruleset.unshift({
-        token : "paren.rparen",
-        regex : "\\}",
-        next:   "media"
-    });
-
-    var base_comment = [{
-          token : "comment", // comment spanning whole line
-          merge : true,
-          regex : ".+"
-    }];
-
-    var comment = lang.copyArray(base_comment);
-    comment.unshift({
-          token : "comment", // closing comment
-          regex : ".*?\\*\\/",
-          next : "start"
-    });
-
-    var media_comment = lang.copyArray(base_comment);
-    media_comment.unshift({
-          token : "comment", // closing comment
-          regex : ".*?\\*\\/",
-          next : "media"
-    });
-
-    var ruleset_comment = lang.copyArray(base_comment);
-    ruleset_comment.unshift({
-          token : "comment", // closing comment
-          regex : ".*?\\*\\/",
-          next : "ruleset"
-    });
-
-    this.$rules = {
-        "start" : [{
-            token : "comment", // multi line comment
-            merge : true,
-            regex : "\\/\\*",
-            next : "comment"
         }, {
-            token: "paren.lparen",
-            regex: "\\{",
-            next:  "ruleset"
-        }, {
-            token: "string",
-            regex: "@.*?{",
-            next:  "media"
-        },{
-            token: "keyword",
-            regex: "#[a-z0-9-_]+"
-        },{
-            token: "variable",
-            regex: "\\.[a-z0-9-_]+"
-        },{
-            token: "string",
-            regex: ":[a-z0-9-_]+"
-        },{
-            token: "constant",
-            regex: "[a-z0-9-_]+"
-        }],
-
-        "media" : [ {
-            token : "comment", // multi line comment
-            merge : true,
-            regex : "\\/\\*",
-            next : "media_comment"
-        }, {
-            token: "paren.lparen",
-            regex: "\\{",
-            next:  "media_ruleset"
-        },{
-            token: "string",
-            regex: "\\}",
-            next:  "start"
-        },{
-            token: "keyword",
-            regex: "#[a-z0-9-_]+"
-        },{
-            token: "variable",
-            regex: "\\.[a-z0-9-_]+"
-        },{
-            token: "string",
-            regex: ":[a-z0-9-_]+"
-        },{
-            token: "constant",
-            regex: "[a-z0-9-_]+"
-        }],
-
-        "comment" : comment,
-
-        "ruleset" : ruleset,
-        "ruleset_comment" : ruleset_comment,
-
-        "media_ruleset" : media_ruleset,
-        "media_comment" : media_comment
+            caseInsensitive: true
+        }]
     };
+
+    this.normalizeRules();
 };
 
 oop.inherits(CssHighlightRules, TextHighlightRules);
@@ -262,8 +142,8 @@ exports.CssHighlightRules = CssHighlightRules;
 
 });
 
-define('ace/mode/matching_brace_outdent', ['require', 'exports', 'module' , 'ace/range'], function(require, exports, module) {
-
+define("ace/mode/matching_brace_outdent",["require","exports","module","ace/range"], function(require, exports, module) {
+"use strict";
 
 var Range = require("../range").Range;
 
@@ -294,12 +174,7 @@ var MatchingBraceOutdent = function() {};
     };
 
     this.$getIndent = function(line) {
-        var match = line.match(/^(\s+)/);
-        if (match) {
-            return match[1];
-        }
-
-        return "";
+        return line.match(/^\s*/)[0];
     };
 
 }).call(MatchingBraceOutdent.prototype);
@@ -307,34 +182,328 @@ var MatchingBraceOutdent = function() {};
 exports.MatchingBraceOutdent = MatchingBraceOutdent;
 });
 
-define('ace/mode/folding/cstyle', ['require', 'exports', 'module' , 'ace/lib/oop', 'ace/range', 'ace/mode/folding/fold_mode'], function(require, exports, module) {
+define("ace/mode/css_completions",["require","exports","module"], function(require, exports, module) {
+"use strict";
 
+var propertyMap = {
+    "background": {"#$0": 1},
+    "background-color": {"#$0": 1, "transparent": 1, "fixed": 1},
+    "background-image": {"url('/$0')": 1},
+    "background-repeat": {"repeat": 1, "repeat-x": 1, "repeat-y": 1, "no-repeat": 1, "inherit": 1},
+    "background-position": {"bottom":2, "center":2, "left":2, "right":2, "top":2, "inherit":2},
+    "background-attachment": {"scroll": 1, "fixed": 1},
+    "background-size": {"cover": 1, "contain": 1},
+    "background-clip": {"border-box": 1, "padding-box": 1, "content-box": 1},
+    "background-origin": {"border-box": 1, "padding-box": 1, "content-box": 1},
+    "border": {"solid $0": 1, "dashed $0": 1, "dotted $0": 1, "#$0": 1},
+    "border-color": {"#$0": 1},
+    "border-style": {"solid":2, "dashed":2, "dotted":2, "double":2, "groove":2, "hidden":2, "inherit":2, "inset":2, "none":2, "outset":2, "ridged":2},
+    "border-collapse": {"collapse": 1, "separate": 1},
+    "bottom": {"px": 1, "em": 1, "%": 1},
+    "clear": {"left": 1, "right": 1, "both": 1, "none": 1},
+    "color": {"#$0": 1, "rgb(#$00,0,0)": 1},
+    "cursor": {"default": 1, "pointer": 1, "move": 1, "text": 1, "wait": 1, "help": 1, "progress": 1, "n-resize": 1, "ne-resize": 1, "e-resize": 1, "se-resize": 1, "s-resize": 1, "sw-resize": 1, "w-resize": 1, "nw-resize": 1},
+    "display": {"none": 1, "block": 1, "inline": 1, "inline-block": 1, "table-cell": 1},
+    "empty-cells": {"show": 1, "hide": 1},
+    "float": {"left": 1, "right": 1, "none": 1},
+    "font-family": {"Arial":2,"Comic Sans MS":2,"Consolas":2,"Courier New":2,"Courier":2,"Georgia":2,"Monospace":2,"Sans-Serif":2, "Segoe UI":2,"Tahoma":2,"Times New Roman":2,"Trebuchet MS":2,"Verdana": 1},
+    "font-size": {"px": 1, "em": 1, "%": 1},
+    "font-weight": {"bold": 1, "normal": 1},
+    "font-style": {"italic": 1, "normal": 1},
+    "font-variant": {"normal": 1, "small-caps": 1},
+    "height": {"px": 1, "em": 1, "%": 1},
+    "left": {"px": 1, "em": 1, "%": 1},
+    "letter-spacing": {"normal": 1},
+    "line-height": {"normal": 1},
+    "list-style-type": {"none": 1, "disc": 1, "circle": 1, "square": 1, "decimal": 1, "decimal-leading-zero": 1, "lower-roman": 1, "upper-roman": 1, "lower-greek": 1, "lower-latin": 1, "upper-latin": 1, "georgian": 1, "lower-alpha": 1, "upper-alpha": 1},
+    "margin": {"px": 1, "em": 1, "%": 1},
+    "margin-right": {"px": 1, "em": 1, "%": 1},
+    "margin-left": {"px": 1, "em": 1, "%": 1},
+    "margin-top": {"px": 1, "em": 1, "%": 1},
+    "margin-bottom": {"px": 1, "em": 1, "%": 1},
+    "max-height": {"px": 1, "em": 1, "%": 1},
+    "max-width": {"px": 1, "em": 1, "%": 1},
+    "min-height": {"px": 1, "em": 1, "%": 1},
+    "min-width": {"px": 1, "em": 1, "%": 1},
+    "overflow": {"hidden": 1, "visible": 1, "auto": 1, "scroll": 1},
+    "overflow-x": {"hidden": 1, "visible": 1, "auto": 1, "scroll": 1},
+    "overflow-y": {"hidden": 1, "visible": 1, "auto": 1, "scroll": 1},
+    "padding": {"px": 1, "em": 1, "%": 1},
+    "padding-top": {"px": 1, "em": 1, "%": 1},
+    "padding-right": {"px": 1, "em": 1, "%": 1},
+    "padding-bottom": {"px": 1, "em": 1, "%": 1},
+    "padding-left": {"px": 1, "em": 1, "%": 1},
+    "page-break-after": {"auto": 1, "always": 1, "avoid": 1, "left": 1, "right": 1},
+    "page-break-before": {"auto": 1, "always": 1, "avoid": 1, "left": 1, "right": 1},
+    "position": {"absolute": 1, "relative": 1, "fixed": 1, "static": 1},
+    "right": {"px": 1, "em": 1, "%": 1},
+    "table-layout": {"fixed": 1, "auto": 1},
+    "text-decoration": {"none": 1, "underline": 1, "line-through": 1, "blink": 1},
+    "text-align": {"left": 1, "right": 1, "center": 1, "justify": 1},
+    "text-transform": {"capitalize": 1, "uppercase": 1, "lowercase": 1, "none": 1},
+    "top": {"px": 1, "em": 1, "%": 1},
+    "vertical-align": {"top": 1, "bottom": 1},
+    "visibility": {"hidden": 1, "visible": 1},
+    "white-space": {"nowrap": 1, "normal": 1, "pre": 1, "pre-line": 1, "pre-wrap": 1},
+    "width": {"px": 1, "em": 1, "%": 1},
+    "word-spacing": {"normal": 1},
+    "filter": {"alpha(opacity=$0100)": 1},
+
+    "text-shadow": {"$02px 2px 2px #777": 1},
+    "text-overflow": {"ellipsis-word": 1, "clip": 1, "ellipsis": 1},
+    "-moz-border-radius": 1,
+    "-moz-border-radius-topright": 1,
+    "-moz-border-radius-bottomright": 1,
+    "-moz-border-radius-topleft": 1,
+    "-moz-border-radius-bottomleft": 1,
+    "-webkit-border-radius": 1,
+    "-webkit-border-top-right-radius": 1,
+    "-webkit-border-top-left-radius": 1,
+    "-webkit-border-bottom-right-radius": 1,
+    "-webkit-border-bottom-left-radius": 1,
+    "-moz-box-shadow": 1,
+    "-webkit-box-shadow": 1,
+    "transform": {"rotate($00deg)": 1, "skew($00deg)": 1},
+    "-moz-transform": {"rotate($00deg)": 1, "skew($00deg)": 1},
+    "-webkit-transform": {"rotate($00deg)": 1, "skew($00deg)": 1 }
+};
+
+var CssCompletions = function() {
+
+};
+
+(function() {
+
+    this.completionsDefined = false;
+
+    this.defineCompletions = function() {
+        if (document) {
+            var style = document.createElement('c').style;
+
+            for (var i in style) {
+                if (typeof style[i] !== 'string')
+                    continue;
+
+                var name = i.replace(/[A-Z]/g, function(x) {
+                    return '-' + x.toLowerCase();
+                });
+
+                if (!propertyMap.hasOwnProperty(name))
+                    propertyMap[name] = 1;
+            }
+        }
+
+        this.completionsDefined = true;
+    }
+
+    this.getCompletions = function(state, session, pos, prefix) {
+        if (!this.completionsDefined) {
+            this.defineCompletions();
+        }
+
+        var token = session.getTokenAt(pos.row, pos.column);
+
+        if (!token)
+            return [];
+        if (state==='ruleset'){
+            var line = session.getLine(pos.row).substr(0, pos.column);
+            if (/:[^;]+$/.test(line)) {
+                /([\w\-]+):[^:]*$/.test(line);
+
+                return this.getPropertyValueCompletions(state, session, pos, prefix);
+            } else {
+                return this.getPropertyCompletions(state, session, pos, prefix);
+            }
+        }
+
+        return [];
+    };
+
+    this.getPropertyCompletions = function(state, session, pos, prefix) {
+        var properties = Object.keys(propertyMap);
+        return properties.map(function(property){
+            return {
+                caption: property,
+                snippet: property + ': $0',
+                meta: "property",
+                score: Number.MAX_VALUE
+            };
+        });
+    };
+
+    this.getPropertyValueCompletions = function(state, session, pos, prefix) {
+        var line = session.getLine(pos.row).substr(0, pos.column);
+        var property = (/([\w\-]+):[^:]*$/.exec(line) || {})[1];
+
+        if (!property)
+            return [];
+        var values = [];
+        if (property in propertyMap && typeof propertyMap[property] === "object") {
+            values = Object.keys(propertyMap[property]);
+        }
+        return values.map(function(value){
+            return {
+                caption: value,
+                snippet: value,
+                meta: "property value",
+                score: Number.MAX_VALUE
+            };
+        });
+    };
+
+}).call(CssCompletions.prototype);
+
+exports.CssCompletions = CssCompletions;
+});
+
+define("ace/mode/behaviour/css",["require","exports","module","ace/lib/oop","ace/mode/behaviour","ace/mode/behaviour/cstyle","ace/token_iterator"], function(require, exports, module) {
+"use strict";
+
+var oop = require("../../lib/oop");
+var Behaviour = require("../behaviour").Behaviour;
+var CstyleBehaviour = require("./cstyle").CstyleBehaviour;
+var TokenIterator = require("../../token_iterator").TokenIterator;
+
+var CssBehaviour = function () {
+
+    this.inherit(CstyleBehaviour);
+
+    this.add("colon", "insertion", function (state, action, editor, session, text) {
+        if (text === ':') {
+            var cursor = editor.getCursorPosition();
+            var iterator = new TokenIterator(session, cursor.row, cursor.column);
+            var token = iterator.getCurrentToken();
+            if (token && token.value.match(/\s+/)) {
+                token = iterator.stepBackward();
+            }
+            if (token && token.type === 'support.type') {
+                var line = session.doc.getLine(cursor.row);
+                var rightChar = line.substring(cursor.column, cursor.column + 1);
+                if (rightChar === ':') {
+                    return {
+                       text: '',
+                       selection: [1, 1]
+                    }
+                }
+                if (!line.substring(cursor.column).match(/^\s*;/)) {
+                    return {
+                       text: ':;',
+                       selection: [1, 1]
+                    }
+                }
+            }
+        }
+    });
+
+    this.add("colon", "deletion", function (state, action, editor, session, range) {
+        var selected = session.doc.getTextRange(range);
+        if (!range.isMultiLine() && selected === ':') {
+            var cursor = editor.getCursorPosition();
+            var iterator = new TokenIterator(session, cursor.row, cursor.column);
+            var token = iterator.getCurrentToken();
+            if (token && token.value.match(/\s+/)) {
+                token = iterator.stepBackward();
+            }
+            if (token && token.type === 'support.type') {
+                var line = session.doc.getLine(range.start.row);
+                var rightChar = line.substring(range.end.column, range.end.column + 1);
+                if (rightChar === ';') {
+                    range.end.column ++;
+                    return range;
+                }
+            }
+        }
+    });
+
+    this.add("semicolon", "insertion", function (state, action, editor, session, text) {
+        if (text === ';') {
+            var cursor = editor.getCursorPosition();
+            var line = session.doc.getLine(cursor.row);
+            var rightChar = line.substring(cursor.column, cursor.column + 1);
+            if (rightChar === ';') {
+                return {
+                   text: '',
+                   selection: [1, 1]
+                }
+            }
+        }
+    });
+
+}
+oop.inherits(CssBehaviour, CstyleBehaviour);
+
+exports.CssBehaviour = CssBehaviour;
+});
+
+define("ace/mode/folding/cstyle",["require","exports","module","ace/lib/oop","ace/range","ace/mode/folding/fold_mode"], function(require, exports, module) {
+"use strict";
 
 var oop = require("../../lib/oop");
 var Range = require("../../range").Range;
 var BaseFoldMode = require("./fold_mode").FoldMode;
 
-var FoldMode = exports.FoldMode = function() {};
+var FoldMode = exports.FoldMode = function(commentRegex) {
+    if (commentRegex) {
+        this.foldingStartMarker = new RegExp(
+            this.foldingStartMarker.source.replace(/\|[^|]*?$/, "|" + commentRegex.start)
+        );
+        this.foldingStopMarker = new RegExp(
+            this.foldingStopMarker.source.replace(/\|[^|]*?$/, "|" + commentRegex.end)
+        );
+    }
+};
 oop.inherits(FoldMode, BaseFoldMode);
 
 (function() {
-
+    
     this.foldingStartMarker = /(\{|\[)[^\}\]]*$|^\s*(\/\*)/;
     this.foldingStopMarker = /^[^\[\{]*(\}|\])|^[\s\*]*(\*\/)/;
-
-    this.getFoldWidgetRange = function(session, foldStyle, row) {
+    this.singleLineBlockCommentRe= /^\s*(\/\*).*\*\/\s*$/;
+    this.tripleStarBlockCommentRe = /^\s*(\/\*\*\*).*\*\/\s*$/;
+    this.startRegionRe = /^\s*(\/\*|\/\/)#?region\b/;
+    this._getFoldWidgetBase = this.getFoldWidget;
+    this.getFoldWidget = function(session, foldStyle, row) {
         var line = session.getLine(row);
+    
+        if (this.singleLineBlockCommentRe.test(line)) {
+            if (!this.startRegionRe.test(line) && !this.tripleStarBlockCommentRe.test(line))
+                return "";
+        }
+    
+        var fw = this._getFoldWidgetBase(session, foldStyle, row);
+    
+        if (!fw && this.startRegionRe.test(line))
+            return "start"; // lineCommentRegionStart
+    
+        return fw;
+    };
+
+    this.getFoldWidgetRange = function(session, foldStyle, row, forceMultiline) {
+        var line = session.getLine(row);
+        
+        if (this.startRegionRe.test(line))
+            return this.getCommentRegionBlock(session, line, row);
+        
         var match = line.match(this.foldingStartMarker);
         if (match) {
             var i = match.index;
 
             if (match[1])
                 return this.openingBracketBlock(session, match[1], row, i);
-
-            return session.getCommentFoldRange(row, i + match[0].length, 1);
+                
+            var range = session.getCommentFoldRange(row, i + match[0].length, 1);
+            
+            if (range && !range.isMultiLine()) {
+                if (forceMultiline) {
+                    range = this.getSectionRange(session, row);
+                } else if (foldStyle != "all")
+                    range = null;
+            }
+            
+            return range;
         }
 
-        if (foldStyle !== "markbeginend")
+        if (foldStyle === "markbegin")
             return;
 
         var match = line.match(this.foldingStopMarker);
@@ -347,7 +516,136 @@ oop.inherits(FoldMode, BaseFoldMode);
             return session.getCommentFoldRange(row, i, -1);
         }
     };
+    
+    this.getSectionRange = function(session, row) {
+        var line = session.getLine(row);
+        var startIndent = line.search(/\S/);
+        var startRow = row;
+        var startColumn = line.length;
+        row = row + 1;
+        var endRow = row;
+        var maxRow = session.getLength();
+        while (++row < maxRow) {
+            line = session.getLine(row);
+            var indent = line.search(/\S/);
+            if (indent === -1)
+                continue;
+            if  (startIndent > indent)
+                break;
+            var subRange = this.getFoldWidgetRange(session, "all", row);
+            
+            if (subRange) {
+                if (subRange.start.row <= startRow) {
+                    break;
+                } else if (subRange.isMultiLine()) {
+                    row = subRange.end.row;
+                } else if (startIndent == indent) {
+                    break;
+                }
+            }
+            endRow = row;
+        }
+        
+        return new Range(startRow, startColumn, endRow, session.getLine(endRow).length);
+    };
+    this.getCommentRegionBlock = function(session, line, row) {
+        var startColumn = line.search(/\s*$/);
+        var maxRow = session.getLength();
+        var startRow = row;
+        
+        var re = /^\s*(?:\/\*|\/\/|--)#?(end)?region\b/;
+        var depth = 1;
+        while (++row < maxRow) {
+            line = session.getLine(row);
+            var m = re.exec(line);
+            if (!m) continue;
+            if (m[1]) depth--;
+            else depth++;
+
+            if (!depth) break;
+        }
+
+        var endRow = row;
+        if (endRow > startRow) {
+            return new Range(startRow, startColumn, endRow, line.length);
+        }
+    };
 
 }).call(FoldMode.prototype);
+
+});
+
+define("ace/mode/css",["require","exports","module","ace/lib/oop","ace/mode/text","ace/mode/css_highlight_rules","ace/mode/matching_brace_outdent","ace/worker/worker_client","ace/mode/css_completions","ace/mode/behaviour/css","ace/mode/folding/cstyle"], function(require, exports, module) {
+"use strict";
+
+var oop = require("../lib/oop");
+var TextMode = require("./text").Mode;
+var CssHighlightRules = require("./css_highlight_rules").CssHighlightRules;
+var MatchingBraceOutdent = require("./matching_brace_outdent").MatchingBraceOutdent;
+var WorkerClient = require("../worker/worker_client").WorkerClient;
+var CssCompletions = require("./css_completions").CssCompletions;
+var CssBehaviour = require("./behaviour/css").CssBehaviour;
+var CStyleFoldMode = require("./folding/cstyle").FoldMode;
+
+var Mode = function() {
+    this.HighlightRules = CssHighlightRules;
+    this.$outdent = new MatchingBraceOutdent();
+    this.$behaviour = new CssBehaviour();
+    this.$completer = new CssCompletions();
+    this.foldingRules = new CStyleFoldMode();
+};
+oop.inherits(Mode, TextMode);
+
+(function() {
+
+    this.foldingRules = "cStyle";
+    this.blockComment = {start: "/*", end: "*/"};
+
+    this.getNextLineIndent = function(state, line, tab) {
+        var indent = this.$getIndent(line);
+        var tokens = this.getTokenizer().getLineTokens(line, state).tokens;
+        if (tokens.length && tokens[tokens.length-1].type == "comment") {
+            return indent;
+        }
+
+        var match = line.match(/^.*\{\s*$/);
+        if (match) {
+            indent += tab;
+        }
+
+        return indent;
+    };
+
+    this.checkOutdent = function(state, line, input) {
+        return this.$outdent.checkOutdent(line, input);
+    };
+
+    this.autoOutdent = function(state, doc, row) {
+        this.$outdent.autoOutdent(doc, row);
+    };
+
+    this.getCompletions = function(state, session, pos, prefix) {
+        return this.$completer.getCompletions(state, session, pos, prefix);
+    };
+
+    this.createWorker = function(session) {
+        var worker = new WorkerClient(["ace"], "ace/mode/css_worker", "Worker");
+        worker.attachToDocument(session.getDocument());
+
+        worker.on("annotate", function(e) {
+            session.setAnnotations(e.data);
+        });
+
+        worker.on("terminate", function() {
+            session.clearAnnotations();
+        });
+
+        return worker;
+    };
+
+    this.$id = "ace/mode/css";
+}).call(Mode.prototype);
+
+exports.Mode = Mode;
 
 });

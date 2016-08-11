@@ -64,7 +64,7 @@
 		
 		// Shortcut
 		var key = "ctrl"
-		,	 saveBtn = $('.publish');
+		,	saveBtn = $('.publish');
 		;
 		
 		if (navigator.userAgent.indexOf('Mac OS X') !== -1)

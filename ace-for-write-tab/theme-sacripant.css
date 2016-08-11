@@ -2,6 +2,9 @@
 *	ACE editor Wrapper & BTN
 */ 
 
+/* 
+**	BTN Active Editor 
+*/
 .show-ace:before {
 	content: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4KPCFET0NUWVBFIHN2ZyBQVUJMSUMgIi0vL1czQy8vRFREIFNWRyAxLjEvL0VOIiAiaHR0cDovL3d3dy53My5vcmcvR3JhcGhpY3MvU1ZHLzEuMS9EVEQvc3ZnMTEuZHRkIj4KPHN2ZyB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHg9IjBweCIgeT0iMHB4IgoJIHdpZHRoPSIxNnhwIiBoZWlnaHQ9IjE2cHgiIHZpZXdCb3g9IjAgMCA1MTIgNTEyIiBlbmFibGUtYmFja2dyb3VuZD0ibmV3IDAgMCA1MTIgNTEyIiB4bWw6c3BhY2U9InByZXNlcnZlIj4KPHBvbHlnb24gaWQ9InJlc2l6ZS0xMS1pY29uIiBwb2ludHM9IjQ2MiwyMzIuNDI4IDQ2Miw1MCAyNzkuNTcyLDUwIDMyNC4yMzgsOTQuNzQzIDEwMCwzMTguOTgyIDEwMCwxMDAgMjI5LjUsMTAwIDIyOS41LDUwIDUwLDUwIAoJNTAsNDYyIDQ2Miw0NjIgNDYyLDI3OS43ODYgNDEyLDI3OS43ODYgNDEyLDQxMiAxOTMuMDIxLDQxMiA0MTcuMjU5LDE4Ny43NjMgIi8+Cjwvc3ZnPgoK);
 	vertical-align: text-bottom;
@@ -14,17 +17,21 @@
 	width: 0;
 	text-indent: -9999em;
 }
+
+/* 
+**	Modify Txp CSS when editor is ON 
+*/
 .ace-editor-on,
 .ace-editor-on body  {
 	height: 100%;
 	padding: 0;	
 }
 
-/*Hide write page scrolbar*/
+/* Hide write page scrollbar */
 .ace-editor-on body {
 	overflow: hidden; 
 }
-/*Show messagepane top on Editor*/
+/* Show messagepane top on Editor */
 .ace-editor-on .txp-header {
 	position: static;
 }
@@ -41,7 +48,7 @@
 	left: 0;
 	height: 100%;
 	width: 100%;
-	background-color: rgba(20,20,20,0.95);
+	background-color: hsla(0,0%,20%,0.95);
 	color: #ddd;
 	z-index: 15000;
 /*	background-color: #fff;*/
@@ -51,7 +58,27 @@
 .ace-editor-on #ace-fullscreen {
 	display: block;
 	visibility: visible;
-}	
+}
+
+/* Menu	*/
+.ace-menu {
+	background-color: #fff;
+	background-color: hsla(0,0%,30%,0.95);
+	display: flex;
+}
+.ace-menu-right {
+	flex-grow: 1;
+}
+/* Panels */
+.ace-panels {
+	display: flex;
+}
+.ace-panel-right {
+	flex-grow: 1;
+}
+.ace-panel-left {
+	flex-basis : 25%
+}
 
 .ace-article_title {
 	font-size: 20px;
@@ -69,9 +96,7 @@
 }
 
 .editor-wrapper {
-	height: -webkit-calc(100% - 75px);
-		height: -moz-calc(100% - 75px);
-			  height: calc(100% - 75px);
+	height: calc(100vh - 75px);
 	position: relative;
 	padding-top: 60px;		
 }
@@ -89,15 +114,16 @@
 }
 
 /*
-*	buttons
+**	Save & Exit buttons
 */
-/*keyboard help in button*/
+
+/* keyboard help in button */
 button kbd {
 	border: 0 none;
 	background-color: transparent;
 	
-   color: #535353;
-   font-size: 0.8em;
+	color: #535353;
+	font-size: 0.8em;
 	font-weight: normal;
 }
 button kbd:before {
@@ -121,7 +147,7 @@ button kbd:before {
 }
 
 /*	
-*	ACE Editor
+*	ACE Editor Theme
 */ 
 .ace_editor { }
 
