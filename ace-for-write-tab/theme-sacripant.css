@@ -65,6 +65,11 @@
 	background-color: #fff;
 	background-color: hsla(0,0%,30%,0.95);
 	display: flex;
+	height: 2em;
+}
+.ace-menu button {
+	height: 2em;
+	line-height: 2em;
 }
 .ace-menu-right {
 	flex-grow: 1;
@@ -72,6 +77,7 @@
 /* Panels */
 .ace-panels {
 	display: flex;
+	height: calc(100vh - 2em);
 }
 .ace-panel-right {
 	flex-grow: 1;
@@ -86,7 +92,6 @@
 	text-align: left;
 	color: #eee;
 	width: 100%;
-	position: fixed;
 	padding-left: 55px;
 	white-space: nowrap;
 	overflow: hidden;
@@ -96,9 +101,9 @@
 }
 
 .editor-wrapper {
-	height: calc(100vh - 75px);
+	height: calc(100% - 75px);
 	position: relative;
-	padding-top: 60px;		
+	/*top: 75px;		*/
 }
 
 #ace-editor {
