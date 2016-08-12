@@ -95,9 +95,7 @@
 	padding-left: 55px;
 	white-space: nowrap;
 	overflow: hidden;
-	text-overflow: ellipsis;
-/*	margin: 0;*/
-	
+	text-overflow: ellipsis;	
 }
 
 .editor-wrapper {
