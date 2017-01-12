@@ -80,6 +80,45 @@
 					saveBtn.eq(0).click();
 				}
 		});
+
+
+		// Make image panel draggable
+
+		// Select image iframe content
+		var iframeContent = $("#ace-image-panel").contents(),
+			images = $('.txp-list tbody tr', iframeContent);
+
+			console.log(images);
+
+		var dropImageSnippet = function(data) {
+			return '<txp:body_img img_id="' + data +'" grid="1-2" ref="a" border="0" />'
+		}
+
+
+		var dndHandler = {
+
+		    draggedElement: null, // Propriété pointant vers l'élément en cours de déplacement
+		    applyDragEvents: function(element) {
+
+		        element.draggable = true;
+		        var dndHandler = this; // Cette variable est nécessaire pour que l'événement « dragstart » accède facilement au namespace « dndHandler »
+
+				element.addEventListener('dragstart', function(e) {
+					dndHandler.draggedElement = e.target; // On sauvegarde l'élément en cours de déplacement
+					e.imgid = $(dndHandler.draggedElement).find('input')[0].value;
+					console.log(e.imgid);
+		            e.dataTransfer.setData('text', dropImageSnippet(e.imgid)); // Nécessaire pour Firefox
+		        });
+		    }
+		};
+
+		images.each(function(index, el) {
+			dndHandler.applyDragEvents(el);
+		});
 		
-	};
+
+
+};
+
+
 })(jQuery);

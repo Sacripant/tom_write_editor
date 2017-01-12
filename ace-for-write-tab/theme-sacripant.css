@@ -1,10 +1,10 @@
 /*	
-*	ACE editor Wrapper & BTN
-*/ 
+ *	ACE editor Wrapper & BTN
+ */ 
 
 /* 
-**	BTN Active Editor 
-*/
+ *	BTN Active Editor 
+ */
 .show-ace:before {
 	content: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4KPCFET0NUWVBFIHN2ZyBQVUJMSUMgIi0vL1czQy8vRFREIFNWRyAxLjEvL0VOIiAiaHR0cDovL3d3dy53My5vcmcvR3JhcGhpY3MvU1ZHLzEuMS9EVEQvc3ZnMTEuZHRkIj4KPHN2ZyB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHg9IjBweCIgeT0iMHB4IgoJIHdpZHRoPSIxNnhwIiBoZWlnaHQ9IjE2cHgiIHZpZXdCb3g9IjAgMCA1MTIgNTEyIiBlbmFibGUtYmFja2dyb3VuZD0ibmV3IDAgMCA1MTIgNTEyIiB4bWw6c3BhY2U9InByZXNlcnZlIj4KPHBvbHlnb24gaWQ9InJlc2l6ZS0xMS1pY29uIiBwb2ludHM9IjQ2MiwyMzIuNDI4IDQ2Miw1MCAyNzkuNTcyLDUwIDMyNC4yMzgsOTQuNzQzIDEwMCwzMTguOTgyIDEwMCwxMDAgMjI5LjUsMTAwIDIyOS41LDUwIDUwLDUwIAoJNTAsNDYyIDQ2Miw0NjIgNDYyLDI3OS43ODYgNDEyLDI3OS43ODYgNDEyLDQxMiAxOTMuMDIxLDQxMiA0MTcuMjU5LDE4Ny43NjMgIi8+Cjwvc3ZnPgoK);
 	vertical-align: text-bottom;
@@ -19,8 +19,8 @@
 }
 
 /* 
-**	Modify Txp CSS when editor is ON 
-*/
+ *	Modify Txp CSS when editor is ON 
+ */
 .ace-editor-on,
 .ace-editor-on body  {
 	height: 100%;
@@ -37,8 +37,8 @@
 }
 
 /*
-*	Fullscrenn panel
-*/
+ *	Fullscrenn panel
+ */
 		
 #ace-fullscreen {
 	display: none;
@@ -74,17 +74,32 @@
 .ace-menu-right {
 	flex-grow: 1;
 }
-/* Panels */
+
+
+/* 
+ *	Panels 
+ */
 .ace-panels {
 	display: flex;
 	height: calc(100vh - 2em);
 }
+
 .ace-panel-right {
-	flex-grow: 1;
+	flex: 1 1 50%;
 }
 .ace-panel-left {
-	flex-basis : 25%
+	flex: 1 1 50%;
 }
+
+.ace-panel-left iframe {
+	width: 100%;
+	height: 100%;
+}
+
+
+/*
+ *	Right panel
+ */
 
 .ace-article_title {
 	font-size: 20px;
@@ -116,9 +131,10 @@
 	line-height: 1.4em;
 }
 
+
 /*
-**	Save & Exit buttons
-*/
+ *	Save & Exit buttons
+ */
 
 /* keyboard help in button */
 button kbd {
