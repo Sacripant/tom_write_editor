@@ -4,6 +4,30 @@
 	var showAce	=	$('<a class="show-ace ace-show-hide"><i>fullscreen</i></a>').prependTo('p.body');
 	var aceEditor = document.getElementById('ace-editor');				
 	// aceEditor.style.fontSize='15px';
+
+	var getPrefs = function(){
+		var json = null;
+		$.ajax({
+	        url: "prefs.js",
+	        async: false,
+	        global: false,
+	        dataType: "json",
+	        success: function (data) {
+	        	console.log(data);
+	            json = data;
+	        },
+	        error: function(){
+	        	console.log('ajax error');
+	        }
+	    });
+	    return json;
+	};
+	var prefs = getPrefs();
+
+	// inject id in snippet
+	var replaceID = function(string, id) {
+		return string.replace('{{ id }}', id);
+	};
 	
 	window.onload = function() {
 		
@@ -57,7 +81,7 @@
 		
 		// Shortcut
 		var key = "ctrl"
-		,	saveBtn = $('.publish');
+		,	saveBtn = $('.publish')
 		;
 		
 		if (navigator.userAgent.indexOf('Mac OS X') !== -1)
@@ -82,7 +106,7 @@
 		});
 
 
-		// Make image panel draggable
+		// TEST: Make image panel draggable
 
 		// Select image iframe content
 		var iframeContent = $("#ace-image-panel").contents(),
@@ -91,8 +115,8 @@
 			console.log(images);
 
 		var dropImageSnippet = function(data) {
-			return '<txp:body_img img_id="' + data +'" grid="1-2" ref="a" border="0" />'
-		}
+			return replaceID(prefs.drop.img, data)
+		};
 
 
 		var dndHandler = {
