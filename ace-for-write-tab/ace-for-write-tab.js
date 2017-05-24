@@ -25,13 +25,16 @@
 
 	// Store Prefs
 	var	prefs = getPrefs(),
+
+		editor,
+		articleBody,
 	
 		// open Editor Btn 		
-		showAce	= $('<a class="show-ace ace-show-hide"><i>fullscreen</i></a>')
+		showAceBtn	= $('<a class="show-ace ace-show-hide"><i>fullscreen</i></a>')
 					.prependTo('p.body'),
 		
 		// Editor container
-		aceEditor = document.getElementById('ace-editor'),			
+		// aceEditor = document.getElementById('ace-editor'),			
 		// aceEditor.style.fontSize='15px';
 
 
@@ -40,12 +43,31 @@
 			return string.replace('{{ id }}', id);
 		};
 	
+		// Show Editor
+		showEditor = function() {
+			// copy textarea content in Ace editor
+			editor.getSession().setValue(articleBody.val());
+
+			// add focus in top on Editor
+			editor.focus();
+						
+			// Clone article title
+			var titre = $('#title').val();
+			$(aceArticleTitle).text(titre);
+						
+			// Show Editor
+			$('html').addClass('ace-editor-on');	
+		},
+
+		hideEditor = function() {
+			$('html').removeClass('ace-editor-on');				
+		}
 
 	window.onload = function() {
 		
-		var editor	= ace.edit("ace-editor")		// Initilize Editor
-		,	body	= $('#body')
-		,	aceArticleTitle = document.getElementsByClassName('ace-article_title')
+		editor	= ace.edit("ace-editor");	// Initialize Editor
+		articleBody = $('#body');
+		var	aceArticleTitle = document.getElementsByClassName('ace-article_title')
 		,	snippetManager = require("ace/snippets").snippetManager
 		;
 
@@ -64,57 +86,41 @@
 
 		// synchronize with textarea
 		editor.getSession().on('change', function(){
-			body.val(editor.getSession().getValue());
+			articleBody.val(editor.getSession().getValue());
 		});
 				
 		// show Editor
-		showAce.click(function() {
-
-			// copy textarea content in Ace editor
-			editor.getSession().setValue(body.val());
-
-			// add focus in top on Editor
-			editor.focus();
-						
-			// Clone article title
-			var titre = $('#title').val();
-			$(aceArticleTitle).text(titre);
-						
-			// Show Editor
-			$('html').addClass('ace-editor-on');	
-			
-			return false;		
+		showAceBtn.click(function() {
+			showEditor();
 		});
 		
 		// Hide Editor	
-		$('.hide-ace').click(function() {
-			$('html').removeClass('ace-editor-on');				
+		$('#ace-hide-btn').click(function() {
+			hideEditor();			
 		});
 		
 		// Shortcut
 		var key = "ctrl"
-		,	saveBtn = $('.publish')
+		,	TxpPublishBtn = $('.publish')
 		;
 		
 		if (navigator.userAgent.indexOf('Mac OS X') !== -1)
 			key = '⌘';
 						
 		// add save shortcut to save button
-		saveBtn[0].value += ' | '+key+'+s';
+		// saveBtn[0].value += ' | '+key+'+s';
 		
 		$(document).keydown(function(e) {
-			if ($('html').is('.ace-editor-on')) 
-				{
-					// esc = hide Editor
-					if (e.keyCode === 27) 
-						$('.hide-ace').click(); 				
-				}
+			if ($('html').is('.ace-editor-on')) {
+				// esc = hide Editor
+				if (e.keyCode === 27)
+					hideEditor();				
+			}
 			// Save
-			if (e.keyCode == 83 && (e.metaKey || e.ctrlKey))
-				{
-					e.preventDefault();
-					saveBtn.eq(0).click();
-				}
+			if (e.keyCode == 83 && (e.metaKey || e.ctrlKey)) {
+				e.preventDefault();
+				saveBtn.eq(0).click();
+			}
 		});
 
 
