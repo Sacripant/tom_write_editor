@@ -26,7 +26,7 @@
 	// Store Prefs
 	var	prefs = getPrefs(),
 
-		editor,
+		myAce,
 		articleBody,
 		editorArticleTitle,
 
@@ -49,15 +49,35 @@
 		// inject id in snippet
 		replaceID = function(string, id) {
 			return string.replace('{{ id }}', id);
-		};
+		}, 
+
+		initAce = function(wrapper) {
+			myAce	= ace.edit(wrapper);	// Initialize Editor
+
+			// THEME
+			myAce.setTheme("ace/theme/sacripant");
+			// MODE			
+			myAce.getSession().setMode("ace/mode/textile");
+			// myAce options
+			myAce.getSession().setUseWrapMode(true);
+			myAce.setShowPrintMargin(true);
+			myAce.setOptions({
+	        	enableSnippets: true
+		    });
+
+			// synchronize with textarea
+			myAce.getSession().on('change', function(){
+				articleBody.val(myAce.getSession().getValue());
+			});	
+		},
 	
 		// Show Editor
 		showEditor = function() {
 			// copy textarea content in Ace editor
-			editor.getSession().setValue(articleBody.val());
+			myAce.getSession().setValue(articleBody.val());
 
 			// add focus in top on Editor
-			editor.focus();
+			myAce.focus();
 						
 			// Clone article title
 			var titre = $('#title').val();
@@ -73,27 +93,13 @@
 
 	window.onload = function() {
 		
-		editor	= ace.edit("ace-editor");	// Initialize Editor
 		articleBody = $('#body');
-		editorArticleTitle = document.getElementsByClassName('ace-article_title');		
+		editorArticleTitle = document.getElementsByClassName('ace-article_title');
+
+		initAce('ace-editor');	
 
 		console.log(snippetManager);
 		
-		// THEME
-		editor.setTheme("ace/theme/sacripant");
-		// MODE			
-		editor.getSession().setMode("ace/mode/textile");
-		// Editor options
-		editor.getSession().setUseWrapMode(true);
-		editor.setShowPrintMargin(true);
-		editor.setOptions({
-        	enableSnippets: true
-	    });
-
-		// synchronize with textarea
-		editor.getSession().on('change', function(){
-			articleBody.val(editor.getSession().getValue());
-		});
 				
 		// show Editor
 		editorBtn.show.click(function() {
