@@ -122,7 +122,7 @@
 
 		// Select image iframe content
 		var iframeContent = $("#ace-image-panel").contents(),
-			images = $('.txp-list tbody tr', iframeContent);
+			images = iframeContent.find('#images_form tr');
 
 			console.log(images);
 
