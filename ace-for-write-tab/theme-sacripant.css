@@ -156,14 +156,6 @@ button kbd:before {
 	height: 2.5em;
 	font-weight: bold;
 }
-/*save button*/
-.ace-editor-on .publish {
-	position: fixed;
-	bottom: 60px;
-	right: 40px;
-	z-index: 20000;
-	height: 2.5em !important;
-}
 
 /*	
 *	ACE Editor Theme
