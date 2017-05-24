@@ -28,10 +28,18 @@
 
 		editor,
 		articleBody,
-	
+		editorArticleTitle,
+
+		snippetManager = require("ace/snippets").snippetManager,
+
+		
+		editorBtn = {
+			"show" : $('<a class="show-ace ace-show-hide"><i>fullscreen</i></a>').prependTo('p.body'),
+			"hide" : $('#ace-hide-btn'),
+			"save": $('#ace-save-btn')
+		},
 		// open Editor Btn 		
-		showAceBtn	= $('<a class="show-ace ace-show-hide"><i>fullscreen</i></a>')
-					.prependTo('p.body'),
+		// showAceBtn	= 
 		
 		// Editor container
 		// aceEditor = document.getElementById('ace-editor'),			
@@ -53,7 +61,7 @@
 						
 			// Clone article title
 			var titre = $('#title').val();
-			$(aceArticleTitle).text(titre);
+			$(editorArticleTitle).text(titre);
 						
 			// Show Editor
 			$('html').addClass('ace-editor-on');	
@@ -67,9 +75,7 @@
 		
 		editor	= ace.edit("ace-editor");	// Initialize Editor
 		articleBody = $('#body');
-		var	aceArticleTitle = document.getElementsByClassName('ace-article_title')
-		,	snippetManager = require("ace/snippets").snippetManager
-		;
+		editorArticleTitle = document.getElementsByClassName('ace-article_title');		
 
 		console.log(snippetManager);
 		
@@ -90,12 +96,12 @@
 		});
 				
 		// show Editor
-		showAceBtn.click(function() {
+		editorBtn.show.click(function() {
 			showEditor();
 		});
 		
 		// Hide Editor	
-		$('#ace-hide-btn').click(function() {
+		editorBtn.hide.click(function() {
 			hideEditor();			
 		});
 		
@@ -109,6 +115,10 @@
 						
 		// add save shortcut to save button
 		// saveBtn[0].value += ' | '+key+'+s';
+		editorBtn.save.click(function(){
+			TxpPublishBtn.click();
+		})
+
 		
 		$(document).keydown(function(e) {
 			if ($('html').is('.ace-editor-on')) {
@@ -119,7 +129,7 @@
 			// Save
 			if (e.keyCode == 83 && (e.metaKey || e.ctrlKey)) {
 				e.preventDefault();
-				saveBtn.eq(0).click();
+				TxpPublishBtn.eq(0).click();
 			}
 		});
 
