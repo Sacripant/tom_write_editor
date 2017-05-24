@@ -1,5 +1,5 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html lang="fr-fr" dir="ltr" xml:lang="fr-fr" xmlns="http://www.w3.org/1999/xhtml" style="" class=" js no-touch rgba boxshadow opacity svg">
+<html lang="fr-fr" dir="ltr" xml:lang="fr-fr" xmlns="http://www.w3.org/1999/xhtml" style="" class=" js no-touch rgba boxshadow opacity svg ace-editor-on">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
@@ -340,7 +340,12 @@ textpattern.textarray = {"form_submission_error":"D\u00e9sol\u00e9, le formulair
 	<div class="ace-menu">
 		<!-- left BTNS -->
 		<div class="ace-menu-right">
-			right btns
+			<button type="button" id="ace-save-btn" class="ace-save-btn">
+				save <kbd>ctrl+s</kbd>
+			</button>
+			<button type="button" id="ace-hide-btn" class="ace-hide-btn">    
+				close <kbd>esc</kbd>                              
+			</button>
 		</div>
 		<!-- right BTNS -->
 		<div class="ace-menu-left">
@@ -359,14 +364,9 @@ textpattern.textarray = {"form_submission_error":"D\u00e9sol\u00e9, le formulair
 		</div>  
 		<!-- panel left -->
 		<div class="ace-panel-left">
-			<iframe id="ace-image-panel" src="http://localhost/textpattern-4.6.0/textpattern/index.php?event=image" frameborder="0"></iframe>
+			<iframe id="ace-image-panel" src="/sacripant/trunk/textpattern/index.php?event=image" frameborder="0"></iframe>
 		</div>
-	</div>                      
-	<div class="ace-actions ace-fixed">                     
-		<button class="hide-ace ace-show-hide ace-fixed">    
-			close <kbd>esc</kbd>                              
-		</button>																	\
-	</div>                                                  
+	</div>                                                                        
 </div> 
 
 <link   href="../ace-for-write-tab/theme-sacripant.css" rel="stylesheet" />
