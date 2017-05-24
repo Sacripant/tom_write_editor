@@ -1,11 +1,9 @@
 (function ($) {
-	// Add body fullsceen btn 		
-	// ace.require("ace/ext/language_tools");
-	var showAce	=	$('<a class="show-ace ace-show-hide"><i>fullscreen</i></a>').prependTo('p.body');
-	var aceEditor = document.getElementById('ace-editor');				
-	// aceEditor.style.fontSize='15px';
 
-	var getPrefs = function(){
+	/*
+	 * Get JSON Prefs file
+	 */
+	function getPrefs (){
 		var json = null;
 		$.ajax({
 	        url: "prefs.js",
@@ -13,22 +11,36 @@
 	        global: false,
 	        dataType: "json",
 	        success: function (data) {
-	        	console.log(data);
+	        	// console.log(data);
 	            json = data;
 	        },
 	        error: function(){
-	        	console.log('ajax error');
+	        	console.error('ajax error: ');
 	        }
 	    });
 	    return json;
 	};
-	var prefs = getPrefs();
+	// ace.require("ace/ext/language_tools");
 
-	// inject id in snippet
-	var replaceID = function(string, id) {
-		return string.replace('{{ id }}', id);
-	};
+
+	// Store Prefs
+	var	prefs = getPrefs(),
 	
+		// open Editor Btn 		
+		showAce	= $('<a class="show-ace ace-show-hide"><i>fullscreen</i></a>')
+					.prependTo('p.body'),
+		
+		// Editor container
+		aceEditor = document.getElementById('ace-editor'),			
+		// aceEditor.style.fontSize='15px';
+
+
+		// inject id in snippet
+		replaceID = function(string, id) {
+			return string.replace('{{ id }}', id);
+		};
+	
+
 	window.onload = function() {
 		
 		var editor	= ace.edit("ace-editor")		// Initilize Editor
@@ -56,7 +68,7 @@
 		});
 				
 		// show Editor
-		$('.show-ace').click(function() {
+		showAce.click(function() {
 
 			// copy textarea content in Ace editor
 			editor.getSession().setValue(body.val());
