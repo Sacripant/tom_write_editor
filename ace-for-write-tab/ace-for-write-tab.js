@@ -19,124 +19,135 @@
 	        }
 	    });
 	    return json;
-	};
+	}
 	// ace.require("ace/ext/language_tools");
 
 
 	// Store Prefs
 	var	prefs = getPrefs(),
 
-		myAce,
-		articleBody,
-		editorArticleTitle,
+		editor = {},
+		txpWritePage = {},
 
+		// Load Ace snippets object
 		snippetManager = require("ace/snippets").snippetManager,
 
-		
-		editorBtn = {
-			"show" : $('<a class="show-ace ace-show-hide"><i>fullscreen</i></a>').prependTo('p.body'),
-			"hide" : $('#ace-hide-btn'),
-			"save": $('#ace-save-btn')
-		},
-		// open Editor Btn 		
-		// showAceBtn	= 
-		
-		// Editor container
-		// aceEditor = document.getElementById('ace-editor'),			
-		// aceEditor.style.fontSize='15px';
+		// Store some Txp write page elements
+		txpWritePageObj = function() {
+			txpWritePage.title = $('#title');
+			txpWritePage.body = $('#body');
+			txpWritePage.publish = $('.publish');
+		},		
 
+		// Store Editor Objects
+		initEditorObj = function() {
+			editor.btn = {
+				"show" : $('<a class="show-ace ace-show-hide"><i>fullscreen</i></a>').prependTo('p.body'),
+				"hide" : $('#ace-hide-btn'),
+				"save": $('#ace-save-btn')				
+			};
+			editor.title = document.getElementsByClassName('ace-article_title');
+			editor.open = false;
+		},
+
+		// Init Ace Editor with some options
+		initAce = function(wrapper) {
+			editor.ace = ace.edit(wrapper);	// Initialize Editor
+
+			// THEME
+			editor.ace.setTheme("ace/theme/sacripant");
+			// MODE			
+			editor.ace.getSession().setMode("ace/mode/textile");
+			// editor.ace options
+			editor.ace.getSession().setUseWrapMode(true);
+			editor.ace.setShowPrintMargin(true);
+			editor.ace.setOptions({
+	        	enableSnippets: true
+		    });
+
+			// synchronize with textarea
+			editor.ace.getSession().on('change', function(){
+				txpWritePage.body.val(editor.ace.getSession().getValue());
+			});	
+		},
 
 		// inject id in snippet
 		replaceID = function(string, id) {
 			return string.replace('{{ id }}', id);
 		}, 
 
-		initAce = function(wrapper) {
-			myAce	= ace.edit(wrapper);	// Initialize Editor
-
-			// THEME
-			myAce.setTheme("ace/theme/sacripant");
-			// MODE			
-			myAce.getSession().setMode("ace/mode/textile");
-			// myAce options
-			myAce.getSession().setUseWrapMode(true);
-			myAce.setShowPrintMargin(true);
-			myAce.setOptions({
-	        	enableSnippets: true
-		    });
-
-			// synchronize with textarea
-			myAce.getSession().on('change', function(){
-				articleBody.val(myAce.getSession().getValue());
-			});	
-		},
 	
 		// Show Editor
 		showEditor = function() {
 			// copy textarea content in Ace editor
-			myAce.getSession().setValue(articleBody.val());
+			editor.ace.getSession().setValue(txpWritePage.body.val());
 
 			// add focus in top on Editor
-			myAce.focus();
+			editor.ace.focus();
 						
 			// Clone article title
-			var titre = $('#title').val();
-			$(editorArticleTitle).text(titre);
+			$(editor.title).text(txpWritePage.title);
 						
 			// Show Editor
-			$('html').addClass('ace-editor-on');	
+			$('html').addClass('ace-editor-on');
+
+			editor.open = true;
 		},
 
+		// Hide Editor
 		hideEditor = function() {
-			$('html').removeClass('ace-editor-on');				
-		}
+			$('html').removeClass('ace-editor-on');	
+
+			editor.open = false;			
+		};
 
 	window.onload = function() {
 		
-		articleBody = $('#body');
-		editorArticleTitle = document.getElementsByClassName('ace-article_title');
-
+		txpWritePageObj();
+		initEditorObj();
 		initAce('ace-editor');	
 
-		console.log(snippetManager);
+		console.log(editor.ace);
 		
 				
 		// show Editor
-		editorBtn.show.click(function() {
+		editor.btn.show.click(function() {
 			showEditor();
 		});
 		
 		// Hide Editor	
-		editorBtn.hide.click(function() {
+		editor.btn.hide.click(function() {
 			hideEditor();			
 		});
 		
+		// add save shortcut to save button
+		// saveBtn[0].value += ' | '+key+'+s';
+		editor.btn.save.click(function(){
+			txpWritePage.publish.click();
+		});
+
+
+
 		// Shortcut
-		var key = "ctrl"
-		,	TxpPublishBtn = $('.publish')
-		;
+		var key = "ctrl";
 		
 		if (navigator.userAgent.indexOf('Mac OS X') !== -1)
 			key = '⌘';
 						
-		// add save shortcut to save button
-		// saveBtn[0].value += ' | '+key+'+s';
-		editorBtn.save.click(function(){
-			TxpPublishBtn.click();
-		})
 
 		
 		$(document).keydown(function(e) {
-			if ($('html').is('.ace-editor-on')) {
+			if (editor.open) {
 				// esc = hide Editor
 				if (e.keyCode === 27)
+					console.log("Esc editor");
 					hideEditor();				
 			}
 			// Save
-			if (e.keyCode == 83 && (e.metaKey || e.ctrlKey)) {
-				e.preventDefault();
-				TxpPublishBtn.eq(0).click();
-			}
+			// if (e.keyCode == 83 && (e.metaKey || e.ctrlKey)) {
+			// 	e.preventDefault();
+			// 	txpWritePage.publish.click();
+			// }
 		});
 
 
@@ -149,7 +160,7 @@
 			console.log(images);
 
 		var dropImageSnippet = function(data) {
-			return replaceID(prefs.drop.img, data)
+			return replaceID(prefs.drop.img, data);
 		};
 
 
