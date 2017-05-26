@@ -107,7 +107,7 @@
 		initEditorObj();
 		initAce('ace-editor');	
 
-		console.log(editor.ace);
+		console.log(editor);
 		
 				
 		// show Editor
@@ -139,9 +139,10 @@
 		$(document).keydown(function(e) {
 			if (editor.open) {
 				// esc = hide Editor
-				if (e.keyCode === 27)
+				if (e.keyCode === 27) {
 					console.log("Esc editor");
-					hideEditor();				
+					hideEditor();									
+				}
 			}
 			// Save
 			// if (e.keyCode == 83 && (e.metaKey || e.ctrlKey)) {
