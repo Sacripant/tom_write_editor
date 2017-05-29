@@ -23,7 +23,7 @@
 	// ace.require("ace/ext/language_tools");
 
 
-	// Store Prefs
+		// Store Prefs
 	var	prefs = getPrefs(),
 
 		editor = {},
@@ -34,9 +34,9 @@
 
 		// Store some Txp write page elements
 		txpWritePageObj = function() {
-			txpWritePage.title = $('#title');
-			txpWritePage.body = $('#body');
-			txpWritePage.publish = $('.publish');
+			txpWritePage.$title = $('#title');
+			txpWritePage.$body = $('#body');
+			txpWritePage.$publish = $('.publish');
 		},		
 
 		// Store Editor Objects
@@ -44,10 +44,12 @@
 			editor.btn = {
 				"show" : $('<a class="show-ace ace-show-hide"><i>fullscreen</i></a>').prependTo('p.body'),
 				"hide" : $('#ace-hide-btn'),
-				"save": $('#ace-save-btn')				
+				"save": $('#ace-save-btn'),
+				"iframeSrcs": $('#ace-iframe-src').find('button')
 			};
 			editor.title = document.getElementsByClassName('ace-article_title');
 			editor.open = false;
+			editor.iframe = document.getElementById('ace-iframe');
 		},
 
 		// Init Ace Editor with some options
@@ -67,7 +69,7 @@
 
 			// synchronize with textarea
 			editor.ace.getSession().on('change', function(){
-				txpWritePage.body.val(editor.ace.getSession().getValue());
+				txpWritePage.$body.val(editor.ace.getSession().getValue());
 			});	
 		},
 
@@ -80,13 +82,13 @@
 		// Show Editor
 		showEditor = function() {
 			// copy textarea content in Ace editor
-			editor.ace.getSession().setValue(txpWritePage.body.val());
+			editor.ace.getSession().setValue(txpWritePage.$body.val());
 
 			// add focus in top on Editor
 			editor.ace.focus();
 						
 			// Clone article title
-			$(editor.title).text(txpWritePage.title);
+			$(editor.title).text(txpWritePage.$title.val());
 						
 			// Show Editor
 			$('html').addClass('ace-editor-on');
@@ -101,13 +103,19 @@
 			editor.open = false;			
 		};
 
+		// Load external page in right panel iframe
+		loadPage = function(pageName) {
+			editor.iframe.src = prefs.path[pageName];
+		}
+
+
 	window.onload = function() {
 		
 		txpWritePageObj();
 		initEditorObj();
 		initAce('ace-editor');	
 
-		console.log(editor);
+		console.log(editor.ace);
 		
 				
 		// show Editor
@@ -123,7 +131,13 @@
 		// add save shortcut to save button
 		// saveBtn[0].value += ' | '+key+'+s';
 		editor.btn.save.click(function(){
-			txpWritePage.publish.click();
+			txpWritePage.$publish.click();
+		});
+
+		// Load external page in iframe
+		console.log(editor.btn.iframeSrcs);
+		editor.btn.iframeSrcs.click(function(e) {
+			loadPage(this.dataset.src);
 		});
 
 

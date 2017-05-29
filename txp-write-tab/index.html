@@ -349,27 +349,32 @@ textpattern.textarray = {"form_submission_error":"D\u00e9sol\u00e9, le formulair
 		</div>
 		<!-- right BTNS -->
 		<div class="ace-menu-left">
+			
+			<span id="ace-iframe-src">
+				<button type="button" data-src="images">Images</button>
+				<button type="button" data-src="files">Files</button>
+				<button type="button" data-src="links">Links</button>
+				<button type="button" data-src="aceShortcuts">shortcuts</button>
+			</span>
 
-			<button type="button">Images</button>
-			<button type="button">Files</button>
-			<button type="button">Links</button>
-
-			<button type="button">2/3</button>
-			<button type="button">1/2</button>
-			<button type="button">1/3</button>
+			<span id="ace-iframe-size">
+				<button type="button">2/3</button>
+				<button type="button">1/2</button>
+				<button type="button">1/3</button>				
+			</span>
 		</div>
 	</div>
 	<div class="ace-panels">
 		<!-- Editor panel -->
-		<div class="ace-panel-right">
+		<div class="ace-panel-left">
 			<h1 class="ace-article_title"></h1>                        
 			<div class="editor-wrapper">                               
 				<div id="ace-editor"></div>                             
 			</div>
 		</div>  
 		<!-- panel left -->
-		<div class="ace-panel-left">
-			<iframe id="ace-image-panel" src="/sacripant/trunk/textpattern/index.php?event=image" frameborder="0"></iframe>
+		<div class="ace-panel-right">
+			<iframe id="ace-iframe" frameborder="0"></iframe>
 		</div>
 	</div>                                                                        
 </div> 
