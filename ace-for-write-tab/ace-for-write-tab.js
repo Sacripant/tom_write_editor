@@ -50,12 +50,13 @@
 				"$show" : $('<a class="show-ace ace-show-hide"><i>fullscreen</i></a>').prependTo('p.body'),
 				"$hide" : $('#ace-hide-btn'),
 				"$save": $('#ace-save-btn'),
-				"$iframeSrcs": $('#ace-iframe-src').find('button'),
+				"$iframeSrcs": $('#ace-iframe-btn').find('button'),
 				"$help" : $('#ace-help').find('button')
 			};
 			editor.title = document.getElementsByClassName('ace-article_title');
 			editor.open = false;
 			editor.iframe = document.getElementById('ace-iframe');
+			editor.help = document.getElementById('ace-help');
 		},
 
 		// Init Ace Editor with some options
@@ -79,13 +80,16 @@
 				txpWritePage.$body.val(editor.ace.getSession().getValue());
 			});
 
-			// Load snippets
+			// Load snippets obj
 			editor.snippetManager = require("ace/snippets").snippetManager;
+
+			// Load Keybord Shortcuts Objects
+            editor.keybordShortcuts = require("ace/ext/menu_tools/get_editor_keyboard_shortcuts").getEditorKeybordShortcuts(editor.ace);
+			console.log(editor.keybordShortcuts);			
 
 
 			// Create array of Ace shortcut
             // ace.config.loadModule("ace/ext/menu_tools/get_editor_keyboard_shortcuts", function(module) {
-            //     editor.keybordShortcuts = module.getEditorKeybordShortcuts(editor.ace);
             //     console.log(editor.keybordShortcuts);
             //     // console.log(editor.ace.showKeyboardShortcuts(););
             // });
@@ -137,7 +141,12 @@
 
 		// Load external page in right panel iframe
 		loadPage = function(pageName) {
+			editor.iframe.classList.add('hide');
 			editor.iframe.src = prefs.path[pageName];
+			editor.iframe.addEventListener('load', function() {
+				editor.iframe.classList.remove('hide');
+			});
+
 		};
 
 

@@ -2,6 +2,11 @@
  *	ACE editor Wrapper & BTN
  */ 
 
+/* Add some utils class */
+.hide {
+	display: none;
+}
+
 /* 
  *	BTN Active Editor 
  */
@@ -95,7 +100,7 @@
 	flex: 1 1 50%;
 }
 
-#ace-iframe {
+.ace-panel-right-content {
 	width: 100%;
 	height: 100%;
 }
