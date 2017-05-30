@@ -29,6 +29,20 @@
 	}
 
 
+	function renderTable(el, title, array) {
+		if (el) {
+            var commands = array.reduce(function(previous, current) {
+                return previous + '<tr>' 
+                    + '<td>' + current.command + '</td> '
+                    + '<td>' + current.key + '</td>'
+                    + '</tr>';
+            }, '');
+
+            el.innerHTML = '<h1>' + title +'</h1> <table>' + commands + '</table>';
+		}
+	}
+
+
 
 
 		// Store Prefs
@@ -51,7 +65,7 @@
 				"$hide" : $('#ace-hide-btn'),
 				"$save": $('#ace-save-btn'),
 				"$iframeSrcs": $('#ace-iframe-btn').find('button'),
-				"$help" : $('#ace-help').find('button')
+				"$help" : $('#ace-help-btns').find('button')
 			};
 			editor.title = document.getElementsByClassName('ace-article_title');
 			editor.open = false;
@@ -141,12 +155,26 @@
 
 		// Load external page in right panel iframe
 		loadPage = function(pageName) {
+			editor.help.classList.add('hide');
 			editor.iframe.classList.add('hide');
 			editor.iframe.src = prefs.path[pageName];
 			editor.iframe.addEventListener('load', function() {
 				editor.iframe.classList.remove('hide');
 			});
 
+		},
+
+		loadHelp = function(action) {
+			editor.iframe.classList.add('hide');
+			editor.help.classList.add('hide');
+
+			switch(action) {
+				case 'shortcuts':
+					renderTable(editor.help, action, editor.keybordShortcuts);
+					break;
+			}
+
+			editor.help.classList.remove('hide');
 		};
 
 
@@ -186,12 +214,14 @@
 		editor.btn.$help.click(function() {
 			var action = this.dataset.help;
 
-			if (action === "shortcuts") {
-				// console.log('click on shurtcuts btn');
-				editor.ace.execCommand("showKeyboardShortcuts");
-				// console.log(editor.ace.showKeyboardShortcuts());
+			loadHelp(action);
+
+			// if (action === "shortcuts") {
+			// 	// console.log('click on shurtcuts btn');
+			// 	editor.ace.execCommand("showKeyboardShortcuts");
+			// 	// console.log(editor.ace.showKeyboardShortcuts());
 				
-			}
+			// }
 		}); 
 
 
