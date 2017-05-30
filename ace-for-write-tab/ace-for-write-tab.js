@@ -70,13 +70,17 @@
 			editor.ace.getSession().setUseWrapMode(true);
 			editor.ace.setShowPrintMargin(true);
 			editor.ace.setOptions({
-	        	enableSnippets: true
+	        	enableSnippets: true,
+	        	fontSize: "16px"
 		    });
 
 			// synchronize with textarea
 			editor.ace.getSession().on('change', function(){
 				txpWritePage.$body.val(editor.ace.getSession().getValue());
-			});	
+			});
+
+			// Load snippets
+			editor.snippetManager = require("ace/snippets").snippetManager;
 
 
 			// Create array of Ace shortcut
