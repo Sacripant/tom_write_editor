@@ -36,6 +36,10 @@
 	position: static;
 }
 
+.ace-editor-on .txp-logout {
+	z-index: 1;
+}
+
 /*
  *	Fullscrenn panel
  */
@@ -50,7 +54,7 @@
 	width: 100%;
 	background-color: hsla(0,0%,20%,0.95);
 	color: #ddd;
-	z-index: 15000;
+	z-index: 9000;
 /*	background-color: #fff;*/
 /*	padding: 10px 0;*/
 }
