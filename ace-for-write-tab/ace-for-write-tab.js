@@ -20,29 +20,25 @@
 	    });
 	    return json;
 	}
-	// ace.require("ace/ext/language_tools");
-
 
 	// CamelCase to phrase
-	function CamelCaseToPhrase(camelCase) {
-    	return camelCase.split(/(?=[A-Z])/).join(' ');
-	}
+	// function CamelCaseToPhrase(camelCase) {
+	//	return camelCase.split(/(?=[A-Z])/).join(' ');
+	// }
 
-
-	function renderTable(el, title, array) {
-		if (el) {
-            var commands = array.reduce(function(previous, current) {
+	// Render Shortcut on html Table
+	function renderTable(data) {
+		if (data.target) {
+            var commands = data.content.reduce(function(previous, current) {
                 return previous + '<tr>' 
-                    + '<td>' + current.command + '</td> '
-                    + '<td>' + current.key + '</td>'
+                    + '<td>' + current[data.col1] + '</td> '
+                    + '<td>' + current[data.col2] + '</td>'
                     + '</tr>';
             }, '');
 
-            el.innerHTML = '<h1>' + title +'</h1> <table>' + commands + '</table>';
+            data.target.innerHTML = '<h1>' + data.title +'</h1> <table>' + commands + '</table>';
 		}
 	}
-
-
 
 
 		// Store Prefs
@@ -94,33 +90,35 @@
 				txpWritePage.$body.val(editor.ace.getSession().getValue());
 			});
 
-			// Load snippets obj
-			editor.snippetManager = require("ace/snippets").snippetManager;
 
-			// Load Keybord Shortcuts Objects
-            editor.keybordShortcuts = require("ace/ext/menu_tools/get_editor_keyboard_shortcuts").getEditorKeybordShortcuts(editor.ace);
-			console.log(editor.keybordShortcuts);			
+			// console.log(editor.ace);
+			console.log(editor.ace.session.$modeId.split('/').pop());
 
-
-			// Create array of Ace shortcut
-            // ace.config.loadModule("ace/ext/menu_tools/get_editor_keyboard_shortcuts", function(module) {
-            //     console.log(editor.keybordShortcuts);
-            //     // console.log(editor.ace.showKeyboardShortcuts(););
-            // });
 
    			// console.log(getKeybordShortcuts(editor.ace));
 			editor.ace.commands.addCommand({
 		        name: "showKeyboardShortcuts",
-		        bindKey: {win: "Ctrl-Alt-s", mac: "Command-Alt-s"},
+		        bindKey: {win: "Ctrl-Alt-k", mac: "Command-Alt-k"},
 		        exec: function(AceEditor) {
-		        	console.log(editor);
-		            ace.config.loadModule("ace/ext/keybinding_menu", function(module) {
-		                module.init(AceEditor);
-		                AceEditor.showKeyboardShortcuts();
+		            ace.config.loadModule("ace/ext/menu_tools/get_editor_keyboard_shortcuts", function(module) {
+		                editor.keybordShortcuts = module.getEditorKeybordShortcuts(AceEditor);
+            			loadHelp('shortcuts');
 		            });
 		        }
 	    	});
-	    	// editor.ace.execCommand("showKeyboardShortcuts");
+
+			editor.ace.commands.addCommand({
+		        name: "showSnippets",
+		        bindKey: {win: "Ctrl-Alt-s", mac: "Command-Alt-s"},
+		        exec: function(AceEditor) {
+		            ace.config.loadModule("ace/snippets", function(module) {
+		                editor.snippets = module.snippetManager.snippetMap[AceEditor.session.$modeId.split('/').pop()];
+            			loadHelp('snippets');
+
+
+		            });
+		        }
+	    	});
 		},
 
 		// inject id in snippet
@@ -161,7 +159,6 @@
 			editor.iframe.addEventListener('load', function() {
 				editor.iframe.classList.remove('hide');
 			});
-
 		},
 
 		loadHelp = function(action) {
@@ -170,8 +167,27 @@
 
 			switch(action) {
 				case 'shortcuts':
-					renderTable(editor.help, action, editor.keybordShortcuts);
+					renderTable({
+						content: editor.keybordShortcuts,
+						target: editor.help,
+						title: action,
+						col1Title: 'command',
+						col1: "command",
+						col2Title: "shortcut",
+						col2: "key"
+					});
 					break;
+
+				case 'snippets':
+					renderTable({
+						content: editor.snippets,
+						target: editor.help,
+						title: action,
+						col1Title: 'Tab trigger',
+						col1: "tabTrigger",
+						col2Title: "snippet",
+						col2: "content"
+					});
 			}
 
 			editor.help.classList.remove('hide');
@@ -184,7 +200,7 @@
 		initEditorObj();
 		initAce('ace-editor');	
 
-		console.log(editor.ace);
+		// console.log(editor.ace);
 
 		// Store Ace Keybords
 		
@@ -214,27 +230,16 @@
 		editor.btn.$help.click(function() {
 			var action = this.dataset.help;
 
-			loadHelp(action);
-
-			// if (action === "shortcuts") {
-			// 	// console.log('click on shurtcuts btn');
-			// 	editor.ace.execCommand("showKeyboardShortcuts");
-			// 	// console.log(editor.ace.showKeyboardShortcuts());
-				
-			// }
+			switch(action) {
+				case 'shortcuts':
+			    	editor.ace.execCommand("showKeyboardShortcuts");
+					break;
+				case 'snippets':
+			    	editor.ace.execCommand("showSnippets");
+					break;
+			}
 		}); 
-
-
-
-		// Shortcut
-		// var key = "ctrl";
-		
-		// if (navigator.userAgent.indexOf('Mac OS X') !== -1)
-			// key = '⌘';
-
-						
-
-		
+								
 		$(document).keydown(function(e) {
 			if (editor.open) {
 				// esc = hide Editor
