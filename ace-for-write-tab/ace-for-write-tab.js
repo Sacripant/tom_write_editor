@@ -121,6 +121,24 @@
 	    	});
 		},
 
+
+		// Images, files, links, Drag and drop Handler 
+		dndHandler = {
+		    draggedElement: null, // Propriété pointant vers l'élément en cours de déplacement
+		    applyDragEvents: function(element) {
+
+		        element.draggable = true;
+		        var dndHandler = this; // Cette variable est nécessaire pour que l'événement « dragstart » accède facilement au namespace « dndHandler »
+
+				element.addEventListener('dragstart', function(e) {
+					dndHandler.draggedElement = e.target; // On sauvegarde l'élément en cours de déplacement
+					e.itemId = $(dndHandler.draggedElement).find('input')[0].value;
+					console.log(e.itemId);
+		            e.dataTransfer.setData('text', replaceID(prefs.drop.img, e.itemId)); // Nécessaire pour Firefox
+		        });
+		    }
+		},
+
 		// inject id in snippet
 		replaceID = function(string, id) {
 			return string.replace('{{ id }}', id);
@@ -156,7 +174,16 @@
 			editor.help.classList.add('hide');
 			editor.iframe.classList.add('hide');
 			editor.iframe.src = prefs.path[pageName];
-			editor.iframe.addEventListener('load', function() {
+			$(editor.iframe).one('load', function() {
+				var iframeContent = $(editor.iframe).contents(),
+					dragItems = iframeContent.find('.txp-list tbody tr');
+
+				console.log(dragItems);
+
+				dragItems.each(function(index, el) {
+					dndHandler.applyDragEvents(el);
+				});
+
 				editor.iframe.classList.remove('hide');
 			});
 		},
@@ -259,36 +286,21 @@
 		// TEST: Make image panel draggable
 
 		// Select image iframe content
-		var iframeContent = $("#ace-image-panel").contents(),
-			images = iframeContent.find('#images_form tr');
+		// var iframeContent = $("#ace-image-panel").contents(),
+		// 	images = iframeContent.find('#images_form tr');
 
-			console.log(images);
+		// 	console.log(images);
 
-		var dropImageSnippet = function(data) {
-			return replaceID(prefs.drop.img, data);
-		};
+		// var dropImageSnippet = function(data) {
+		// 	return replaceID(prefs.drop.img, data);
+		// };
 
 
-		var dndHandler = {
 
-		    draggedElement: null, // Propriété pointant vers l'élément en cours de déplacement
-		    applyDragEvents: function(element) {
 
-		        element.draggable = true;
-		        var dndHandler = this; // Cette variable est nécessaire pour que l'événement « dragstart » accède facilement au namespace « dndHandler »
-
-				element.addEventListener('dragstart', function(e) {
-					dndHandler.draggedElement = e.target; // On sauvegarde l'élément en cours de déplacement
-					e.imgid = $(dndHandler.draggedElement).find('input')[0].value;
-					console.log(e.imgid);
-		            e.dataTransfer.setData('text', dropImageSnippet(e.imgid)); // Nécessaire pour Firefox
-		        });
-		    }
-		};
-
-		images.each(function(index, el) {
-			dndHandler.applyDragEvents(el);
-		});
+		// images.each(function(index, el) {
+		// 	dndHandler.applyDragEvents(el);
+		// });
 		
 
 
