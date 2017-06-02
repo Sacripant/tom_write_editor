@@ -65,8 +65,14 @@
 			};
 			editor.title = document.getElementsByClassName('ace-article_title');
 			editor.open = false;
-			editor.iframe = document.getElementById('ace-iframe');
-			editor.help = document.getElementById('ace-help');
+			editor.iframe = {
+				el : document.getElementById('ace-iframe'),
+				page : undefined
+			};
+			editor.help = {
+				el : document.getElementById('ace-help'),
+				page: undefined
+			};
 		},
 
 		// Init Ace Editor with some options
@@ -100,10 +106,18 @@
 		        name: "showKeyboardShortcuts",
 		        bindKey: {win: "Ctrl-Alt-k", mac: "Command-Alt-k"},
 		        exec: function(AceEditor) {
-		            ace.config.loadModule("ace/ext/menu_tools/get_editor_keyboard_shortcuts", function(module) {
-		                editor.keybordShortcuts = module.getEditorKeybordShortcuts(AceEditor);
-            			loadHelp('shortcuts');
-		            });
+		        	var action = 'shortcuts';
+		        	if (editor.help.page === action) {
+		        		hideHelp();
+		        	} else {
+		        		hideIframe();
+		        		hideHelp();
+
+			            ace.config.loadModule("ace/ext/menu_tools/get_editor_keyboard_shortcuts", function(module) {
+			                editor.keybordShortcuts = module.getEditorKeybordShortcuts(AceEditor);
+	            			showHelp(action);
+			            });
+		        	}
 		        }
 	    	});
 
@@ -111,12 +125,17 @@
 		        name: "showSnippets",
 		        bindKey: {win: "Ctrl-Alt-s", mac: "Command-Alt-s"},
 		        exec: function(AceEditor) {
-		            ace.config.loadModule("ace/snippets", function(module) {
-		                editor.snippets = module.snippetManager.snippetMap[AceEditor.session.$modeId.split('/').pop()];
-            			loadHelp('snippets');
-
-
-		            });
+		        	var action = 'snippets';
+		        	if (editor.help.page === action) {
+		        		hideHelp();
+		        	} else {
+		        		hideIframe();
+		        		hideHelp();
+			            ace.config.loadModule("ace/snippets", function(module) {
+			                editor.snippets = module.snippetManager.snippetMap[AceEditor.session.$modeId.split('/').pop()];
+	            			showHelp(action);
+			            });
+		        	}
 		        }
 	    	});
 		},
@@ -169,13 +188,11 @@
 			editor.open = false;			
 		},
 
-		// Load external page in right panel iframe
-		loadPage = function(pageName) {
-			editor.help.classList.add('hide');
-			editor.iframe.classList.add('hide');
-			editor.iframe.src = prefs.path[pageName];
-			$(editor.iframe).one('load', function() {
-				var iframeContent = $(editor.iframe).contents(),
+		// Load Txp pages in right panel iframe
+		showIframe = function(pageName) {
+			editor.iframe.el.src = prefs.path[pageName];
+			$(editor.iframe.el).on('load', function() {
+				var iframeContent = $(editor.iframe.el).contents(),
 					dragItems = iframeContent.find('.txp-list tbody tr');
 
 				console.log(dragItems);
@@ -184,19 +201,25 @@
 					dndHandler.applyDragEvents(el);
 				});
 
-				editor.iframe.classList.remove('hide');
-			});
+				editor.iframe.el.classList.remove('hide');
+				editor.iframe.page = pageName; });
+
 		},
 
-		loadHelp = function(action) {
-			editor.iframe.classList.add('hide');
-			editor.help.classList.add('hide');
+		hideIframe = function() {
+			if (editor.iframe.page) {
+				editor.iframe.el.classList.add('hide');
+				$(editor.iframe.el).off('load');
+				editor.iframe.page = undefined;
+			}
+		},
 
+		showHelp = function(action) {
 			switch(action) {
 				case 'shortcuts':
 					renderTable({
 						content: editor.keybordShortcuts,
-						target: editor.help,
+						target: editor.help.el,
 						title: action,
 						col1Title: 'command',
 						col1: "command",
@@ -208,7 +231,7 @@
 				case 'snippets':
 					renderTable({
 						content: editor.snippets,
-						target: editor.help,
+						target: editor.help.el,
 						title: action,
 						col1Title: 'Tab trigger',
 						col1: "tabTrigger",
@@ -216,8 +239,15 @@
 						col2: "content"
 					});
 			}
+			editor.help.page = action;
+			editor.help.el.classList.remove('hide');
+		},
 
-			editor.help.classList.remove('hide');
+		hideHelp = function () {
+			if (editor.help.page) {
+				editor.help.el.classList.add('hide');
+				editor.help.page = undefined;				
+			}
 		};
 
 
@@ -250,7 +280,15 @@
 
 		// Load external page in iframe
 		editor.btn.$iframeSrcs.click(function() {
-			loadPage(this.dataset.src);
+			var page = this.dataset.src;
+
+			if ( editor.iframe.page === page ) {
+				hideIframe();	
+			} else {
+				hideIframe();
+				hideHelp();
+				showIframe(page);
+			}
 		});
 
 		// display Ace help tables
