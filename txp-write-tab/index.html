@@ -357,9 +357,9 @@ textpattern.textarray = {"form_submission_error":"D\u00e9sol\u00e9, le formulair
 			</span>
 
 			<span id="ace-panel-size-btns">
-				<button type="button">2/3</button>
-				<button type="button">1/2</button>
-				<button type="button">1/3</button>				
+				<button data-panel-size="4" type="button">2/3</button>
+				<button data-panel-size="2" type="button">1/2</button>
+				<button data-panel-size="1" type="button">1/3</button>				
 			</span>
 
 			<span id="ace-help-btns">
@@ -370,14 +370,14 @@ textpattern.textarray = {"form_submission_error":"D\u00e9sol\u00e9, le formulair
 	</div>
 	<div class="ace-panels">
 		<!-- Editor/Left panel -->
-		<div class="ace-panel-left">
+		<div id="ace-panel-left" class="ace-panel-left">
 			<h1 class="ace-article_title"></h1>                        
 			<div class="editor-wrapper">                               
 				<div id="ace-editor"></div>                             
 			</div>
 		</div>  
 		<!-- Right panel -->
-		<div class="ace-panel-right">
+		<div id="ace-panel-right" class="ace-panel-right">
 			<iframe id="ace-iframe" class="ace-panel-right-content hide" frameborder="0"></iframe>
 			<div id="ace-help" class="ace-panel-right-content hide" frameborder="0"></div>
 		</div>

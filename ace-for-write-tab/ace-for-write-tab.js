@@ -61,7 +61,12 @@
 				"$hide" : $('#ace-hide-btn'),
 				"$save": $('#ace-save-btn'),
 				"$iframeSrcs": $('#ace-iframe-btn').find('button'),
-				"$help" : $('#ace-help-btns').find('button')
+				"$help" : $('#ace-help-btns').find('button'),
+				"$size" : $('#ace-panel-size-btns').find('button')
+			};
+			editor.panel = {
+				$right : $('#ace-panel-right'), 
+				$left : $('#ace-panel-left') 
 			};
 			editor.title = document.getElementsByClassName('ace-article_title');
 			editor.open = false;
@@ -303,6 +308,21 @@
 			    	editor.ace.execCommand("showSnippets");
 					break;
 			}
+		}); 
+
+		console.log(editor.panel.$right);
+		// change left panel size
+		editor.btn.$size.click(function() {
+			var size = this.dataset.panelSize;
+			console.log(size);
+
+			editor.panel.$right
+				.css("flexGrow", size)
+				.on('transitionend', function () {
+					editor.ace.resize();
+				});
+
+
 		}); 
 								
 		$(document).keydown(function(e) {
