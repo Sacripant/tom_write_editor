@@ -1,6 +1,8 @@
 {
   "drop": {
-    "img": "<txp:image id='{{ id }}' />"
+    "images": "<txp:image id='{{ id }}' />",
+    "files": "<txp:file_download_link id='{{ id }}'> \r\n    <txp:file_download_name />\n</txp:file_download_link>",
+    "links": "<txp:link id='{{ id }}'/>"
   },
   "path" : {
   	"images" : "/sacripant/trunk/textpattern/?event=image",

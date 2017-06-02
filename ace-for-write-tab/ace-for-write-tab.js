@@ -144,7 +144,7 @@
 		// Images, files, links, Drag and drop Handler 
 		dndHandler = {
 		    draggedElement: null, // Propriété pointant vers l'élément en cours de déplacement
-		    applyDragEvents: function(element) {
+		    applyDragEvents: function(element, pageName) {
 
 		        element.draggable = true;
 		        var dndHandler = this; // Cette variable est nécessaire pour que l'événement « dragstart » accède facilement au namespace « dndHandler »
@@ -153,7 +153,7 @@
 					dndHandler.draggedElement = e.target; // On sauvegarde l'élément en cours de déplacement
 					e.itemId = $(dndHandler.draggedElement).find('input')[0].value;
 					console.log(e.itemId);
-		            e.dataTransfer.setData('text', replaceID(prefs.drop.img, e.itemId)); // Nécessaire pour Firefox
+		            e.dataTransfer.setData('text', replaceID(prefs.drop[pageName], e.itemId)); // Nécessaire pour Firefox
 		        });
 		    }
 		},
@@ -198,7 +198,7 @@
 				console.log(dragItems);
 
 				dragItems.each(function(index, el) {
-					dndHandler.applyDragEvents(el);
+					dndHandler.applyDragEvents(el, pageName);
 				});
 
 				editor.iframe.el.classList.remove('hide');
@@ -278,7 +278,7 @@
 			txpWritePage.$publish.click();
 		});
 
-		// Load external page in iframe
+		// Load txp page in iframe
 		editor.btn.$iframeSrcs.click(function() {
 			var page = this.dataset.src;
 
