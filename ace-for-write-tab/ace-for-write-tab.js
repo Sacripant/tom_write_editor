@@ -6,7 +6,7 @@
 	function getPrefs (){
 		var json = null;
 		$.ajax({
-	        url: "prefs.js",
+	        url: "ace-for-txp/prefs.js",
 	        async: false,
 	        global: false,
 	        dataType: "json",
@@ -82,7 +82,7 @@
 
 		// Init Ace Editor with some options
 		initAce = function(wrapper) {
-			editor.ace = ace.edit(wrapper);	// Initialize Editor
+			editor.ace = ace.edit(wrapper);	// Initialize Ace Editor
 
 			// THEME
 			editor.ace.setTheme("ace/theme/sacripant");
