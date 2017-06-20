@@ -30,10 +30,10 @@
 	function renderTable(data) {
 		if (data.target) {
             var commands = data.content.reduce(function(previous, current) {
-                return previous + '<tr>' 
-                    + '<td>' + current[data.col1] + '</td> '
-                    + '<td>' + current[data.col2] + '</td>'
-                    + '</tr>';
+                return previous + '<tr>' + 
+                    '<td>' + current[data.col1] + '</td> ' +
+                    '<td>' + current[data.col2] + '</td>' +
+                    '</tr>';
             }, '');
 
             data.target.innerHTML = '<h1>' + data.title +'</h1> <table>' + commands + '</table>';
@@ -60,9 +60,10 @@
 				"$show" : $('<a class="show-ace ace-show-hide"><i>fullscreen</i></a>').prependTo('.body'),
 				"$hide" : $('#ace-hide-btn'),
 				"$save": $('#ace-save-btn'),
-				"$iframeSrcs": $('#ace-iframe-btn').find('button'),
-				"$help" : $('#ace-help-btns').find('button'),
-				"$size" : $('#ace-panel-size-btns').find('button')
+				// "$iframeSrcs": $('#ace-iframe-btn').find('button'),
+				// "$help" : $('#ace-help-btns').find('button'),
+				"$rightContent" : $('#ace-rightcontent-btns').find('input'), 
+				"$rightSize" : $('#ace-panel-size-btns').find('input')
 			};
 			editor.panel = {
 				$right : $('#ace-panel-right'), 
@@ -112,17 +113,13 @@
 		        bindKey: {win: "Ctrl-Alt-k", mac: "Command-Alt-k"},
 		        exec: function(AceEditor) {
 		        	var action = 'shortcuts';
-		        	if (editor.help.page === action) {
-		        		hideHelp();
-		        	} else {
-		        		hideIframe();
-		        		hideHelp();
+	        		hideIframe();
+	        		hideHelp();
 
-			            ace.config.loadModule("ace/ext/menu_tools/get_editor_keyboard_shortcuts", function(module) {
-			                editor.keybordShortcuts = module.getEditorKeybordShortcuts(AceEditor);
-	            			showHelp(action);
-			            });
-		        	}
+		            ace.config.loadModule("ace/ext/menu_tools/get_editor_keyboard_shortcuts", function(module) {
+		                editor.keybordShortcuts = module.getEditorKeybordShortcuts(AceEditor);
+            			showHelp(action);
+		            });
 		        }
 	    	});
 
@@ -131,16 +128,12 @@
 		        bindKey: {win: "Ctrl-Alt-s", mac: "Command-Alt-s"},
 		        exec: function(AceEditor) {
 		        	var action = 'snippets';
-		        	if (editor.help.page === action) {
-		        		hideHelp();
-		        	} else {
-		        		hideIframe();
-		        		hideHelp();
-			            ace.config.loadModule("ace/snippets", function(module) {
-			                editor.snippets = module.snippetManager.snippetMap[AceEditor.session.$modeId.split('/').pop()];
-	            			showHelp(action);
-			            });
-		        	}
+	        		hideIframe();
+	        		hideHelp();
+		            ace.config.loadModule("ace/snippets", function(module) {
+		                editor.snippets = module.snippetManager.snippetMap[AceEditor.session.$modeId.split('/').pop()];
+            			showHelp(action);
+		            });
 		        }
 	    	});
 		},
@@ -193,6 +186,18 @@
 			editor.open = false;			
 		},
 
+
+		rightPanelsize = function(size, callback) {
+
+			editor.panel.$right
+				.css("flexGrow", size)
+				.on('transitionend', function () {
+					editor.ace.resize();
+					if (callback) callback();
+				});
+
+		},
+
 		// Load Txp pages in right panel iframe
 		showIframe = function(pageName) {
 			editor.iframe.el.src = prefs.path[pageName];
@@ -208,7 +213,6 @@
 
 				editor.iframe.el.classList.remove('hide');
 				editor.iframe.page = pageName; });
-
 		},
 
 		hideIframe = function() {
@@ -243,6 +247,7 @@
 						col2Title: "snippet",
 						col2: "content"
 					});
+					break;
 			}
 			editor.help.page = action;
 			editor.help.el.classList.remove('hide');
@@ -283,46 +288,52 @@
 			txpWritePage.$publish.click();
 		});
 
-		// Load txp page in iframe
-		editor.btn.$iframeSrcs.click(function() {
-			var page = this.dataset.src;
+		// Load left Panel content
+		editor.btn.$rightContent.change(function(event) {
 
-			if ( editor.iframe.page === page ) {
-				hideIframe();	
+			var content = this.value,
+				type = this.dataset.type;
+
+			if (content && type) {
+
+				switch(type) {
+					case 'iframe':
+						hideIframe();
+			 			hideHelp();
+						showIframe(content);
+
+						break;
+
+					case 'help-table':
+						switch(content) {
+							case 'shortcuts':
+						    	editor.ace.execCommand("showKeyboardShortcuts");
+								break;
+							case 'snippets':
+						    	editor.ace.execCommand("showSnippets");
+								break;
+						}
+						break;
+				}
+
 			} else {
-				hideIframe();
-				hideHelp();
-				showIframe(page);
+				// hide left panel
+				rightPanelsize(0, function(){
+					hideIframe();
+					hideHelp();					
+				})
 			}
 		});
 
-		// display Ace help tables
-		editor.btn.$help.click(function() {
-			var action = this.dataset.help;
-
-			switch(action) {
-				case 'shortcuts':
-			    	editor.ace.execCommand("showKeyboardShortcuts");
-					break;
-				case 'snippets':
-			    	editor.ace.execCommand("showSnippets");
-					break;
-			}
-		}); 
 
 		console.log(editor.panel.$right);
 		// change left panel size
-		editor.btn.$size.click(function() {
-			var size = this.dataset.panelSize;
+		editor.btn.$rightSize.change(function() {
+			console.log("click btn size");
+			var size = this.value;
 			console.log(size);
 
-			editor.panel.$right
-				.css("flexGrow", size)
-				.on('transitionend', function () {
-					editor.ace.resize();
-				});
-
-
+			rightPanelsize(size);
 		}); 
 								
 		$(document).keydown(function(e) {
