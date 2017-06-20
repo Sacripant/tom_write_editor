@@ -57,7 +57,7 @@
 		// Store Editor Objects
 		initEditorObj = function() {
 			editor.btn = {
-				"$show" : $('<a class="show-ace ace-show-hide"><i>fullscreen</i></a>').prependTo('p.body'),
+				"$show" : $('<a class="show-ace ace-show-hide"><i>fullscreen</i></a>').prependTo('.body'),
 				"$hide" : $('#ace-hide-btn'),
 				"$save": $('#ace-save-btn'),
 				"$iframeSrcs": $('#ace-iframe-btn').find('button'),
