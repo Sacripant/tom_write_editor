@@ -68,24 +68,97 @@ EOT;
 // End of textpack
 
 if (!defined('txpinterface'))
-        @include_once('zem_tpl.php');
+    @include_once('zem_tpl.php');
 
 # --- BEGIN PLUGIN CODE ---
 if (@txpinterface == 'admin') {
     // register_callback( 'abc_add_text', 'article_ui', 'extend_col_1');
 
-    register_callback('abc_add_text', 'admin_side', 'body_end');
+    register_callback('tom_we', 'admin_side', 'body_end');
     // register_callback('abc_add_text', 'article');
 }
-function abc_add_text() {
 
-  global $event;
-  if($event !== 'article') {
-  	return;
-  }
-    
-  echo '<h1> xhat the fuxk </h1>';
-  echo $event;
+/*
+ *   Editor markup
+ */
+function tom_we_markup() {
+    $out = <<<HTML
+
+        <!-- 
+            TOM WRITE EDITOR MARKUP 
+        -->
+        <div id="ace-fullscreen">
+            <div class="ace-menu">
+                <!-- left BTNS -->
+                <div class="ace-menu-right">
+                    <button type="button" id="ace-save-btn" class="ace-save-btn">
+                        save <kbd>ctrl+s</kbd>
+                    </button>
+                    <button type="button" id="ace-hide-btn" class="ace-hide-btn">    
+                        close <kbd>esc</kbd>                              
+                    </button>
+                </div>
+                <!-- right BTNS -->
+                <div class="ace-menu-left">
+                    
+                    <span id="ace-iframe-btn">
+                        <button type="button" data-src="images">Images</button>
+                        <button type="button" data-src="files">Files</button>
+                        <button type="button" data-src="links">Links</button>
+                    </span>
+
+                    <span id="ace-panel-size-btns">
+                        <button data-panel-size="4" type="button">2/3</button>
+                        <button data-panel-size="2" type="button">1/2</button>
+                        <button data-panel-size="1" type="button">1/3</button>        
+                    </span>
+
+                    <span id="ace-help-btns">
+                        <button type="button" data-help="shortcuts">Shortcuts</button>
+                        <button type="button" data-help="snippets">Snippets</button>
+                    </span>
+                </div>
+            </div>
+            <div class="ace-panels">
+                <!-- Editor/Left panel -->
+                <div id="ace-panel-left" class="ace-panel-left">
+                    <h1 class="ace-article_title"></h1>                        
+                    <div class="editor-wrapper">                               
+                        <div id="ace-editor"></div>                             
+                    </div>
+                </div>  
+                <!-- Right panel -->
+                <div id="ace-panel-right" class="ace-panel-right">
+                    <iframe id="ace-iframe" class="ace-panel-right-content hide" frameborder="0"></iframe>
+                    <div id="ace-help" class="ace-panel-right-content hide" frameborder="0"></div>
+                </div>
+            </div>                                                                        
+        </div> 
+
+        <link  href="ace-for-txp/ace-for-write-tab/theme-sacripant.css" rel="stylesheet" />
+        <script src="ace-for-txp/ace-for-write-tab/src/ace.js" type="text/javascript"></script>
+        <script src="ace-for-txp/ace-for-write-tab/src/ext-language_tools.js" type="text/javascript"></script>
+        <script src="ace-for-txp/ace-for-write-tab/src/ext-keybinding_menu.js" type="text/javascript"></script>
+        <script src="ace-for-txp/ace-for-write-tab/ace-for-write-tab.js" type="text/javascript"></script>
+
+
+HTML;
+
+    return $out;
+}
+
+/*
+ *  Inject Markup in write footer page
+ */
+
+function tom_we() {
+
+    global $event;
+    if($event !== 'article') {
+        return;
+    }
+        
+    echo tom_we_markup();
 }
 
 
