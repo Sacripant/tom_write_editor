@@ -91,10 +91,10 @@ function tom_we_markup() {
             <div class="ace-menu">
                 <!-- left BTNS -->
                 <div class="ace-menu-left">
-                    <button type="button" id="ace-save-btn" class="ace-save-btn">
+                    <button type="button" id="ace-save-btn" class="ace-btn ace-save-btn">
                         save <kbd>ctrl+s</kbd>
                     </button>
-                    <button type="button" id="ace-hide-btn" class="ace-hide-btn">    
+                    <button type="button" id="ace-hide-btn" class="ace-btn ace-hide-btn">    
                         close <kbd>esc</kbd>                              
                     </button>
                 </div>
@@ -111,7 +111,7 @@ function tom_we_markup() {
                                 <input type="radio" id="ace-files-btn" name="ace-menu-right-content" data-type="iframe" value="files" />
                                 <label class="ace-btn" for="ace-files-btn">files</label>
                             </span>
-                            <span class="ace-btn">
+                            <span>
                                 <input type="radio" id="ace-links-btn" name="ace-menu-right-content" data-type="iframe" value="links" />
                                 <label class="ace-btn" for="ace-links-btn">Images</label>
                             </span>
@@ -121,11 +121,11 @@ function tom_we_markup() {
                         </span>
                         
                         <span class="ace-help-btns">
-                            <span class="ace-btn">
+                            <span>
                                 <input type="radio" id="ace-shortcuts-btn" name="ace-menu-right-content" data-type="help-table" value="shortcuts" />
                                 <label class="ace-btn" for="ace-shortcuts-btn">Shortcuts</label>
                             </span>
-                            <span class="ace-btn">
+                            <span>
                                 <input type="radio" id="ace-snippets-btn" name="ace-menu-right-content" data-type="help-table" value="snippets" />
                                 <label class="ace-btn" for="ace-snippets-btn">Snippets</label>
                             </span>
@@ -136,20 +136,20 @@ function tom_we_markup() {
                     </span>
 
                     <span id="ace-panel-size-btns">
-                        <span class="ace-btn">
+                        <span>
                             <input type="radio" id="ace-size2-3-btn" name="ace-menu-right-size" value="4">
                             <label class="ace-btn" for="ace-size2-3-btn">2/3</label>
                         </span>
-                        <span class="ace-btn">
+                        <span>
                             <input type="radio" id="ace-size1-2-btn" name="ace-menu-right-size" value="2">
                             <label class="ace-btn" for="ace-size1-2-btn">1-2</label>
                         </span>
-                        <span class="ace-btn">
+                        <span>
                             <input type="radio" id="ace-size1-3-btn" name="ace-menu-right-size" value="1">
                             <label class="ace-btn" for="ace-size1-3-btn">1/3</label>
                         </span>
                         <!-- close left Panel btn -->
-                        <span class="ace-btn">
+                        <span>
                             <input type="radio" id="ace-closePanel-btn" name="ace-menu-right-size" value="0" checked />
                             <label class="ace-btn" for="ace-closePanel-btn">close</label>
                         </span>

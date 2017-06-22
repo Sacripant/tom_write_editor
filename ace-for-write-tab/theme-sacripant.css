@@ -52,6 +52,10 @@
 /*
  *	Fullscrenn panel
  */
+
+#ace-fullscreen * {
+	box-sizing: border-box;
+} 
 		
 #ace-fullscreen {
 	display: none;
@@ -64,6 +68,8 @@
 	background-color: hsla(0,0%,20%,0.95);
 	color: #ddd;
 	z-index: 9000;
+
+	font-size: 1rem;
 /*	background-color: #fff;*/
 /*	padding: 10px 0;*/
 }
@@ -75,17 +81,41 @@
 
 /* Menu	*/
 .ace-menu {
-	background-color: #fff;
-	background-color: hsla(0,0%,30%,0.95);
+	background-color: #000;
+	/* background-color: hsla(0,0%,30%,0.95); */
 	display: flex;
 	height: 2em;
-}
-.ace-menu button {
-	height: 2em;
-	line-height: 2em;
+	padding: 0 .33em;
 }
 .ace-menu-left {
 	flex-grow: 1;
+}
+
+
+#ace-fullscreen .ace-btn {
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	appearance: none;
+
+	display: inline-block;
+	float: left;
+	
+	font-size: 1em;
+	height: 2em;
+	line-height: 2em;
+	padding: 0 .66em;
+
+	border:  1px solid;
+	background: #000;
+	color:  inherit;
+	text-shadow: none;
+	border-radius: 0;
+
+	margin: 0 .33em;
+}
+
+.ace-menu input {
+	display: none;
 }
 
 
@@ -173,11 +203,11 @@ button kbd:before {
 }
 /*close button*/
 .hide-ace {
-	position: fixed;
-	bottom: 25px;
-	right: 40px;
-	height: 2.5em;
-	font-weight: bold;
+	/* position: fixed; */
+	/* bottom: 25px; */
+	/* right: 40px; */
+	/* height: 2.5em; */
+	/* font-weight: bold; */
 }
 
 /*	
