@@ -91,67 +91,66 @@ function tom_we_markup() {
             <div class="ace-menu">
                 <!-- left BTNS -->
                 <div class="ace-menu-left">
-                    <button type="button" id="ace-save-btn" class="ace-btn ace-save-btn">
-                        save <kbd>ctrl+s</kbd>
-                    </button>
-                    <button type="button" id="ace-hide-btn" class="ace-btn ace-hide-btn">    
-                        close <kbd>esc</kbd>                              
-                    </button>
+                    <span class="ace-btnsgroup">
+                        <button type="button" id="ace-save-btn" class="ace-btn ace-save-btn">
+                            save
+                        </button>                        
+                    </span>
+                    <span class="ace-btnsgroup">
+                        <button type="button" id="ace-hide-btn" class="ace-btn ace-hide-btn">    
+                            close                              
+                        </button>
+                    </span>
                 </div>
                 <!-- right BTNS -->
                 <div class="ace-menu-right">
                     
                     <span class="ace-btnsgroup" id="ace-rightcontent-btns">
-                        <span class="ace-iframe-btn">
-                            <span>
+                            <span class="ace-btn">
                                 <input type="radio" id="ace-images-btn" name="ace-menu-right-content" data-type="iframe" value="images" />
-                                <label class="ace-btn" for="ace-images-btn">Images</label>
+                                <label for="ace-images-btn">Images</label>
                             </span>
-                            <span>
+                            <span class="ace-btn">
                                 <input type="radio" id="ace-files-btn" name="ace-menu-right-content" data-type="iframe" value="files" />
-                                <label class="ace-btn" for="ace-files-btn">files</label>
+                                <label for="ace-files-btn">files</label>
                             </span>
-                            <span>
+                            <span class="ace-btn">
                                 <input type="radio" id="ace-links-btn" name="ace-menu-right-content" data-type="iframe" value="links" />
-                                <label class="ace-btn" for="ace-links-btn">Images</label>
+                                <label for="ace-links-btn">Links</label>
                             </span>
                             <!-- <button type="button" data-src="images">Images</button> -->
                             <!-- <button type="button" data-src="files">Files</button> -->
                             <!-- <button type="button" data-src="links">Links</button> -->
-                        </span>
                         
-                        <span class="ace-help-btns">
-                            <span>
+                            <span class="ace-btn">
                                 <input type="radio" id="ace-shortcuts-btn" name="ace-menu-right-content" data-type="help-table" value="shortcuts" />
-                                <label class="ace-btn" for="ace-shortcuts-btn">Shortcuts</label>
+                                <label for="ace-shortcuts-btn">Shortcuts</label>
                             </span>
-                            <span>
+                            <span class="ace-btn">
                                 <input type="radio" id="ace-snippets-btn" name="ace-menu-right-content" data-type="help-table" value="snippets" />
-                                <label class="ace-btn" for="ace-snippets-btn">Snippets</label>
+                                <label for="ace-snippets-btn">Snippets</label>
                             </span>
                             <!-- <button type="button" data-help="shortcuts">Shortcuts</button> -->
                             <!-- <button type="button" data-help="snippets">Snippets</button> -->
-                        </span>
-
                     </span>
 
-                    <span id="ace-panel-size-btns">
-                        <span>
+                    <span class="ace-btnsgroup" id="ace-panel-size-btns">
+                        <span class="ace-btn">
                             <input type="radio" id="ace-size2-3-btn" name="ace-menu-right-size" value="4">
-                            <label class="ace-btn" for="ace-size2-3-btn">2/3</label>
+                            <label for="ace-size2-3-btn">2/3</label>
                         </span>
-                        <span>
+                        <span class="ace-btn">
                             <input type="radio" id="ace-size1-2-btn" name="ace-menu-right-size" value="2">
-                            <label class="ace-btn" for="ace-size1-2-btn">1-2</label>
+                            <label for="ace-size1-2-btn">1-2</label>
                         </span>
-                        <span>
+                        <span class="ace-btn">
                             <input type="radio" id="ace-size1-3-btn" name="ace-menu-right-size" value="1">
-                            <label class="ace-btn" for="ace-size1-3-btn">1/3</label>
+                            <label for="ace-size1-3-btn">1/3</label>
                         </span>
                         <!-- close left Panel btn -->
-                        <span>
+                        <span class="ace-btn">
                             <input type="radio" id="ace-closePanel-btn" name="ace-menu-right-size" value="0" checked />
-                            <label class="ace-btn" for="ace-closePanel-btn">close</label>
+                            <label for="ace-closePanel-btn">close</label>
                         </span>
                         <!-- <button data-panel-size="4" type="button">2/3</button> -->
                         <!-- <button data-panel-size="2" type="button">1/2</button> -->

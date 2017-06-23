@@ -40,13 +40,17 @@
 .ace-editor-on body {
 	overflow: hidden; 
 }
+
+.ace-editor-on #messagepane {
+	z-index: 10000;
+}
 /* Show messagepane top on Editor */
 .ace-editor-on .txp-header {
-	position: static;
+	/* position: static; */
 }
 
 .ace-editor-on .txp-logout {
-	z-index: 1;
+	/* z-index: 1; */
 }
 
 /*
@@ -82,41 +86,99 @@
 /* Menu	*/
 .ace-menu {
 	background-color: #000;
-	/* background-color: hsla(0,0%,30%,0.95); */
+	/* background-color: hsla(0,0%,30%,0.9); */
 	display: flex;
-	height: 2em;
-	padding: 0 .33em;
+	height: 2.2em;
+	padding: .1em .33em;
 }
 .ace-menu-left {
 	flex-grow: 1;
 }
 
 
+/* hidden input radio */
+.ace-menu input {
+	display: none;
+}
+
+/* BTNS group */
+.ace-btnsgroup {
+	display: inline-flex;
+	position: relative;
+	z-index: 1;
+	margin: 0 .33em;
+	border-radius: .33em;
+	/* border: 1px solid; */
+	height: 100%;
+	overflow: hidden;
+}
+
+#ace-fullscreen .ace-btnsgroup .ace-btn {
+	/* border-radius: 0; */
+	margin-right: 2px;
+}
+
+#ace-fullscreen .ace-btnsgroup .ace-btn:first-child {
+	/* border-radius: .33em 0 0 .33em; */
+}
+#ace-fullscreen .ace-btnsgroup .ace-btn:last-child {
+	/* border-radius: 0 .33em .33em 0; */
+	margin-right: 0;
+}
+
+/* BTN */
 #ace-fullscreen .ace-btn {
+	position: relative;
+	z-index: 1;
+
 	-webkit-appearance: none;
 	-moz-appearance: none;
 	appearance: none;
 
-	display: inline-block;
-	float: left;
+	/* display: inline-block; */
+	/* float: left; */
 	
 	font-size: 1em;
-	height: 2em;
-	line-height: 2em;
+	/* height: 2em; */
+	line-height: 2em;	
 	padding: 0 .66em;
 
-	border:  1px solid;
-	background: #000;
-	color:  inherit;
-	text-shadow: none;
+	border:  0 none;
 	border-radius: 0;
-
-	margin: 0 .33em;
+	background: #777;
+	color:  #000;
+	text-shadow: none;
+	/* border-radius: .33em; */
 }
 
-.ace-menu input {
-	display: none;
+#ace-fullscreen .ace-btn:hover {
+	background-color: #ffda44;
+	box-shadow: 0 0 1.8em .3em #777 inset;
 }
+
+#ace-fullscreen .ace-btn:active,
+#ace-fullscreen .ace-btn input:checked + label::before {
+	background-color: #ffda44;
+	box-shadow: 0 0 0.5em 0.2em #777 inset;
+}
+
+/* if btn is radio/checkbox + label */
+.ace-btn label {
+	cursor: pointer;
+	display: block;
+}
+.ace-btn label:before {
+	content: "";
+	position: absolute;
+	z-index: -1;
+	display: block;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+}
+
+
 
 
 /* 
@@ -191,23 +253,15 @@
 
 /* keyboard help in button */
 button kbd {
-	border: 0 none;
-	background-color: transparent;
+	/* border: 0 none; */
+	/* background-color: transparent; */
 	
-	color: #535353;
-	font-size: 0.8em;
-	font-weight: normal;
+	/* color: #535353; */
+	/* font-size: 0.8em; */
+	/* font-weight: normal; */
 }
 button kbd:before {
-	content: "| ";
-}
-/*close button*/
-.hide-ace {
-	/* position: fixed; */
-	/* bottom: 25px; */
-	/* right: 40px; */
-	/* height: 2.5em; */
-	/* font-weight: bold; */
+	/* content: "| "; */
 }
 
 /*	
