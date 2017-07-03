@@ -122,6 +122,10 @@ function tom_we_markup() {
                                 <input type="radio" id="ace-links-btn" name="ace-menu-right-content" data-type="iframe" value="links" />
                                 <label for="ace-links-btn">Links</label>
                             </span>
+                            <span class="ace-btn">
+                                <input type="radio" id="ace-preview-btn" name="ace-menu-right-content" data-type="preview" value="preview" />
+                                <label for="ace-preview-btn">Preview</label>
+                            </span>
                             <!-- <button type="button" data-src="images">Images</button> -->
                             <!-- <button type="button" data-src="files">Files</button> -->
                             <!-- <button type="button" data-src="links">Links</button> -->

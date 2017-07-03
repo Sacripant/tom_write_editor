@@ -28,6 +28,7 @@
 
 	// Render Shortcut on html Table
 	function renderTable(data) {
+		console.log(data);
 		if (data.target) {
             var commands = data.content.reduce(function(previous, current) {
                 return previous + '<tr>' + 
@@ -52,6 +53,7 @@
 			txpWritePage.$title = $('#title');
 			txpWritePage.$body = $('#body');
 			txpWritePage.$publish = $('.publish');
+			txpWritePage.preview = document.getElementById('article_partial_article_view');
 		},		
 
 		// Store Editor Objects
@@ -113,11 +115,13 @@
 		        name: "showKeyboardShortcuts",
 		        bindKey: {win: "Ctrl-Alt-k", mac: "Command-Alt-k"},
 		        exec: function(AceEditor) {
+		        	console.log('shortcuts command');
 		        	var action = 'shortcuts';
 	        		hideIframe();
 	        		hideHelp();
 
 		            ace.config.loadModule("ace/ext/menu_tools/get_editor_keyboard_shortcuts", function(module) {
+		            	console.log(module);
 		                editor.keybordShortcuts = module.getEditorKeybordShortcuts(AceEditor);
             			showHelp(action);
 		            });
@@ -132,6 +136,7 @@
 	        		hideIframe();
 	        		hideHelp();
 		            ace.config.loadModule("ace/snippets", function(module) {
+		            	console.log(module);
 		                editor.snippets = module.snippetManager.snippetMap[AceEditor.session.$modeId.split('/').pop()];
             			showHelp(action);
 		            });
@@ -201,7 +206,7 @@
 
 
 		changeRightPanelSize = function(newSize) {
-			console.log(newSize);
+			// console.log(newSize);
 			editor.panel.$right.size = newSize;
 
 			editor.panel.$right
@@ -222,23 +227,22 @@
 				editor.btn.$rightSize.filter("[value=" + prefs.rightPanelDefaultSize + "]")[0].checked = true;
 			}
 
-			var content = btn.value,
+			var idContent = btn.value,
 				type = btn.dataset.type;
 
-			console.log(content + " / " + type);
+			// console.log(idContent + " / "+  type);
 
-			if (content && type) {
+			if (idContent && type) {
 
 				switch(type) {
 					case 'iframe':
 						hideIframe();
 			 			hideHelp();
-						showIframe(content);
-
+						showIframe(idContent, prefs.path[idContent]);
 						break;
 
 					case 'help-table':
-						switch(content) {
+						switch(idContent) {
 							case 'shortcuts':
 						    	editor.ace.execCommand("showKeyboardShortcuts");
 								break;
@@ -247,14 +251,20 @@
 								break;
 						}
 						break;
+
+					case 'preview':
+						hideIframe();
+			 			hideHelp();
+						showIframe(idContent, txpWritePage.preview.href);
+						break;
 				}
 
 			}
 		},
 
 		// Load Txp pages in right panel iframe
-		showIframe = function(pageName) {
-			editor.iframe.el.src = prefs.path[pageName];
+		showIframe = function(idContent, src) {
+			editor.iframe.el.src = src;
 			$(editor.iframe.el).on('load', function() {
 				var iframeContent = $(editor.iframe.el).contents(),
 					dragItems = iframeContent.find('.txp-list tbody tr');
@@ -262,11 +272,14 @@
 				// console.log(dragItems);
 
 				dragItems.each(function(index, el) {
-					dndHandler.applyDragEvents(el, pageName);
+					dndHandler.applyDragEvents(el, idContent);
 				});
 
 				editor.iframe.el.classList.remove('hide');
-				editor.iframe.page = pageName; });
+				editor.iframe.page = idContent; 
+
+				console.log(editor.iframe.page);
+			});
 		},
 
 		hideIframe = function() {
@@ -278,6 +291,7 @@
 		},
 
 		showHelp = function(action) {
+			console.log('shox help');
 			switch(action) {
 				case 'shortcuts':
 					renderTable({
@@ -320,10 +334,6 @@
 		txpWritePageObj();
 		initEditorObj();
 		initAce('ace-editor');	
-
-		// console.log(editor.ace);
-
-		// Store Ace Keybords
 		
 				
 		// show Editor
@@ -351,9 +361,9 @@
 		// change right panel size
 		// changeRightPanelSize(editor.btn.$rightSize.filter(':checked')[0].value);
 		editor.btn.$rightSize.change(function() {
-			console.log("click btn size");
+			// console.log("click btn size");
 			changeRightPanelSize(this.value);
-		})
+		});
 		$(editor.btn.$rightSize.filter(':checked')).change();
 
 
@@ -364,6 +374,14 @@
 			console.log(editor.panel.$right.size === '0');	
 			if (editor.panel.$right.size === '0') removeRightPanelContent();
 		});
+
+
+		textpattern.Relay.register('txpAsyncForm.success', function (event, data) {
+	        console.log('refresh preview if is open');
+	        if (editor.open && editor.iframe.page === 'preview') {
+	        	showIframe('preview', txpWritePage.preview.href);
+	        }
+	    });
 
 		// console.log(editor.panel.$right);
 								
