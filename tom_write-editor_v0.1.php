@@ -107,6 +107,10 @@ function tom_we_markup() {
                     
                     <span class="ace-btnsgroup" id="ace-rightcontent-btns">
                             <span class="ace-btn">
+                                <input type="radio" id="ace-articles-btn" name="ace-menu-right-content" data-type="iframe" value="articles" />
+                                <label for="ace-articles-btn">Articles</label>
+                            </span>
+                            <span class="ace-btn">
                                 <input type="radio" id="ace-images-btn" name="ace-menu-right-content" data-type="iframe" value="images" />
                                 <label for="ace-images-btn">Images</label>
                             </span>
