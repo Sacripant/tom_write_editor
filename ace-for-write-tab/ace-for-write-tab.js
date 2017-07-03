@@ -66,9 +66,10 @@
 				"$rightSize" : $('#ace-panel-size-btns').find('input')
 			};
 			editor.panel = {
-				$right : $('#ace-panel-right'), 
+				$right : $('#ace-panel-right'),
 				$left : $('#ace-panel-left') 
 			};
+			editor.panel.$right.size = 0;
 			editor.title = document.getElementsByClassName('ace-article_title');
 			editor.open = false;
 			editor.iframe = {
@@ -104,7 +105,7 @@
 
 
 			// console.log(editor.ace);
-			console.log(editor.ace.session.$modeId.split('/').pop());
+			// console.log(editor.ace.session.$modeId.split('/').pop());
 
 
    			// console.log(getKeybordShortcuts(editor.ace));
@@ -187,15 +188,68 @@
 		},
 
 
-		rightPanelsize = function(size, callback) {
+
+		removeRightPanelContent = function () {
+			console.log("remove panel right content");
+				hideIframe();
+				hideHelp();
+				// uncheck right panel content btns
+				editor.btn.$rightContent.filter(":checked")[0].checked = false;				
+				// console.log(chkBtn);
+		},
+
+
+
+		changeRightPanelSize = function(newSize) {
+			console.log(newSize);
+			editor.panel.$right.size = newSize;
 
 			editor.panel.$right
-				.css("flexGrow", size)
-				.on('transitionend', function () {
-					editor.ace.resize();
-					if (callback) callback();
-				});
+				.css("flexGrow", newSize);
+		},
 
+		rightPanelContent = function(btn) {
+
+			if (!btn){
+				return false;
+			}
+
+			//	If Right Panel is close
+			//	Open right panel and wheck relative radio btn 
+			if (editor.panel.$right.size === "0") {
+				changeRightPanelSize(prefs.rightPanelDefaultSize);
+				// check relative radio btn
+				editor.btn.$rightSize.filter("[value=" + prefs.rightPanelDefaultSize + "]")[0].checked = true;
+			}
+
+			var content = btn.value,
+				type = btn.dataset.type;
+
+			console.log(content + " / " + type);
+
+			if (content && type) {
+
+				switch(type) {
+					case 'iframe':
+						hideIframe();
+			 			hideHelp();
+						showIframe(content);
+
+						break;
+
+					case 'help-table':
+						switch(content) {
+							case 'shortcuts':
+						    	editor.ace.execCommand("showKeyboardShortcuts");
+								break;
+							case 'snippets':
+						    	editor.ace.execCommand("showSnippets");
+								break;
+						}
+						break;
+				}
+
+			}
 		},
 
 		// Load Txp pages in right panel iframe
@@ -205,7 +259,7 @@
 				var iframeContent = $(editor.iframe.el).contents(),
 					dragItems = iframeContent.find('.txp-list tbody tr');
 
-				console.log(dragItems);
+				// console.log(dragItems);
 
 				dragItems.each(function(index, el) {
 					dndHandler.applyDragEvents(el, pageName);
@@ -288,53 +342,30 @@
 			txpWritePage.$publish.click();
 		});
 
-		// Load left Panel content
-		editor.btn.$rightContent.change(function(event) {
-
-			var content = this.value,
-				type = this.dataset.type;
-
-			if (content && type) {
-
-				switch(type) {
-					case 'iframe':
-						hideIframe();
-			 			hideHelp();
-						showIframe(content);
-
-						break;
-
-					case 'help-table':
-						switch(content) {
-							case 'shortcuts':
-						    	editor.ace.execCommand("showKeyboardShortcuts");
-								break;
-							case 'snippets':
-						    	editor.ace.execCommand("showSnippets");
-								break;
-						}
-						break;
-				}
-
-			} else {
-				// hide left panel
-				rightPanelsize(0, function(){
-					hideIframe();
-					hideHelp();					
-				})
-			}
+		// Load right Panel content
+		rightPanelContent(editor.btn.$rightContent.filter(':checked')[0]);
+		editor.btn.$rightContent.change(function() {
+			rightPanelContent(this);
 		});
 
-
-		console.log(editor.panel.$right);
-		// change left panel size
+		// change right panel size
+		// changeRightPanelSize(editor.btn.$rightSize.filter(':checked')[0].value);
 		editor.btn.$rightSize.change(function() {
 			console.log("click btn size");
-			var size = this.value;
-			console.log(size);
+			changeRightPanelSize(this.value);
+		})
+		$(editor.btn.$rightSize.filter(':checked')).change();
 
-			rightPanelsize(size);
-		}); 
+
+		editor.panel.$right.on('transitionend', function () {
+			// console.log("panel transitionEnd");
+			editor.ace.resize();
+
+			console.log(editor.panel.$right.size === '0');	
+			if (editor.panel.$right.size === '0') removeRightPanelContent();
+		});
+
+		// console.log(editor.panel.$right);
 								
 		$(document).keydown(function(e) {
 			if (editor.open) {
