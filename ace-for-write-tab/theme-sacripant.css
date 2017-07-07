@@ -74,8 +74,6 @@
 	z-index: 9000;
 
 	font-size: 1rem;
-/*	background-color: #fff;*/
-/*	padding: 10px 0;*/
 }
 
 .tomWE-on #tomWE {
@@ -199,6 +197,7 @@
 	flex: 0 1 0%;
 	transition:  800ms flex;
 	overflow: auto;
+	border-left: 10px solid #000;
 }
 
 
