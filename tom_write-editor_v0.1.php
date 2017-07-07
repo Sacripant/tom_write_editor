@@ -10,7 +10,7 @@
 // file name. Plugin names should start with a three letter prefix which is
 // unique and reserved for each plugin author ("abc" is just an example).
 // Uncomment and edit this line to override:
-$plugin['name'] = 'tom_write-editor';
+$plugin['name'] = 'tom_write_editor';
 
 // Allow raw HTML help, as opposed to Textile.
 // 0 = Plugin help is in Textile format, no raw HTML allowed (default).
@@ -87,78 +87,78 @@ function tom_we_markup() {
         <!-- 
             TOM WRITE EDITOR MARKUP 
         -->
-        <div id="ace-fullscreen">
-            <div class="ace-menu">
+        <div id="tomWE">
+            <div class="tomWE-menu">
                 <!-- left BTNS -->
-                <div class="ace-menu-left">
-                    <span class="ace-btnsgroup">
-                        <button type="button" id="ace-save-btn" class="ace-btn ace-save-btn">
+                <div class="tomWE-menu-left">
+                    <span class="tomWE-btnsgroup">
+                        <button type="button" id="tomWE-save-btn" class="tomWE-btn tomWE-save-btn">
                             save
                         </button>                        
                     </span>
-                    <span class="ace-btnsgroup">
-                        <button type="button" id="ace-hide-btn" class="ace-btn ace-hide-btn">    
+                    <span class="tomWE-btnsgroup">
+                        <button type="button" id="tomWE-hide-btn" class="tomWE-btn tomWE-hide-btn">    
                             close                              
                         </button>
                     </span>
                 </div>
                 <!-- right BTNS -->
-                <div class="ace-menu-right">
+                <div class="tomWE-menu-right">
                     
-                    <span class="ace-btnsgroup" id="ace-rightcontent-btns">
-                            <span class="ace-btn">
-                                <input type="radio" id="ace-articles-btn" name="ace-menu-right-content" data-type="iframe" value="articles" />
-                                <label for="ace-articles-btn">Articles</label>
+                    <span class="tomWE-btnsgroup" id="tomWE-rightcontent-btns">
+                            <span class="tomWE-btn">
+                                <input type="radio" id="tomWE-articles-btn" name="tomWE-menu-right-content" data-type="iframe" value="articles" />
+                                <label for="tomWE-articles-btn">Articles</label>
                             </span>
-                            <span class="ace-btn">
-                                <input type="radio" id="ace-images-btn" name="ace-menu-right-content" data-type="iframe" value="images" />
-                                <label for="ace-images-btn">Images</label>
+                            <span class="tomWE-btn">
+                                <input type="radio" id="tomWE-images-btn" name="tomWE-menu-right-content" data-type="iframe" value="images" />
+                                <label for="tomWE-images-btn">Images</label>
                             </span>
-                            <span class="ace-btn">
-                                <input type="radio" id="ace-files-btn" name="ace-menu-right-content" data-type="iframe" value="files" />
-                                <label for="ace-files-btn">files</label>
+                            <span class="tomWE-btn">
+                                <input type="radio" id="tomWE-files-btn" name="tomWE-menu-right-content" data-type="iframe" value="files" />
+                                <label for="tomWE-files-btn">files</label>
                             </span>
-                            <span class="ace-btn">
-                                <input type="radio" id="ace-links-btn" name="ace-menu-right-content" data-type="iframe" value="links" />
-                                <label for="ace-links-btn">Links</label>
+                            <span class="tomWE-btn">
+                                <input type="radio" id="tomWE-links-btn" name="tomWE-menu-right-content" data-type="iframe" value="links" />
+                                <label for="tomWE-links-btn">Links</label>
                             </span>
-                            <span class="ace-btn">
-                                <input type="radio" id="ace-preview-btn" name="ace-menu-right-content" data-type="preview" value="preview" />
-                                <label for="ace-preview-btn">Preview</label>
+                            <span class="tomWE-btn">
+                                <input type="radio" id="tomWE-preview-btn" name="tomWE-menu-right-content" data-type="preview" value="preview" />
+                                <label for="tomWE-preview-btn">Preview</label>
                             </span>
                             <!-- <button type="button" data-src="images">Images</button> -->
                             <!-- <button type="button" data-src="files">Files</button> -->
                             <!-- <button type="button" data-src="links">Links</button> -->
                         
-                            <span class="ace-btn">
-                                <input type="radio" id="ace-shortcuts-btn" name="ace-menu-right-content" data-type="help-table" value="shortcuts" />
-                                <label for="ace-shortcuts-btn">Shortcuts</label>
+                            <span class="tomWE-btn">
+                                <input type="radio" id="tomWE-shortcuts-btn" name="tomWE-menu-right-content" data-type="help-table" value="shortcuts" />
+                                <label for="tomWE-shortcuts-btn">Shortcuts</label>
                             </span>
-                            <span class="ace-btn">
-                                <input type="radio" id="ace-snippets-btn" name="ace-menu-right-content" data-type="help-table" value="snippets" />
-                                <label for="ace-snippets-btn">Snippets</label>
+                            <span class="tomWE-btn">
+                                <input type="radio" id="tomWE-snippets-btn" name="tomWE-menu-right-content" data-type="help-table" value="snippets" />
+                                <label for="tomWE-snippets-btn">Snippets</label>
                             </span>
                             <!-- <button type="button" data-help="shortcuts">Shortcuts</button> -->
                             <!-- <button type="button" data-help="snippets">Snippets</button> -->
                     </span>
 
-                    <span class="ace-btnsgroup" id="ace-panel-size-btns">
-                        <span class="ace-btn">
-                            <input type="radio" id="ace-size2-3-btn" name="ace-menu-right-size" value="4">
-                            <label for="ace-size2-3-btn">2/3</label>
+                    <span class="tomWE-btnsgroup" id="tomWE-panel-size-btns">
+                        <span class="tomWE-btn">
+                            <input type="radio" id="tomWE-size2-3-btn" name="tomWE-menu-right-size" value="4">
+                            <label for="tomWE-size2-3-btn">2/3</label>
                         </span>
-                        <span class="ace-btn">
-                            <input type="radio" id="ace-size1-2-btn" name="ace-menu-right-size" value="2">
-                            <label for="ace-size1-2-btn">1-2</label>
+                        <span class="tomWE-btn">
+                            <input type="radio" id="tomWE-size1-2-btn" name="tomWE-menu-right-size" value="2">
+                            <label for="tomWE-size1-2-btn">1-2</label>
                         </span>
-                        <span class="ace-btn">
-                            <input type="radio" id="ace-size1-3-btn" name="ace-menu-right-size" value="1">
-                            <label for="ace-size1-3-btn">1/3</label>
+                        <span class="tomWE-btn">
+                            <input type="radio" id="tomWE-size1-3-btn" name="tomWE-menu-right-size" value="1">
+                            <label for="tomWE-size1-3-btn">1/3</label>
                         </span>
                         <!-- close left Panel btn -->
-                        <span class="ace-btn">
-                            <input type="radio" id="ace-closePanel-btn" name="ace-menu-right-size" value="0" checked />
-                            <label for="ace-closePanel-btn">close</label>
+                        <span class="tomWE-btn">
+                            <input type="radio" id="tomWE-closePanel-btn" name="tomWE-menu-right-size" value="0" checked />
+                            <label for="tomWE-closePanel-btn">close</label>
                         </span>
                         <!-- <button data-panel-size="4" type="button">2/3</button> -->
                         <!-- <button data-panel-size="2" type="button">1/2</button> -->
@@ -167,18 +167,18 @@ function tom_we_markup() {
 
                 </div>
             </div>
-            <div class="ace-panels">
+            <div class="tomWE-panels">
                 <!-- Editor/Left panel -->
-                <div id="ace-panel-left" class="ace-panel-left">
-                    <h1 class="ace-article_title"></h1>                        
+                <div id="tomWE-panel-left" class="tomWE-panel-left">
+                    <h1 class="tomWE-article_title"></h1>                        
                     <div class="editor-wrapper">                               
-                        <div id="ace-editor"></div>                             
+                        <div id="tomWE-editor"></div>                             
                     </div>
                 </div>  
                 <!-- Right panel -->
-                <div id="ace-panel-right" class="ace-panel-right">
-                    <iframe id="ace-iframe" class="ace-panel-right-content hide" frameborder="0"></iframe>
-                    <div id="ace-help" class="ace-panel-right-content hide" frameborder="0"></div>
+                <div id="tomWE-panel-right" class="tomWE-panel-right">
+                    <iframe id="tomWE-iframe" class="tomWE-panel-right-content hide" frameborder="0"></iframe>
+                    <div id="tomWE-help" class="tomWE-panel-right-content hide" frameborder="0"></div>
                 </div>
             </div>                                                                        
         </div> 

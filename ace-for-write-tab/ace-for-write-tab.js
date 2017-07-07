@@ -60,27 +60,24 @@
 		initEditorObj = function() {
 			editor.btn = {
 				"$show" : $('<a class="show-ace ace-show-hide"><i>fullscreen</i></a>').prependTo('.body'),
-				"$hide" : $('#ace-hide-btn'),
-				"$save": $('#ace-save-btn'),
-				// "$iframeSrcs": $('#ace-iframe-btn').find('button'),
-				// "$help" : $('#ace-help-btns').find('button'),
-				"$rightContent" : $('#ace-rightcontent-btns').find('input'), 
-				"$rightSize" : $('#ace-panel-size-btns').find('input')
+				"$hide" : $('#tomWE-hide-btn'),
+				"$save": $('#tomWE-save-btn'),
+				// "$iframeSrcs": $('#tomWE-iframe-btn').find('button'),
+				// "$help" : $('#tomWE-help-btns').find('button'),
+				"$rightContent" : $('#tomWE-rightcontent-btns').find('input'), 
+				"$rightSize" : $('#tomWE-panel-size-btns').find('input')
 			};
 			editor.panel = {
-				$right : $('#ace-panel-right'),
-				$left : $('#ace-panel-left') 
+				$right : $('#tomWE-panel-right'),
+				$left : $('#tomWE-panel-left') 
 			};
 			editor.panel.$right.size = 0;
-			editor.title = document.getElementsByClassName('ace-article_title');
-			editor.open = false;
+			editor.title = document.getElementsByClassName('tomWE-article_title'); editor.open = false;
 			editor.iframe = {
-				el : document.getElementById('ace-iframe'),
-				page : undefined
+				el : document.getElementById('tomWE-iframe'), page : undefined
 			};
 			editor.help = {
-				el : document.getElementById('ace-help'),
-				page: undefined
+				el : document.getElementById('tomWE-help'), page: undefined
 			};
 		},
 
@@ -180,14 +177,14 @@
 			$(editor.title).text(txpWritePage.$title.val());
 						
 			// Show Editor
-			$('html').addClass('ace-editor-on');
+			$('html').addClass('tomWE-on');
 
 			editor.open = true;
 		},
 
 		// Hide Editor
 		hideEditor = function() {
-			$('html').removeClass('ace-editor-on');	
+			$('html').removeClass('tomWE-on');	
 
 			editor.open = false;			
 		},
@@ -333,7 +330,7 @@
 		
 		txpWritePageObj();
 		initEditorObj();
-		initAce('ace-editor');	
+		initAce('tomWE-editor');	
 		
 				
 		// show Editor

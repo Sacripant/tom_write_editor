@@ -30,26 +30,26 @@
 /* 
  *	Modify Txp CSS when editor is ON 
  */
-.ace-editor-on,
-.ace-editor-on body  {
+.tomWE-on,
+.tomWE-on body  {
 	height: 100%;
 	padding: 0;	
 }
 
 /* Hide write page scrollbar */
-.ace-editor-on body {
+.tomWE-on body {
 	overflow: hidden; 
 }
 
-.ace-editor-on #messagepane {
+.tomWE-on #messagepane {
 	z-index: 10000;
 }
 /* Show messagepane top on Editor */
-.ace-editor-on .txp-header {
+.tomWE-on .txp-header {
 	/* position: static; */
 }
 
-.ace-editor-on .txp-logout {
+.tomWE-on .txp-logout {
 	/* z-index: 1; */
 }
 
@@ -57,11 +57,11 @@
  *	Fullscrenn panel
  */
 
-#ace-fullscreen * {
+#tomWE * {
 	box-sizing: border-box;
 } 
 		
-#ace-fullscreen {
+#tomWE {
 	display: none;
 	visibility: hidden;
 	position: fixed;
@@ -78,31 +78,31 @@
 /*	padding: 10px 0;*/
 }
 
-.ace-editor-on #ace-fullscreen {
+.tomWE-on #tomWE {
 	display: block;
 	visibility: visible;
 }
 
 /* Menu	*/
-.ace-menu {
+.tomWE-menu {
 	background-color: #000;
 	/* background-color: hsla(0,0%,30%,0.9); */
 	display: flex;
 	height: 2.2em;
 	padding: .1em .33em;
 }
-.ace-menu-left {
+.tomWE-menu-left {
 	flex-grow: 1;
 }
 
 
 /* hidden input radio */
-.ace-menu input {
+.tomWE-menu input {
 	display: none;
 }
 
 /* BTNS group */
-.ace-btnsgroup {
+.tomWE-btnsgroup {
 	display: inline-flex;
 	position: relative;
 	z-index: 1;
@@ -113,21 +113,21 @@
 	overflow: hidden;
 }
 
-#ace-fullscreen .ace-btnsgroup .ace-btn {
+#tomWE .tomWE-btnsgroup .tomWE-btn {
 	/* border-radius: 0; */
 	margin-right: 2px;
 }
 
-#ace-fullscreen .ace-btnsgroup .ace-btn:first-child {
+#tomWE .tomWE-btnsgroup .tomWE-btn:first-child {
 	/* border-radius: .33em 0 0 .33em; */
 }
-#ace-fullscreen .ace-btnsgroup .ace-btn:last-child {
+#tomWE .tomWE-btnsgroup .tomWE-btn:last-child {
 	/* border-radius: 0 .33em .33em 0; */
 	margin-right: 0;
 }
 
 /* BTN */
-#ace-fullscreen .ace-btn {
+#tomWE .tomWE-btn {
 	position: relative;
 	z-index: 1;
 
@@ -151,23 +151,23 @@
 	/* border-radius: .33em; */
 }
 
-#ace-fullscreen .ace-btn:hover {
+#tomWE .tomWE-btn:hover {
 	background-color: #ffda44;
 	box-shadow: 0 0 1.8em .3em #777 inset;
 }
 
-#ace-fullscreen .ace-btn:active,
-#ace-fullscreen .ace-btn input:checked + label::before {
+#tomWE .tomWE-btn:active,
+#tomWE .tomWE-btn input:checked + label::before {
 	background-color: #ffda44;
 	box-shadow: 0 0 0.5em 0.2em #777 inset;
 }
 
 /* if btn is radio/checkbox + label */
-.ace-btn label {
+.tomWE-btn label {
 	cursor: pointer;
 	display: block;
 }
-.ace-btn label:before {
+.tomWE-btn label:before {
 	content: "";
 	position: absolute;
 	z-index: -1;
@@ -184,18 +184,18 @@
 /* 
  *	Panels 
  */
-.ace-panels {
+.tomWE-panels {
 	display: flex;
 	height: calc(100vh - 2em);
 }
 
 /* ace panel */
-.ace-panel-left {
+.tomWE-panel-left {
 	flex: 2 1 0%;
 	transition:  800ms flex;
 }
 /* iframe and help panel */
-.ace-panel-right {
+.tomWE-panel-right {
 	flex: 0 1 0%;
 	transition:  800ms flex;
 	overflow: auto;
@@ -206,7 +206,7 @@
  *	Left panel
  */
 
-.ace-article_title {
+.tomWE-article_title {
 	font-size: 20px;
 	line-height: 50px;
 	text-align: left;
@@ -224,7 +224,7 @@
 	/*top: 75px;		*/
 }
 
-#ace-editor {
+#tomWE-editor {
 	overflow: visible;
 	position: static;
 	width: 100%; height: 100%;
@@ -240,7 +240,7 @@
  *	right Panel 
  */
 
-.ace-panel-right-content {
+.tomWE-panel-right-content {
 	width: 100%;
 	height: 100%;
 	min-width: 30vw;
