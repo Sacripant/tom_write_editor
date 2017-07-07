@@ -191,17 +191,6 @@
 
 
 
-		removeRightPanelContent = function () {
-			console.log("remove panel right content");
-				hideIframe();
-				hideHelp();
-				// uncheck right panel content btns
-				editor.btn.$rightContent.filter(":checked")[0].checked = false;				
-				// console.log(chkBtn);
-		},
-
-
-
 		changeRightPanelSize = function(newSize) {
 			// console.log(newSize);
 			editor.panel.$right.size = newSize;
@@ -209,6 +198,21 @@
 			editor.panel.$right
 				.css("flexGrow", newSize);
 		},
+
+
+		removeRightPanelContent = function () {
+			console.log("remove panel right content");
+				hideIframe();
+				hideHelp();
+				// uncheck right panel content btns
+				editor.btn.$rightContent.filter(":checked")[0].checked = false;
+				// disabled size btns
+				editor.btn.$rightSize.each(function(i, el) {
+					el.disabled = true;
+				});		
+				// console.log(chkBtn);
+		},
+
 
 		rightPanelContent = function(btn) {
 
@@ -221,7 +225,12 @@
 			if (editor.panel.$right.size === "0") {
 				changeRightPanelSize(prefs.rightPanelDefaultSize);
 				// check relative radio btn
-				editor.btn.$rightSize.filter("[value=" + prefs.rightPanelDefaultSize + "]")[0].checked = true;
+				editor.btn.$rightSize.each(function(i, el) {
+					el.disabled = false;
+					if (el.value === prefs.rightPanelDefaultSize)
+						el.checked = true;
+				});
+				// editor.btn.$rightSize.filter("[value=" +  + "]")[0].checked = true;
 			}
 
 			var idContent = btn.value,
@@ -367,8 +376,9 @@
 		editor.panel.$right.on('transitionend', function () {
 			// console.log("panel transitionEnd");
 			editor.ace.resize();
+			// console.log(editor.panel.$right.size === '0');
 
-			console.log(editor.panel.$right.size === '0');	
+			// if close panel right: remove panel right content
 			if (editor.panel.$right.size === '0') removeRightPanelContent();
 		});
 

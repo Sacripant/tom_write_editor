@@ -144,20 +144,20 @@ function tom_we_markup() {
 
                     <span class="tomWE-btnsgroup" id="tomWE-panel-size-btns">
                         <span class="tomWE-btn">
-                            <input type="radio" id="tomWE-size2-3-btn" name="tomWE-menu-right-size" value="4">
+                            <input type="radio" id="tomWE-size2-3-btn" name="tomWE-menu-right-size" value="4" disabled>
                             <label for="tomWE-size2-3-btn">2/3</label>
                         </span>
                         <span class="tomWE-btn">
-                            <input type="radio" id="tomWE-size1-2-btn" name="tomWE-menu-right-size" value="2">
+                            <input type="radio" id="tomWE-size1-2-btn" name="tomWE-menu-right-size" value="2" disabled>
                             <label for="tomWE-size1-2-btn">1-2</label>
                         </span>
                         <span class="tomWE-btn">
-                            <input type="radio" id="tomWE-size1-3-btn" name="tomWE-menu-right-size" value="1">
+                            <input type="radio" id="tomWE-size1-3-btn" name="tomWE-menu-right-size" value="1" disabled>
                             <label for="tomWE-size1-3-btn">1/3</label>
                         </span>
                         <!-- close left Panel btn -->
                         <span class="tomWE-btn">
-                            <input type="radio" id="tomWE-closePanel-btn" name="tomWE-menu-right-size" value="0" checked />
+                            <input type="radio" id="tomWE-closePanel-btn" name="tomWE-menu-right-size" value="0" disabled checked />
                             <label for="tomWE-closePanel-btn">close</label>
                         </span>
                         <!-- <button data-panel-size="4" type="button">2/3</button> -->

@@ -125,7 +125,8 @@
 }
 
 /* BTN */
-#tomWE .tomWE-btn {
+#tomWE button.tomWE-btn,
+#tomWE span.tomWE-btn label {
 	position: relative;
 	z-index: 1;
 
@@ -149,23 +150,20 @@
 	/* border-radius: .33em; */
 }
 
-#tomWE .tomWE-btn:hover {
-	background-color: #ffda44;
-	box-shadow: 0 0 1.8em .3em #777 inset;
-}
-
-#tomWE .tomWE-btn:active,
-#tomWE .tomWE-btn input:checked + label::before {
-	background-color: #ffda44;
-	box-shadow: 0 0 0.5em 0.2em #777 inset;
-}
-
 /* if btn is radio/checkbox + label */
+
 .tomWE-btn label {
 	cursor: pointer;
 	display: block;
 }
-.tomWE-btn label:before {
+
+#tomWE .tomWE-btn input:disabled + label {
+	cursor: default;
+}
+#tomWE .tomWE-btn input:disabled:not(:checked) + label {
+	opacity:  .5;
+}
+/* .tomWE-btn label:before {
 	content: "";
 	position: absolute;
 	z-index: -1;
@@ -174,6 +172,18 @@
 	bottom: 0;
 	left: 0;
 	right: 0;
+} */
+
+#tomWE button.tomWE-btn:hover,
+#tomWE span.tomWE-btn:hover input:not(:disabled) + label {
+	background-color: #ffda44;
+	box-shadow: 0 0 1.8em .3em #777 inset;
+}
+
+#tomWE button.tomWE-btn:active,
+#tomWE span.tomWE-btn input:checked + label {
+	background-color: #ffda44;
+	box-shadow: 0 0 0.5em 0.2em #777 inset;
 }
 
 
