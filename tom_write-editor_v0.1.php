@@ -106,63 +106,155 @@ function tom_we_markup() {
                 <div class="tomWE-menu-right">
                     
                     <span class="tomWE-btnsgroup" id="tomWE-rightcontent-btns">
+                            <!-- articles btn -->
                             <span class="tomWE-btn">
                                 <input type="radio" id="tomWE-articles-btn" name="tomWE-menu-right-content" data-type="iframe" value="articles" />
-                                <label for="tomWE-articles-btn">Articles</label>
+                                <label 
+                                    for="tomWE-articles-btn"
+                                    title="aticles"
+                                    aria-label="aticles"
+                                >
+                                    <svg viewBox="0 0 20 20">
+                                        <use class="tomWE-icon tomWE-icon-articles" xlink:href="ace-for-txp/ace-for-write-tab/icons.svg#articles" />
+                                    </svg>
+                                </label>
                             </span>
+                            
+                            <!-- images btn -->
                             <span class="tomWE-btn">
                                 <input type="radio" id="tomWE-images-btn" name="tomWE-menu-right-content" data-type="iframe" value="images" />
-                                <label for="tomWE-images-btn">Images</label>
+                                <label 
+                                    for="tomWE-images-btn"
+                                    title="images"
+                                    aria-label="images"
+                                >
+                                    <svg viewBox="0 0 20 20">
+                                        <use class="tomWE-icon tomWE-icon-images" xlink:href="ace-for-txp/ace-for-write-tab/icons.svg#images" />
+                                    </svg>
+                                </label>
                             </span>
+
+                            <!-- files btn -->
                             <span class="tomWE-btn">
                                 <input type="radio" id="tomWE-files-btn" name="tomWE-menu-right-content" data-type="iframe" value="files" />
-                                <label for="tomWE-files-btn">files</label>
+                                <label 
+                                    for="tomWE-files-btn"
+                                    title="files"
+                                    aria-label="files"
+                                >
+                                    <svg viewBox="0 0 20 20">
+                                        <use class="tomWE-icon tomWE-icon-files" xlink:href="ace-for-txp/ace-for-write-tab/icons.svg#files" />
+                                    </svg>
+                                </label>
                             </span>
+
+                            <!-- links btn -->
                             <span class="tomWE-btn">
                                 <input type="radio" id="tomWE-links-btn" name="tomWE-menu-right-content" data-type="iframe" value="links" />
-                                <label for="tomWE-links-btn">Links</label>
+                                <label 
+                                    for="tomWE-links-btn"
+                                    title="links"
+                                    aria-label="links"
+                                >
+                                    <svg viewBox="0 0 20 20">
+                                        <use class="tomWE-icon tomWE-icon-links" xlink:href="ace-for-txp/ace-for-write-tab/icons.svg#links" />
+                                    </svg>
+                                </label>
                             </span>
+
+                            <!-- preview btn -->
                             <span class="tomWE-btn">
                                 <input type="radio" id="tomWE-preview-btn" name="tomWE-menu-right-content" data-type="preview" value="preview" />
-                                <label for="tomWE-preview-btn">Preview</label>
+                                <label 
+                                    for="tomWE-preview-btn"
+                                    title="preview"
+                                    aria-label="preview"
+                                >
+                                    <svg viewBox="0 0 20 20">
+                                        <use class="tomWE-icon tomWE-icon-preview"  xlink:href="ace-for-txp/ace-for-write-tab/icons.svg#preview" />
+                                    </svg>
+                                </label>
                             </span>
-                            <!-- <button type="button" data-src="images">Images</button> -->
-                            <!-- <button type="button" data-src="files">Files</button> -->
-                            <!-- <button type="button" data-src="links">Links</button> -->
                         
+                            <!-- shortcuts btn -->
                             <span class="tomWE-btn">
                                 <input type="radio" id="tomWE-shortcuts-btn" name="tomWE-menu-right-content" data-type="help-table" value="shortcuts" />
-                                <label for="tomWE-shortcuts-btn">Shortcuts</label>
+                                <label 
+                                    for="tomWE-shortcuts-btn"
+                                    title="Shortcuts"
+                                    aria-label="Shortcuts"
+                                >
+                                    <svg viewBox="0 0 20 20">
+                                        <use class="tomWE-icon tomWE-icon-shortcuts" xlink:href="ace-for-txp/ace-for-write-tab/icons.svg#shortcuts" />
+                                    </svg>
+                                </label>
                             </span>
+                            
+                            <!-- snippets btn -->
                             <span class="tomWE-btn">
                                 <input type="radio" id="tomWE-snippets-btn" name="tomWE-menu-right-content" data-type="help-table" value="snippets" />
-                                <label for="tomWE-snippets-btn">Snippets</label>
+                                <label 
+                                    for="tomWE-snippets-btn"
+                                    title="Snippets"
+                                    aria-label="Snippets"
+                                >
+                                    <svg viewBox="0 0 20 20">
+                                        <use class="tomWE-icon tomWE-icon-snippets" xlink:href="ace-for-txp/ace-for-write-tab/icons.svg#snippets" />
+                                    </svg>                                    
+                                </label>
                             </span>
-                            <!-- <button type="button" data-help="shortcuts">Shortcuts</button> -->
-                            <!-- <button type="button" data-help="snippets">Snippets</button> -->
                     </span>
 
                     <span class="tomWE-btnsgroup" id="tomWE-panel-size-btns">
+                        <!-- 2/3 size btn -->
                         <span class="tomWE-btn">
                             <input type="radio" id="tomWE-size2-3-btn" name="tomWE-menu-right-size" value="4" disabled>
-                            <label for="tomWE-size2-3-btn">2/3</label>
+                            <label 
+                                for="tomWE-size2-3-btn"
+                                title="panel size: 2/3"
+                            >
+                                <svg viewBox="0 0 20 20">
+                                    <use class="tomWE-icon-size tomWE-icon-size2-3" xlink:href="ace-for-txp/ace-for-write-tab/icons.svg#size2-3" />
+                                </svg>                                    
+                            </label>
                         </span>
+                        <!-- 1/2 size btn -->
                         <span class="tomWE-btn">
                             <input type="radio" id="tomWE-size1-2-btn" name="tomWE-menu-right-size" value="2" disabled>
-                            <label for="tomWE-size1-2-btn">1-2</label>
+                            <label 
+                                for="tomWE-size1-2-btn"
+                                title="panel size: 1/2"
+                            >
+                                <svg viewBox="0 0 20 20">
+                                    <use class="tomWE-icon-size tomWE-icon-size1-2" xlink:href="ace-for-txp/ace-for-write-tab/icons.svg#size1-2" />
+                                </svg>                                    
+                            </label>
                         </span>
+                        <!-- 1/3 size btn -->
                         <span class="tomWE-btn">
                             <input type="radio" id="tomWE-size1-3-btn" name="tomWE-menu-right-size" value="1" disabled>
-                            <label for="tomWE-size1-3-btn">1/3</label>
+                            <label 
+                                for="tomWE-size1-3-btn"
+                                title="panel size: 1/3"
+                            >
+                                <svg viewBox="0 0 20 20">
+                                    <use class="tomWE-icon-size tomWE-icon-size1-3" xlink:href="ace-for-txp/ace-for-write-tab/icons.svg#size1-3" />
+                                </svg>                                    
+                            </label>
                         </span>
+                        <!-- 0 size btn -->
                         <!-- close left Panel btn -->
                         <span class="tomWE-btn">
                             <input type="radio" id="tomWE-closePanel-btn" name="tomWE-menu-right-size" value="0" disabled checked />
-                            <label for="tomWE-closePanel-btn">close</label>
+                            <label 
+                                for="tomWE-closePanel-btn"
+                                title="Close right panel"
+                            >
+                                <svg viewBox="0 0 20 20">
+                                    <use class="tomWE-icon-size tomWE-icon-size0" xlink:href="ace-for-txp/ace-for-write-tab/icons.svg#size0" />
+                                </svg>                                    
+                            </label>
                         </span>
-                        <!-- <button data-panel-size="4" type="button">2/3</button> -->
-                        <!-- <button data-panel-size="2" type="button">1/2</button> -->
-                        <!-- <button data-panel-size="1" type="button">1/3</button>         -->
                     </span>
 
                 </div>

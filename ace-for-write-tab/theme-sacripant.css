@@ -81,7 +81,12 @@
 	visibility: visible;
 }
 
-/* Menu	*/
+
+/* 
+ *	Menu	
+ */
+
+
 .tomWE-menu {
 	background-color: #000;
 	/* background-color: hsla(0,0%,30%,0.9); */
@@ -99,7 +104,9 @@
 	display: none;
 }
 
-/* BTNS group */
+/* BTNS group 
+-------------- */
+
 .tomWE-btnsgroup {
 	display: inline-flex;
 	position: relative;
@@ -124,7 +131,9 @@
 	margin-right: 0;
 }
 
-/* BTN */
+/* BTN 
+------- */
+
 #tomWE button.tomWE-btn,
 #tomWE span.tomWE-btn label {
 	position: relative;
@@ -163,16 +172,6 @@
 #tomWE .tomWE-btn input:disabled:not(:checked) + label {
 	opacity:  .5;
 }
-/* .tomWE-btn label:before {
-	content: "";
-	position: absolute;
-	z-index: -1;
-	display: block;
-	top: 0;
-	bottom: 0;
-	left: 0;
-	right: 0;
-} */
 
 #tomWE button.tomWE-btn:hover,
 #tomWE span.tomWE-btn:hover input:not(:disabled) + label {
@@ -187,7 +186,49 @@
 }
 
 
+/* Icons 
+--------- */
 
+.tomWE-menu svg {
+	width: 2em;
+	height: 2em;
+	padding-top: .15em;
+	padding-bottom: .15em;
+	display: block;
+}
+
+.tomWE-icon {
+	stroke-width: 1px;
+	stroke: #000;
+	fill:  hsla(0,0%,100%,.4);
+	stroke-linejoin:bevel	
+}
+
+/* checked styles */
+span.tomWE-btn input:checked + label .tomWE-icon {
+	fill:  #fff;	
+}
+
+.tomWE-icon-shortcuts {
+    fill:  #000 !important;
+}
+
+.tomWE-icon-snippets {
+    fill:  #000 !important;
+    stroke-width: 0;
+}
+
+/* Icon size */
+.tomWE-icon-size {
+	fill:  #333;
+	stroke:  #000;
+	stroke-width:  1px;
+	color:  hsla(0,0%,100%,.4);
+} 
+
+span.tomWE-btn input:checked + label .tomWE-icon-size {
+	color:  #fff;	
+}
 
 /* 
  *	Panels 
