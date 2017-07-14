@@ -270,7 +270,7 @@ function tom_we_markup() {
                 <!-- Right panel -->
                 <div id="tomWE-panel-right" class="tomWE-panel-right">
                     <iframe id="tomWE-iframe" class="tomWE-panel-right-content hide" frameborder="0"></iframe>
-                    <div id="tomWE-help" class="tomWE-panel-right-content hide" frameborder="0"></div>
+                    <div id="tomWE-help" class="tomWE-panel-right-content tomWE-help-table hide"></div>
                 </div>
             </div>                                                                        
         </div> 

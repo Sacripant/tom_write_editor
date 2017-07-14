@@ -257,7 +257,7 @@ span.tomWE-btn input:checked + label .tomWE-icon-size {
  */
 
 .tomWE-article_title {
-	font-size: 20px;
+	/* font-size: 20px; */
 	line-height: 50px;
 	text-align: left;
 	color: #eee;
@@ -296,6 +296,15 @@ span.tomWE-btn input:checked + label .tomWE-icon-size {
 	min-width: 30vw;
 	overflow-y: auto;
 }
+
+.tomWE-help-table {
+	margin: 0 1.5em;
+
+} 
+
+.tomWE-help-table tr:hover {
+	background-color: #000;	
+} 
 
 /*
  *	Save & Exit buttons
