@@ -1,4 +1,4 @@
-(function ($) {
+(function ($, ace) {
 
 	/*
 	 * Get JSON Prefs file
@@ -62,6 +62,7 @@
 				"$show" : $('<a class="show-ace ace-show-hide"><i>fullscreen</i></a>').prependTo('.body'),
 				"$hide" : $('#tomWE-hide-btn'),
 				"$save": $('#tomWE-save-btn'),
+				"$settings" : $('#tomWE-settings-btn'),
 				// "$iframeSrcs": $('#tomWE-iframe-btn').find('button'),
 				// "$help" : $('#tomWE-help-btns').find('button'),
 				"$rightContent" : $('#tomWE-rightcontent-btns').find('input'), 
@@ -72,12 +73,15 @@
 				$left : $('#tomWE-panel-left') 
 			};
 			editor.panel.$right.size = 0;
-			editor.title = document.getElementsByClassName('tomWE-article_title'); editor.open = false;
+			editor.title = document.getElementsByClassName('tomWE-article_title'); 
+			editor.open = false;
 			editor.iframe = {
-				el : document.getElementById('tomWE-iframe'), page : undefined
+				el : document.getElementById('tomWE-iframe'), 
+				page : undefined
 			};
 			editor.help = {
-				el : document.getElementById('tomWE-help'), page: undefined
+				el : document.getElementById('tomWE-help'), 
+				page: undefined
 			};
 		},
 
@@ -102,43 +106,69 @@
 				txpWritePage.$body.val(editor.ace.getSession().getValue());
 			});
 
+	    	// Show Txp Articles tab
+			editor.ace.commands.addCommand({
+		        name: "showTxpArticlesTab",
+		        bindKey: prefs.bindKey.articles,
+		        exec: function() {
+		        	editor.btn.$rightContent.filter('[value="articles"]').click();
+		        }
+	    	});
 
-			// console.log(editor.ace);
-			// console.log(editor.ace.session.$modeId.split('/').pop());
+	    	// Show Txp Images tab
+			editor.ace.commands.addCommand({
+		        name: "showTxpImagesTab",
+		        bindKey: prefs.bindKey.images,
+		        exec: function() {
+		        	editor.btn.$rightContent.filter('[value="images"]').click();
+		        }
+	    	});
 
+	    	// Show Txp Files tab
+			editor.ace.commands.addCommand({
+		        name: "showTxpFilesTab",
+		        bindKey: prefs.bindKey.files,
+		        exec: function() {
+		        	editor.btn.$rightContent.filter('[value="files"]').click();
+		        }
+	    	});
 
-   			// console.log(getKeybordShortcuts(editor.ace));
+	    	// Show Txp Links tab
+			editor.ace.commands.addCommand({
+		        name: "showTxpLinksTab",
+		        bindKey: prefs.bindKey.links,
+		        exec: function() {
+		        	editor.btn.$rightContent.filter('[value="links"]').click();
+		        }
+	    	});
+
+	    	// Show Txp Preview tab
+			editor.ace.commands.addCommand({
+		        name: "showTxpPreviewTab",
+		        bindKey: prefs.bindKey.preview,
+		        exec: function() {
+		        	editor.btn.$rightContent.filter('[value="preview"]').click();
+		        }
+	    	});
+
+   			// Show Keyboard Shortcuts
 			editor.ace.commands.addCommand({
 		        name: "showKeyboardShortcuts",
-		        bindKey: {win: "Ctrl-Alt-k", mac: "Command-Alt-k"},
-		        exec: function(AceEditor) {
-		        	console.log('shortcuts command');
-		        	var action = 'shortcuts';
-	        		hideIframe();
-	        		hideHelp();
-
-		            ace.config.loadModule("ace/ext/menu_tools/get_editor_keyboard_shortcuts", function(module) {
-		            	console.log(module);
-		                editor.keybordShortcuts = module.getEditorKeybordShortcuts(AceEditor);
-            			showHelp(action);
-		            });
+		        bindKey: prefs.bindKey.shortcuts,
+		        exec: function() {
+		        	editor.btn.$rightContent.filter('[value="shortcuts"]').click();
 		        }
 	    	});
 
+			// Show Snippets
 			editor.ace.commands.addCommand({
 		        name: "showSnippets",
-		        bindKey: {win: "Ctrl-Alt-s", mac: "Command-Alt-s"},
-		        exec: function(AceEditor) {
-		        	var action = 'snippets';
-	        		hideIframe();
-	        		hideHelp();
-		            ace.config.loadModule("ace/snippets", function(module) {
-		            	console.log(module);
-		                editor.snippets = module.snippetManager.snippetMap[AceEditor.session.$modeId.split('/').pop()];
-            			showHelp(action);
-		            });
+		        bindKey: prefs.bindKey.snippets,
+		        exec: function() {
+		        	editor.btn.$rightContent.filter('[value="snippets"]').click();
 		        }
 	    	});
+
 		},
 
 
@@ -221,7 +251,7 @@
 			}
 
 			//	If Right Panel is close
-			//	Open right panel and wheck relative radio btn 
+			//	Open right panel and check relative radio btn 
 			if (editor.panel.$right.size === "0") {
 				changeRightPanelSize(prefs.rightPanelDefaultSize);
 				// check relative radio btn
@@ -230,37 +260,45 @@
 					if (el.value === prefs.rightPanelDefaultSize)
 						el.checked = true;
 				});
-				// editor.btn.$rightSize.filter("[value=" +  + "]")[0].checked = true;
 			}
 
 			var idContent = btn.value,
 				type = btn.dataset.type;
-
 			// console.log(idContent + " / "+  type);
+
+			// Hide existing Panel content if exist
+			hideIframe();
+ 			hideHelp();
 
 			if (idContent && type) {
 
 				switch(type) {
+
 					case 'iframe':
-						hideIframe();
-			 			hideHelp();
 						showIframe(idContent, prefs.path[idContent]);
 						break;
 
 					case 'help-table':
+
 						switch(idContent) {
+							
 							case 'shortcuts':
-						    	editor.ace.execCommand("showKeyboardShortcuts");
+			            		ace.config.loadModule("ace/ext/menu_tools/get_editor_keyboard_shortcuts", function(module) {
+		                			editor.keybordShortcuts = module.getEditorKeybordShortcuts(editor.ace);
+            						showHelp(idContent);
+            					});
 								break;
+
 							case 'snippets':
-						    	editor.ace.execCommand("showSnippets");
+					            ace.config.loadModule("ace/snippets", function(module) {
+					                editor.snippets = module.snippetManager.snippetMap[editor.ace.session.$modeId.split('/').pop()];
+		            				showHelp(idContent);
+					            });
 								break;
 						}
-						break;
+					break;
 
 					case 'preview':
-						hideIframe();
-			 			hideHelp();
 						showIframe(idContent, txpWritePage.preview.href);
 						break;
 				}
@@ -299,7 +337,7 @@
 		},
 
 		showHelp = function(action) {
-			console.log('shox help');
+			// console.log('show help');
 			switch(action) {
 				case 'shortcuts':
 					renderTable({
@@ -354,10 +392,17 @@
 			hideEditor();			
 		});
 		
+		// Save Article
 		// trigger save on save button
 		// editor.btn.save[0].value += ' | '+key+'+s';
 		editor.btn.$save.click(function(){
 			txpWritePage.$publish.click();
+		});
+
+
+		// Open Ace editor config
+		editor.btn.$settings.click(function() {
+			editor.ace.execCommand("showSettingsMenu");
 		});
 
 		// Load right Panel content
@@ -434,4 +479,4 @@
 };
 
 
-})(jQuery);
+})(jQuery, ace);
