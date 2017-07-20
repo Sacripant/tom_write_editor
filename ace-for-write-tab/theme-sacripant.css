@@ -246,9 +246,27 @@ span.tomWE-btn input:checked + label .tomWE-icon-size {
 /* iframe and help panel */
 .tomWE-panel-right {
 	flex: 0 1 0%;
-	transition:  800ms flex;
 	overflow: auto;
 	border-left: 10px solid #000;
+
+	/* Background pattern */
+	background-image: repeating-radial-gradient(
+		circle,
+		transparent, 
+		transparent 9px, 
+		hsl(0,0%,30%) 11px, 
+		hsl(0,0%,30%) 12px,
+		transparent 14px
+	);
+	background-position: center;
+	background-size: 125px 79px;
+
+	/* transition */
+	transition:  flex 800ms, background-size 4s;
+}
+
+.tomWE-panel-right.loading {
+	background-size: 250px 79px;
 }
 
 
@@ -291,15 +309,19 @@ span.tomWE-btn input:checked + label .tomWE-icon-size {
  */
 
 .tomWE-panel-right-content {
-	width: 100%;
-	height: 100%;
 	min-width: 30vw;
-	overflow-y: auto;
 }
 
+.tomWE-iframe {
+	width: 100%;
+	height: 100%;
+	overflow-y: auto;
+}
 .tomWE-help-table {
-	margin: 0 1.5em;
-
+	margin: 1.5em;
+	padding: 1.5em;
+	background-color: hsla(0,0%,20%,0.95);
+	/* width: auto; */
 } 
 
 .tomWE-help-table tr:hover {

@@ -270,6 +270,7 @@
 
 		// Load Txp pages in right panel iframe
 		showIframe = function(idContent, src) {
+			editor.panel.$right.addClass('loading');
 			editor.iframe.el.src = src;
 			$(editor.iframe.el).on('load', function() {
 				var iframeContent = $(editor.iframe.el).contents(),
@@ -284,7 +285,8 @@
 				editor.iframe.el.classList.remove('hide');
 				editor.iframe.page = idContent; 
 
-				console.log(editor.iframe.page);
+				editor.panel.$right.removeClass('loading');
+				// console.log(editor.iframe.page);
 			});
 		},
 
