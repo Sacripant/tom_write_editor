@@ -93,12 +93,19 @@ function tom_we_markup() {
                 <div class="tomWE-menu-left">
                     <span class="tomWE-btnsgroup">
                         <button type="button" id="tomWE-save-btn" class="tomWE-btn tomWE-save-btn">
-                            save
+                            Save
                         </button>                        
                     </span>
                     <span class="tomWE-btnsgroup">
                         <button type="button" id="tomWE-hide-btn" class="tomWE-btn tomWE-hide-btn">    
-                            close                              
+                            Close                              
+                        </button>
+                    </span>
+                    <span class="tomWE-btnsgroup">
+                        <button type="button" id="tomWE-settings-btn" class="tomWE-btn tomWE-settings-btn" title="Ace editor settings" aria-label="Ace editor settings">    
+                            <svg viewBox="0 0 20 20">
+                                <use class="tomWE-icon tomWE-icon-settings" xlink:href="ace-for-txp/ace-for-write-tab/icons.svg#settings" />
+                            </svg>                              
                         </button>
                     </span>
                 </div>
@@ -111,8 +118,8 @@ function tom_we_markup() {
                                 <input type="radio" id="tomWE-articles-btn" name="tomWE-menu-right-content" data-type="iframe" value="articles" />
                                 <label 
                                     for="tomWE-articles-btn"
-                                    title="aticles"
-                                    aria-label="aticles"
+                                    title="articles"
+                                    aria-label="articles"
                                 >
                                     <svg viewBox="0 0 20 20">
                                         <use class="tomWE-icon tomWE-icon-articles" xlink:href="ace-for-txp/ace-for-write-tab/icons.svg#articles" />
