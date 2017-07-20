@@ -11,5 +11,14 @@
   	"images" : "?event=image",
   	"files" : "?event=file",
   	"links" : "?event=link"
+  },
+  "bindKey" : {
+    "articles" : {"win": "Command-Alt-a", "mac": "Ctrl-Alt-a"},
+    "images" : {"win": "Command-Alt-i", "mac": "Ctrl-Alt-i"},
+    "files" : {"win": "Command-Alt-f", "mac": "Ctrl-Alt-f"},
+    "links" : {"win": "Command-Alt-l", "mac": "Ctrl-Alt-l"},
+    "preview" : {"win": "Command-Alt-p", "mac": "Ctrl-Alt-p"},
+    "shortcuts" : {"win": "Command-Alt-k", "mac": "Ctrl-Alt-k"},
+    "snippets" : {"win": "Command-Alt-s", "mac": "Ctrl-Alt-s"}
   }
 }
