@@ -3,23 +3,23 @@
 	/*
 	 * Get JSON Prefs file
 	 */
-	function getPrefs (){
-		var json = null;
-		$.ajax({
-	        url: "ace-for-txp/prefs.js",
-	        async: false,
-	        global: false,
-	        dataType: "json",
-	        success: function (data) {
-	        	// console.log(data);
-	            json = data;
-	        },
-	        error: function(){
-	        	console.error('ajax error: ');
-	        }
-	    });
-	    return json;
-	}
+	// function getPrefs (){
+	// 	var json = null;
+	// 	$.ajax({
+	//         url: "ace-for-txp/prefs.js",
+	//         async: false,
+	//         global: false,
+	//         dataType: "json",
+	//         success: function (data) {
+	//         	// console.log(data);
+	//             json = data;
+	//         },
+	//         error: function(){
+	//         	console.error('ajax error: ');
+	//         }
+	//     });
+	//     return json;
+	// }
 
 	// CamelCase to phrase
 	// function CamelCaseToPhrase(camelCase) {
@@ -43,9 +43,9 @@
 
 
 		// Store Prefs
-	var	prefs = getPrefs(),
+	// var	prefs = getPrefs(),
 
-		editor = {},
+	var	editor = {},
 		txpWritePage = {},
 
 		// Store some Txp write page elements
@@ -109,7 +109,7 @@
 	    	// Show Txp Articles tab
 			editor.ace.commands.addCommand({
 		        name: "showTxpArticlesTab",
-		        bindKey: prefs.bindKey.articles,
+		        bindKey: editor.prefs.bindKey.articles,
 		        exec: function() {
 		        	editor.btn.$rightContent.filter('[value="articles"]').click();
 		        }
@@ -118,7 +118,7 @@
 	    	// Show Txp Images tab
 			editor.ace.commands.addCommand({
 		        name: "showTxpImagesTab",
-		        bindKey: prefs.bindKey.images,
+		        bindKey: editor.prefs.bindKey.images,
 		        exec: function() {
 		        	editor.btn.$rightContent.filter('[value="images"]').click();
 		        }
@@ -127,7 +127,7 @@
 	    	// Show Txp Files tab
 			editor.ace.commands.addCommand({
 		        name: "showTxpFilesTab",
-		        bindKey: prefs.bindKey.files,
+		        bindKey: editor.prefs.bindKey.files,
 		        exec: function() {
 		        	editor.btn.$rightContent.filter('[value="files"]').click();
 		        }
@@ -136,7 +136,7 @@
 	    	// Show Txp Links tab
 			editor.ace.commands.addCommand({
 		        name: "showTxpLinksTab",
-		        bindKey: prefs.bindKey.links,
+		        bindKey: editor.prefs.bindKey.links,
 		        exec: function() {
 		        	editor.btn.$rightContent.filter('[value="links"]').click();
 		        }
@@ -145,7 +145,7 @@
 	    	// Show Txp Preview tab
 			editor.ace.commands.addCommand({
 		        name: "showTxpPreviewTab",
-		        bindKey: prefs.bindKey.preview,
+		        bindKey: editor.prefs.bindKey.preview,
 		        exec: function() {
 		        	editor.btn.$rightContent.filter('[value="preview"]').click();
 		        }
@@ -154,7 +154,7 @@
    			// Show Keyboard Shortcuts
 			editor.ace.commands.addCommand({
 		        name: "showKeyboardShortcuts",
-		        bindKey: prefs.bindKey.shortcuts,
+		        bindKey: editor.prefs.bindKey.shortcuts,
 		        exec: function() {
 		        	editor.btn.$rightContent.filter('[value="shortcuts"]').click();
 		        }
@@ -163,7 +163,7 @@
 			// Show Snippets
 			editor.ace.commands.addCommand({
 		        name: "showSnippets",
-		        bindKey: prefs.bindKey.snippets,
+		        bindKey: editor.prefs.bindKey.snippets,
 		        exec: function() {
 		        	editor.btn.$rightContent.filter('[value="snippets"]').click();
 		        }
@@ -184,7 +184,7 @@
 					dndHandler.draggedElement = e.target; // On sauvegarde l'élément en cours de déplacement
 					e.itemId = $(dndHandler.draggedElement).find('input')[0].value;
 					console.log(e.itemId);
-		            e.dataTransfer.setData('text', replaceID(prefs.drop[pageName], e.itemId)); // Nécessaire pour Firefox
+		            e.dataTransfer.setData('text', replaceID(editor.prefs.drop[pageName], e.itemId)); // Nécessaire pour Firefox
 		        });
 		    }
 		},
@@ -253,11 +253,11 @@
 			//	If Right Panel is close
 			//	Open right panel and check relative radio btn 
 			if (editor.panel.$right.size === "0") {
-				changeRightPanelSize(prefs.rightPanelDefaultSize);
+				changeRightPanelSize(editor.prefs.rightPanelDefaultSize);
 				// check relative radio btn
 				editor.btn.$rightSize.each(function(i, el) {
 					el.disabled = false;
-					if (el.value === prefs.rightPanelDefaultSize)
+					if (el.value === editor.prefs.rightPanelDefaultSize)
 						el.checked = true;
 				});
 			}
@@ -275,7 +275,7 @@
 				switch(type) {
 
 					case 'iframe':
-						showIframe(idContent, prefs.path[idContent]);
+						showIframe(idContent, editor.prefs.path[idContent]);
 						break;
 
 					case 'help-table':
@@ -377,103 +377,101 @@
 
 	window.onload = function() {
 		
-		txpWritePageObj();
-		initEditorObj();
-		initAce('tomWE-editor');	
-		
-				
-		// show Editor
-		editor.btn.$show.click(function() {
-			showEditor();
-		});
-		
-		// Hide Editor	
-		editor.btn.$hide.click(function() {
-			hideEditor();			
-		});
-		
-		// Save Article
-		// trigger save on save button
-		// editor.btn.save[0].value += ' | '+key+'+s';
-		editor.btn.$save.click(function(){
-			txpWritePage.$publish.click();
-		});
+		// Load Prefs
+		$.when(
+			$.getJSON("ace-for-txp/prefs-default.js"), 
+			$.getJSON("ace-for-txp/prefs-user.js")
+
+		).fail(function(){
+			console.error('tom-WE : Error when import prefs JSON files')
+			console.error(arguments[2]);
+
+		}).done(function(prefsDefault, prefsUser) {
+
+			console.log(prefsDefault.responseJSON);
+			console.log(prefsUser);
+
+			txpWritePageObj();
+			initEditorObj();
+			editor.prefs = $.extend(true,{ }, prefsDefault[0], prefsUser[0]);
+
+			console.log(editor.prefs);
+			initAce('tomWE-editor');	
+			
+					
+			// show Editor
+			editor.btn.$show.click(function() {
+				showEditor();
+			});
+			
+			// Hide Editor	
+			editor.btn.$hide.click(function() {
+				hideEditor();			
+			});
+			
+			// Save Article
+			// trigger save on save button
+			// editor.btn.save[0].value += ' | '+key+'+s';
+			editor.btn.$save.click(function(){
+				txpWritePage.$publish.click();
+			});
 
 
-		// Open Ace editor config
-		editor.btn.$settings.click(function() {
-			editor.ace.execCommand("showSettingsMenu");
-		});
+			// Open Ace editor config
+			editor.btn.$settings.click(function() {
+				editor.ace.execCommand("showSettingsMenu");
+			});
 
-		// Load right Panel content
-		rightPanelContent(editor.btn.$rightContent.filter(':checked')[0]);
-		editor.btn.$rightContent.change(function() {
-			rightPanelContent(this);
-		});
+			// Load right Panel content
+			rightPanelContent(editor.btn.$rightContent.filter(':checked')[0]);
+			editor.btn.$rightContent.change(function() {
+				rightPanelContent(this);
+			});
 
-		// change right panel size
-		// changeRightPanelSize(editor.btn.$rightSize.filter(':checked')[0].value);
-		editor.btn.$rightSize.change(function() {
-			// console.log("click btn size");
-			changeRightPanelSize(this.value);
-		});
-		$(editor.btn.$rightSize.filter(':checked')).change();
-
-
-		editor.panel.$right.on('transitionend', function () {
-			// console.log("panel transitionEnd");
-			editor.ace.resize();
-			// console.log(editor.panel.$right.size === '0');
-
-			// if close panel right: remove panel right content
-			if (editor.panel.$right.size === '0') removeRightPanelContent();
-		});
+			// change right panel size
+			// changeRightPanelSize(editor.btn.$rightSize.filter(':checked')[0].value);
+			editor.btn.$rightSize.change(function() {
+				// console.log("click btn size");
+				changeRightPanelSize(this.value);
+			});
+			$(editor.btn.$rightSize.filter(':checked')).change();
 
 
-		textpattern.Relay.register('txpAsyncForm.success', function (event, data) {
-	        console.log('refresh preview if is open');
-	        if (editor.open && editor.iframe.page === 'preview') {
-	        	showIframe('preview', txpWritePage.preview.href);
-	        }
-	    });
+			editor.panel.$right.on('transitionend', function () {
+				// console.log("panel transitionEnd");
+				editor.ace.resize();
+				// console.log(editor.panel.$right.size === '0');
 
-		// console.log(editor.panel.$right);
-								
-		$(document).keydown(function(e) {
-			if (editor.open) {
-				// esc = hide Editor
-				if (e.keyCode === 27) {
-					console.log("Esc editor");
-					hideEditor();									
+				// if close panel right: remove panel right content
+				if (editor.panel.$right.size === '0') removeRightPanelContent();
+			});
+
+
+			textpattern.Relay.register('txpAsyncForm.success', function (event, data) {
+		        console.log('refresh preview if is open');
+		        if (editor.open && editor.iframe.page === 'preview') {
+		        	showIframe('preview', txpWritePage.preview.href);
+		        }
+		    });
+
+			// console.log(editor.panel.$right);
+									
+			$(document).keydown(function(e) {
+				if (editor.open) {
+					// esc = hide Editor
+					if (e.keyCode === 27) {
+						console.log("Esc editor");
+						hideEditor();									
+					}
 				}
-			}
-			// Save
-			// if (e.keyCode == 83 && (e.metaKey || e.ctrlKey)) {
-			// 	e.preventDefault();
-			// 	txpWritePage.publish.click();
-			// }
+				// Save
+				// if (e.keyCode == 83 && (e.metaKey || e.ctrlKey)) {
+				// 	e.preventDefault();
+				// 	txpWritePage.publish.click();
+				// }
+			});
+			
 		});
-
-
-		// TEST: Make image panel draggable
-
-		// Select image iframe content
-		// var iframeContent = $("#ace-image-panel").contents(),
-		// 	images = iframeContent.find('#images_form tr');
-
-		// 	console.log(images);
-
-		// var dropImageSnippet = function(data) {
-		// 	return replaceID(prefs.drop.img, data);
-		// };
-
-
-
-
-		// images.each(function(index, el) {
-		// 	dndHandler.applyDragEvents(el);
-		// });
-		
 
 
 };
