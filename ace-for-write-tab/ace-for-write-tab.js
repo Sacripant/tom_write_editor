@@ -81,7 +81,7 @@
 			editor.snippetManager = ace.require("ace/snippets").snippetManager;
 
 			// Add additional snippets
-			var addSnippets = $.getJSON("ace-for-txp/additional-snippets.js");
+			var addSnippets = $.getJSON("tom-WE/additional-snippets.js");
 
 			addSnippets.done(function(newSnippets) {
 				// console.log(newSnippets);
@@ -90,7 +90,6 @@
 				console.error('tom-WE : Error when import additional-snippets file');
 				console.error(arguments[2]);
 			});
-
 
 
 	    	// Show Txp Articles tab
@@ -363,8 +362,8 @@
 		
 		// Load Prefs
 		$.when(
-			$.getJSON("ace-for-txp/prefs-default.js"), 
-			$.getJSON("ace-for-txp/prefs-user.js")
+			$.getJSON("tom-WE/prefs-default.js"), 
+			$.getJSON("tom-WE/prefs-user.js")
 
 		).fail(function(){
 			console.error('tom-WE : Error when import prefs JSON files');

@@ -104,7 +104,7 @@ function tom_we_markup() {
                     <span class="tomWE-btnsgroup">
                         <button type="button" id="tomWE-settings-btn" class="tomWE-btn tomWE-settings-btn" title="Ace editor settings" aria-label="Ace editor settings">    
                             <svg viewBox="0 0 20 20">
-                                <use class="tomWE-icon tomWE-icon-settings" xlink:href="ace-for-txp/ace-for-write-tab/icons.svg#settings" />
+                                <use class="tomWE-icon tomWE-icon-settings" xlink:href="tom-WE/ace-for-write-tab/icons.svg#settings" />
                             </svg>                              
                         </button>
                     </span>
@@ -122,7 +122,7 @@ function tom_we_markup() {
                                     aria-label="articles"
                                 >
                                     <svg viewBox="0 0 20 20">
-                                        <use class="tomWE-icon tomWE-icon-articles" xlink:href="ace-for-txp/ace-for-write-tab/icons.svg#articles" />
+                                        <use class="tomWE-icon tomWE-icon-articles" xlink:href="tom-WE/ace-for-write-tab/icons.svg#articles" />
                                     </svg>
                                 </label>
                             </span>
@@ -136,7 +136,7 @@ function tom_we_markup() {
                                     aria-label="images"
                                 >
                                     <svg viewBox="0 0 20 20">
-                                        <use class="tomWE-icon tomWE-icon-images" xlink:href="ace-for-txp/ace-for-write-tab/icons.svg#images" />
+                                        <use class="tomWE-icon tomWE-icon-images" xlink:href="tom-WE/ace-for-write-tab/icons.svg#images" />
                                     </svg>
                                 </label>
                             </span>
@@ -150,7 +150,7 @@ function tom_we_markup() {
                                     aria-label="files"
                                 >
                                     <svg viewBox="0 0 20 20">
-                                        <use class="tomWE-icon tomWE-icon-files" xlink:href="ace-for-txp/ace-for-write-tab/icons.svg#files" />
+                                        <use class="tomWE-icon tomWE-icon-files" xlink:href="tom-WE/ace-for-write-tab/icons.svg#files" />
                                     </svg>
                                 </label>
                             </span>
@@ -164,7 +164,7 @@ function tom_we_markup() {
                                     aria-label="links"
                                 >
                                     <svg viewBox="0 0 20 20">
-                                        <use class="tomWE-icon tomWE-icon-links" xlink:href="ace-for-txp/ace-for-write-tab/icons.svg#links" />
+                                        <use class="tomWE-icon tomWE-icon-links" xlink:href="tom-WE/ace-for-write-tab/icons.svg#links" />
                                     </svg>
                                 </label>
                             </span>
@@ -178,7 +178,7 @@ function tom_we_markup() {
                                     aria-label="preview"
                                 >
                                     <svg viewBox="0 0 20 20">
-                                        <use class="tomWE-icon tomWE-icon-preview"  xlink:href="ace-for-txp/ace-for-write-tab/icons.svg#preview" />
+                                        <use class="tomWE-icon tomWE-icon-preview"  xlink:href="tom-WE/ace-for-write-tab/icons.svg#preview" />
                                     </svg>
                                 </label>
                             </span>
@@ -192,7 +192,7 @@ function tom_we_markup() {
                                     aria-label="Shortcuts"
                                 >
                                     <svg viewBox="0 0 20 20">
-                                        <use class="tomWE-icon tomWE-icon-shortcuts" xlink:href="ace-for-txp/ace-for-write-tab/icons.svg#shortcuts" />
+                                        <use class="tomWE-icon tomWE-icon-shortcuts" xlink:href="tom-WE/ace-for-write-tab/icons.svg#shortcuts" />
                                     </svg>
                                 </label>
                             </span>
@@ -206,7 +206,7 @@ function tom_we_markup() {
                                     aria-label="Snippets"
                                 >
                                     <svg viewBox="0 0 20 20">
-                                        <use class="tomWE-icon tomWE-icon-snippets" xlink:href="ace-for-txp/ace-for-write-tab/icons.svg#snippets" />
+                                        <use class="tomWE-icon tomWE-icon-snippets" xlink:href="tom-WE/ace-for-write-tab/icons.svg#snippets" />
                                     </svg>                                    
                                 </label>
                             </span>
@@ -221,7 +221,7 @@ function tom_we_markup() {
                                 title="panel size: 2/3"
                             >
                                 <svg viewBox="0 0 20 20">
-                                    <use class="tomWE-icon-size tomWE-icon-size2-3" xlink:href="ace-for-txp/ace-for-write-tab/icons.svg#size2-3" />
+                                    <use class="tomWE-icon-size tomWE-icon-size2-3" xlink:href="tom-WE/ace-for-write-tab/icons.svg#size2-3" />
                                 </svg>                                    
                             </label>
                         </span>
@@ -233,7 +233,7 @@ function tom_we_markup() {
                                 title="panel size: 1/2"
                             >
                                 <svg viewBox="0 0 20 20">
-                                    <use class="tomWE-icon-size tomWE-icon-size1-2" xlink:href="ace-for-txp/ace-for-write-tab/icons.svg#size1-2" />
+                                    <use class="tomWE-icon-size tomWE-icon-size1-2" xlink:href="tom-WE/ace-for-write-tab/icons.svg#size1-2" />
                                 </svg>                                    
                             </label>
                         </span>
@@ -245,7 +245,7 @@ function tom_we_markup() {
                                 title="panel size: 1/3"
                             >
                                 <svg viewBox="0 0 20 20">
-                                    <use class="tomWE-icon-size tomWE-icon-size1-3" xlink:href="ace-for-txp/ace-for-write-tab/icons.svg#size1-3" />
+                                    <use class="tomWE-icon-size tomWE-icon-size1-3" xlink:href="tom-WE/ace-for-write-tab/icons.svg#size1-3" />
                                 </svg>                                    
                             </label>
                         </span>
@@ -258,7 +258,7 @@ function tom_we_markup() {
                                 title="Close right panel"
                             >
                                 <svg viewBox="0 0 20 20">
-                                    <use class="tomWE-icon-size tomWE-icon-size0" xlink:href="ace-for-txp/ace-for-write-tab/icons.svg#size0" />
+                                    <use class="tomWE-icon-size tomWE-icon-size0" xlink:href="tom-WE/ace-for-write-tab/icons.svg#size0" />
                                 </svg>                                    
                             </label>
                         </span>
@@ -282,11 +282,11 @@ function tom_we_markup() {
             </div>                                                                        
         </div> 
 
-        <link  href="ace-for-txp/ace-for-write-tab/theme-sacripant.css" rel="stylesheet" />
-        <script src="ace-for-txp/ace-for-write-tab/src/ace.js" type="text/javascript"></script>
-        <script src="ace-for-txp/ace-for-write-tab/src/ext-language_tools.js" type="text/javascript"></script>
-        <script src="ace-for-txp/ace-for-write-tab/src/ext-keybinding_menu.js" type="text/javascript"></script>
-        <script src="ace-for-txp/ace-for-write-tab/ace-for-write-tab.js" type="text/javascript"></script>
+        <link  href="tom-WE/ace-for-write-tab/theme-sacripant.css" rel="stylesheet" />
+        <script src="tom-WE/ace-for-write-tab/src/ace.js" type="text/javascript"></script>
+        <script src="tom-WE/ace-for-write-tab/src/ext-language_tools.js" type="text/javascript"></script>
+        <script src="tom-WE/ace-for-write-tab/src/ext-keybinding_menu.js" type="text/javascript"></script>
+        <script src="tom-WE/ace-for-write-tab/ace-for-write-tab.js" type="text/javascript"></script>
 
 
 HTML;
