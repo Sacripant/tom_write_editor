@@ -116,11 +116,12 @@
 	/* border: 1px solid; */
 	height: 100%;
 	overflow: hidden;
+	vertical-align: top;
 }
 
 #tomWE .tomWE-btnsgroup .tomWE-btn {
 	/* border-radius: 0; */
-	margin-right: 2px;
+	margin-right: 1px;
 }
 
 #tomWE .tomWE-btnsgroup .tomWE-btn:first-child {
