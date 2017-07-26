@@ -1,49 +1,20 @@
 (function ($, ace) {
 
-	/*
-	 * Get JSON Prefs file
-	 */
-	// function getPrefs (){
-	// 	var json = null;
-	// 	$.ajax({
-	//         url: "ace-for-txp/prefs.js",
-	//         async: false,
-	//         global: false,
-	//         dataType: "json",
-	//         success: function (data) {
-	//         	// console.log(data);
-	//             json = data;
-	//         },
-	//         error: function(){
-	//         	console.error('ajax error: ');
-	//         }
-	//     });
-	//     return json;
-	// }
-
-	// CamelCase to phrase
-	// function CamelCaseToPhrase(camelCase) {
-	//	return camelCase.split(/(?=[A-Z])/).join(' ');
-	// }
-
 	// Render Shortcut on html Table
 	function renderTable(data) {
 		console.log(data);
 		if (data.target) {
-            var commands = data.content.reduce(function(previous, current) {
+            var tds = data.content.reduce(function(previous, current) {
                 return previous + '<tr>' + 
                     '<td>' + current[data.col1] + '</td> ' +
                     '<td>' + current[data.col2] + '</td>' +
                     '</tr>';
             }, '');
 
-            data.target.innerHTML = '<h1>' + data.title +'</h1> <table>' + commands + '</table>';
+            data.target.innerHTML = '<h1>' + data.title +'</h1> <table>' + tds + '</table>';
 		}
 	}
 
-
-		// Store Prefs
-	// var	prefs = getPrefs(),
 
 	var	editor = {},
 		txpWritePage = {},
@@ -105,6 +76,22 @@
 			editor.ace.getSession().on('change', function(){
 				txpWritePage.$body.val(editor.ace.getSession().getValue());
 			});
+
+			// Load Ace snippetManager
+			editor.snippetManager = ace.require("ace/snippets").snippetManager;
+
+			// Add additional snippets
+			var addSnippets = $.getJSON("ace-for-txp/additional-snippets.js");
+
+			addSnippets.done(function(newSnippets) {
+				// console.log(newSnippets);
+				editor.snippetManager.register(newSnippets);
+			}).fail(function(){
+				console.error('tom-WE : Error when import additional-snippets file');
+				console.error(arguments[2]);
+			});
+
+
 
 	    	// Show Txp Articles tab
 			editor.ace.commands.addCommand({
@@ -172,7 +159,7 @@
 		},
 
 
-		// Images, files, links, Drag and drop Handler 
+		// Articles, images, files, links, Drag and drop Handler 
 		dndHandler = {
 		    draggedElement: null, // Propriété pointant vers l'élément en cours de déplacement
 		    applyDragEvents: function(element, pageName) {
@@ -279,24 +266,8 @@
 						break;
 
 					case 'help-table':
-
-						switch(idContent) {
-							
-							case 'shortcuts':
-			            		ace.config.loadModule("ace/ext/menu_tools/get_editor_keyboard_shortcuts", function(module) {
-		                			editor.keybordShortcuts = module.getEditorKeybordShortcuts(editor.ace);
-            						showHelp(idContent);
-            					});
-								break;
-
-							case 'snippets':
-					            ace.config.loadModule("ace/snippets", function(module) {
-					                editor.snippets = module.snippetManager.snippetMap[editor.ace.session.$modeId.split('/').pop()];
-		            				showHelp(idContent);
-					            });
-								break;
-						}
-					break;
+        				showHelp(idContent);
+						break;
 
 					case 'preview':
 						showIframe(idContent, txpWritePage.preview.href);
@@ -340,26 +311,39 @@
 			// console.log('show help');
 			switch(action) {
 				case 'shortcuts':
-					renderTable({
-						content: editor.keybordShortcuts,
-						target: editor.help.el,
-						title: action,
-						col1Title: 'command',
-						col1: "command",
-						col2Title: "shortcut",
-						col2: "key"
+            		ace.config.loadModule("ace/ext/menu_tools/get_editor_keyboard_shortcuts", function(module) {
+            			var keybordShortcuts = module.getEditorKeybordShortcuts(editor.ace);
+						renderTable({
+							content: keybordShortcuts,
+							target: editor.help.el,
+							title: action,
+							col1Title: 'Command',
+							col1: "command",
+							col2Title: "Shortcut",
+							col2: "key"
+						});
 					});
 					break;
 
 				case 'snippets':
-					renderTable({
-						content: editor.snippets,
-						target: editor.help.el,
-						title: action,
-						col1Title: 'Tab trigger',
-						col1: "tabTrigger",
-						col2Title: "snippet",
-						col2: "content"
+					ace.config.loadModule("ace/snippets", function(module) {
+		                var snippets = [];
+
+		                for ( var i in module.snippetManager.snippetMap ){
+		                	snippets = snippets.concat(module.snippetManager.snippetMap[i]);
+		                }
+
+		                if (snippets.length) {
+							renderTable({
+								content: snippets,
+								target: editor.help.el,
+								title: action,
+								col1Title: 'Tab trigger',
+								col1: "tabTrigger",
+								col2Title: "Snippet",
+								col2: "content"
+							});
+		                }
 					});
 					break;
 			}
@@ -383,19 +367,19 @@
 			$.getJSON("ace-for-txp/prefs-user.js")
 
 		).fail(function(){
-			console.error('tom-WE : Error when import prefs JSON files')
+			console.error('tom-WE : Error when import prefs JSON files');
 			console.error(arguments[2]);
 
 		}).done(function(prefsDefault, prefsUser) {
 
-			console.log(prefsDefault.responseJSON);
-			console.log(prefsUser);
+			// console.log(prefsDefault.responseJSON);
+			// console.log(prefsUser);
 
 			txpWritePageObj();
 			initEditorObj();
-			editor.prefs = $.extend(true,{ }, prefsDefault[0], prefsUser[0]);
+			editor.prefs = $.extend(true, {}, prefsDefault[0], prefsUser[0]);
 
-			console.log(editor.prefs);
+			// console.log(editor.prefs);
 			initAce('tomWE-editor');	
 			
 					
