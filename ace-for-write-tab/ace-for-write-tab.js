@@ -67,6 +67,7 @@
             // editor.ace options
             editor.ace.getSession().setUseWrapMode(true);
             editor.ace.setShowPrintMargin(true);
+            editor.ace.$blockScrolling = Infinity; 
             editor.ace.setOptions({
                 enableSnippets: true,
                 fontSize: "16px"
@@ -447,11 +448,6 @@
                         hideEditor();                                   
                     }
                 }
-                // Save
-                // if (e.keyCode == 83 && (e.metaKey || e.ctrlKey)) {
-                //  e.preventDefault();
-                //  txpWritePage.publish.click();
-                // }
             });
             
         });
