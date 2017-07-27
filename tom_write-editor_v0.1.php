@@ -281,9 +281,9 @@ function tomWE_markup() {
         </div> 
 
         <link  href="tom-WE/assets/theme-sacripant.css" rel="stylesheet" />
-        <script src="tom-WE/assets/src/ace.js" type="text/javascript"></script>
-        <script src="tom-WE/assets/src/ext-language_tools.js" type="text/javascript"></script>
-        <script src="tom-WE/assets/src/ext-keybinding_menu.js" type="text/javascript"></script>
+        <script src="tom-WE/assets/ace/ace.js" type="text/javascript"></script>
+        <script src="tom-WE/assets/ace/ext-language_tools.js" type="text/javascript"></script>
+        <script src="tom-WE/assets/ace/ext-keybinding_menu.js" type="text/javascript"></script>
         <script src="tom-WE/assets/ace-for-write-tab.js" type="text/javascript"></script>
 
 
