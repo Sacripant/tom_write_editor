@@ -282,10 +282,10 @@
             editor.panel.$right.addClass('loading');
             editor.iframe.el.src = src;
             $(editor.iframe.el).on('load', function() {
-                var iframeContent = $(editor.iframe.el).contents(),
-                    dragItems = iframeContent.find('.txp-list tbody tr');
+                var $iframeContent = $(editor.iframe.el).contents(),
+                    dragItems = $iframeContent.find('.txp-list tbody tr');
 
-                // console.log(dragItems);
+                $iframeContent[0].body.classList.add('in-tomWE');
 
                 dragItems.each(function(index, el) {
                     dndHandler.applyDragEvents(el, idContent);

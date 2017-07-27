@@ -72,16 +72,14 @@ if (!defined('txpinterface'))
 
 # --- BEGIN PLUGIN CODE ---
 if (@txpinterface == 'admin') {
-    // register_callback( 'abc_add_text', 'article_ui', 'extend_col_1');
-
-    register_callback('tom_we', 'admin_side', 'body_end');
-    // register_callback('abc_add_text', 'article');
+    register_callback('tomWE_inject_markup', 'admin_side', 'body_end');
+    register_callback('tomWE_iframeCSS', 'admin_side', 'head_end');
 }
 
 /*
  *   Editor markup
  */
-function tom_we_markup() {
+function tomWE_markup() {
     $out = <<<HTML
 
         <!-- 
@@ -294,18 +292,46 @@ HTML;
     return $out;
 }
 
+
 /*
- *  Inject Markup in write footer page
+ *  CSS for Txp call since Editor
  */
 
-function tom_we() {
+function tomWE_iframeCSS()
+{
+    $out = <<<HTML
+
+    <style>
+        .in-tomWE { padding-top : 2em; }
+        .in-tomWE .txp-header { display: none !important; }
+
+        .in-tomWE .txp-list tbody tr[draggable]:hover {
+            cursor:  -webkit-grab;
+            cursor:  grab;
+            background-color: #ffda44;
+        }
+        .in-tomWE .txp-list tbody tr[draggable]:active {
+            cursor:  grabbing;
+        }
+    </style>
+
+HTML;
+
+    echo $out;
+}
+
+/*
+ *  Inject Editor Markup in write footer page
+ */
+
+function tomWE_inject_markup() {
 
     global $event;
     if($event !== 'article') {
         return;
     }
         
-    echo tom_we_markup();
+    echo tomWE_markup();
 }
 
 
