@@ -1,28 +1,18 @@
-ace-for-txp
+Tom Write Editor v0.3beta
 ===========
 
-Ace Editor for [Textpattern](http://www.textpatern.com) write tab
-==========================
+A plugin for Textpattern CMS
 
 If like me you find that the proposed standard textarea texpattern is too small to write, here is a writing space in full screen for the body of your articles.
 
 It uses [Ace editor](http://ace.ajax.org/#nav=about)
 
-Need [bot_write-tab-customize](http://forum.textpattern.com/viewtopic.php?id=32175) plugin for Textpattern
 
 How-to Install
 ==============
 
-1. Copy *ace-for-write-tab* folder in /textpattern directory
-2. copy the 3 lines below in *Extensions > Write Tab customize > Additional js code textarea* and Save
-
-```html
-<link rel="stylesheet" href="ace-for-write-tab/theme-sacripant.css" />
-<script src="ace-for-write-tab/src/ace.js" type="text/javascript"></script>
-<script src="ace-for-write-tab/ace-for-write-tab.js" type="text/javascript"></script>
-```
-
-That's It!
+1. Copy *tom-WE* folder in /textpattern directory
+2. Copy/paste file in the Admin > Plugins tab to install
 
 
 How-to Use
@@ -31,15 +21,16 @@ How-to Use
 A new icon is now available near Body Label in Textpattern Write tab.
 A click in this button open a editor in full page.
 
-By default a basic Syntax Highlighter for textile in activate. 
-Ace Editor is a powerfull text Editor with many possibility via [Keyboard Shortcuts](https://github.com/ajaxorg/ace/wiki/Default-Keyboard-Shortcuts).
+By default a basic Syntax Highlighter for textile in activate.
 
-Additional Keyboard Shortcuts
-------------------------------
+Features
+===========
 
-- **ctrl-s, cmd-s** for save.
-- **esc** for close editor. 
-
+* Ace Editor is a powerfull text Editor with many possibility via [Keyboard Shortcuts](https://github.com/ajaxorg/ace/wiki/Default-Keyboard-Shortcuts).
+* Add some personal snippets to Ace Editor
+* View Textpattern articles, images, files, links tabs from the editor and insert items via drag & drop and custom code.
+* A live preview of your article 
+* Save your article with **ctrl-s, cmd-s** keyboard shortcut.
 	
 
 
