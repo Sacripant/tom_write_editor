@@ -7,6 +7,11 @@
 	display: none;
 }
 
+.pre {
+	white-space: pre-wrap;
+	hyphens:  none;
+}
+
 /* 
  *	BTN Active Editor 
  */
@@ -318,6 +323,10 @@ span.tomWE-btn input:checked + label .tomWE-icon-size {
 	height: 100%;
 	overflow-y: auto;
 }
+
+/* help table 
+--------------*/
+
 .tomWE-help-table {
 	margin: 1.5em;
 	padding: 1.5em;
@@ -328,6 +337,9 @@ span.tomWE-btn input:checked + label .tomWE-icon-size {
 .tomWE-help-table tr:hover {
 	background-color: #000;	
 } 
+
+/* reset default */
+/* .tomWE-help-table */
 
 /*
  *	Save & Exit buttons

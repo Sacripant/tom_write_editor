@@ -8,7 +8,7 @@
                 return previous + '<tr>' + 
                     '<td>' + current[data.col1] + '</td> ' +
                     // '<td>' + current[data.col2] + '</td>' +
-                    '<td> <pre>' + $('<span />').text(current[data.col2]).html() + '</pre> </td>' +
+                    '<td class="pre">' + $('<span />').text(current[data.col2]).html() + '</td>' +
                     '</tr>';
             }, '');
 
