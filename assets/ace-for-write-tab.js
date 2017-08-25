@@ -7,12 +7,14 @@
             var tds = data.content.reduce(function(previous, current) {
                 return previous + '<tr>' + 
                     '<td>' + current[data.col1] + '</td> ' +
-                    '<td>' + current[data.col2] + '</td>' +
+                    // '<td>' + current[data.col2] + '</td>' +
+                    '<td> <pre>' + $('<span />').text(current[data.col2]).html() + '</pre> </td>' +
                     '</tr>';
             }, '');
 
             data.target.innerHTML = '<h1>' + data.title +'</h1> <table>' + tds + '</table>';
         }
+
     }
 
 
@@ -316,7 +318,7 @@
                         renderTable({
                             content: keybordShortcuts,
                             target: editor.help.el,
-                            title: action,
+                            title: 'Keyboard Shortcuts',
                             col1Title: 'Command',
                             col1: "command",
                             col2Title: "Shortcut",
@@ -337,7 +339,7 @@
                             renderTable({
                                 content: snippets,
                                 target: editor.help.el,
-                                title: action,
+                                title: 'Snippets',
                                 col1Title: 'Tab trigger',
                                 col1: "tabTrigger",
                                 col2Title: "Snippet",
