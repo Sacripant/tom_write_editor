@@ -19,6 +19,7 @@
     "links" : {"win": "Command-Alt-l", "mac": "Ctrl-Alt-l"},
     "preview" : {"win": "Command-Alt-p", "mac": "Ctrl-Alt-p"},
     "shortcuts" : {"win": "Command-Alt-k", "mac": "Ctrl-Alt-k"},
-    "snippets" : {"win": "Command-Alt-s", "mac": "Ctrl-Alt-s"}
+    "snippets" : {"win": "Command-Alt-s", "mac": "Ctrl-Alt-s"},
+    "save" : {"win": "Ctrl-s", "mac": "Command-s"}
   }
 }

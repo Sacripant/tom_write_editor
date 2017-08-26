@@ -95,68 +95,80 @@
             });
 
 
-            // Show Txp Articles tab
-            editor.ace.commands.addCommand({
-                name: "showTxpArticlesTab",
-                bindKey: editor.prefs.bindKey.articles,
-                exec: function() {
-                    editor.btn.$rightContent.filter('[value="articles"]').click();
-                }
-            });
+            /*
+             * Add new commands
+             */
 
-            // Show Txp Images tab
-            editor.ace.commands.addCommand({
-                name: "showTxpImagesTab",
-                bindKey: editor.prefs.bindKey.images,
-                exec: function() {
-                    editor.btn.$rightContent.filter('[value="images"]').click();
-                }
-            });
+            editor.ace.commands.addCommands([
 
-            // Show Txp Files tab
-            editor.ace.commands.addCommand({
-                name: "showTxpFilesTab",
-                bindKey: editor.prefs.bindKey.files,
-                exec: function() {
-                    editor.btn.$rightContent.filter('[value="files"]').click();
-                }
-            });
+                // Show Txp Articles tab
+                {
+                    name: "showTxpArticlesTab",
+                    bindKey: editor.prefs.bindKey.articles,
+                    exec: function() {
+                        editor.btn.$rightContent.filter('[value="articles"]').click();
+                    }
+                },
 
-            // Show Txp Links tab
-            editor.ace.commands.addCommand({
-                name: "showTxpLinksTab",
-                bindKey: editor.prefs.bindKey.links,
-                exec: function() {
-                    editor.btn.$rightContent.filter('[value="links"]').click();
+                // Show Txp Images tab
+                {
+                    name: "showTxpImagesTab",
+                    bindKey: editor.prefs.bindKey.images,
+                    exec: function() {
+                        editor.btn.$rightContent.filter('[value="images"]').click();
+                    }
+                },
+                // Show Txp Files tab
+                {
+                    name: "showTxpFilesTab",
+                    bindKey: editor.prefs.bindKey.files,
+                    exec: function() {
+                        editor.btn.$rightContent.filter('[value="files"]').click();
+                    }
+                },
+                // Show Txp Links tab
+                {
+                    name: "showTxpLinksTab",
+                    bindKey: editor.prefs.bindKey.links,
+                    exec: function() {
+                        editor.btn.$rightContent.filter('[value="links"]').click();
+                    }
+                },
+                // Show Txp Preview tab
+                {
+                    name: "showTxpPreviewTab",
+                    bindKey: editor.prefs.bindKey.preview,
+                    exec: function() {
+                        editor.btn.$rightContent.filter('[value="preview"]').click();
+                    }
+                },
+                // Show Keyboard Shortcuts
+                {
+                    name: "showKeyboardShortcuts",
+                    bindKey: editor.prefs.bindKey.shortcuts,
+                    exec: function() {
+                        editor.btn.$rightContent.filter('[value="shortcuts"]').click();
+                    }
+                },
+                // Show Snippets
+                {
+                    name: "showSnippets",
+                    bindKey: editor.prefs.bindKey.snippets,
+                    exec: function() {
+                        editor.btn.$rightContent.filter('[value="snippets"]').click();
+                    }
+                },
+                // Save Article
+                {
+                    name: "saveArticle",
+                    bindKey: editor.prefs.bindKey.save,
+                    exec: function() {
+                        txpWritePage.$publish.click();
+                    }
                 }
-            });
+            ]);
 
-            // Show Txp Preview tab
-            editor.ace.commands.addCommand({
-                name: "showTxpPreviewTab",
-                bindKey: editor.prefs.bindKey.preview,
-                exec: function() {
-                    editor.btn.$rightContent.filter('[value="preview"]').click();
-                }
-            });
 
-            // Show Keyboard Shortcuts
-            editor.ace.commands.addCommand({
-                name: "showKeyboardShortcuts",
-                bindKey: editor.prefs.bindKey.shortcuts,
-                exec: function() {
-                    editor.btn.$rightContent.filter('[value="shortcuts"]').click();
-                }
-            });
-
-            // Show Snippets
-            editor.ace.commands.addCommand({
-                name: "showSnippets",
-                bindKey: editor.prefs.bindKey.snippets,
-                exec: function() {
-                    editor.btn.$rightContent.filter('[value="snippets"]').click();
-                }
-            });
 
         },
 
@@ -400,6 +412,7 @@
             // editor.btn.save[0].value += ' | '+key+'+s';
             editor.btn.$save.click(function(){
                 txpWritePage.$publish.click();
+                console.log('article saved');
             });
 
 
@@ -451,6 +464,8 @@
                     }
                 }
             });
+
+            console.log(editor);
             
         });
 
