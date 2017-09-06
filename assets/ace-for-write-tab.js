@@ -449,7 +449,7 @@
             textpattern.Relay.register('txpAsyncForm.success', function (event, data) {
                 console.log('refresh preview if is open');
                 if (editor.open && editor.iframe.page === 'preview') {
-                    showIframe('preview', txpWritePage.preview.href);
+                    editor.iframe.el.contentWindow.window.location.reload();
                 }
             });
 
