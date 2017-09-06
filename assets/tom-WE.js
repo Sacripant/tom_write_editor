@@ -84,7 +84,7 @@
             editor.snippetManager = ace.require("ace/snippets").snippetManager;
 
             // Add additional snippets
-            var addSnippets = $.getJSON("tom-WE/additional-snippets.js");
+            var addSnippets = $.getJSON("tom-WE/additional-snippets.json");
 
             addSnippets.done(function(newSnippets) {
                 // console.log(newSnippets);
@@ -377,8 +377,8 @@
         
         // Load Prefs
         $.when(
-            $.getJSON("tom-WE/prefs-default.js"), 
-            $.getJSON("tom-WE/prefs-user.js")
+            $.getJSON("tom-WE/prefs-default.json"), 
+            $.getJSON("tom-WE/prefs-user.json")
 
         ).fail(function(){
             console.error('tom-WE : Error when import prefs JSON files');
