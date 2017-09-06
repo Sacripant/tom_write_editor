@@ -1,36 +1,66 @@
-Tom Write Editor v0.3beta
-===========
+# Tom Write Editor
 
-A plugin for Textpattern CMS
+Tom Write Editor is a texpattern plugin that add a distraction free writing environment for Textpattern write tab whith some advanced features. It's a editor for geek writers!
 
-If like me you find that the proposed standard textarea texpattern is too small to write, here is a writing space in full screen for the body of your articles.
+## Install
 
-It uses [Ace editor](http://ace.ajax.org/#nav=about)
+1. Copy @tomWE@ folder directly in @textpatter@ folder.
+2. Install and active @tom_write_editor_v*.txt@ plugin since Textpattern plugin tab.
 
+## Usage
 
-How-to Install
-==============
+For a new article, the best practice is to enter _Title_ and _Sort and display_ informations (section + category) of the article, select Draft as Status and Save.
 
-1. Copy *tom-WE* folder in /textpattern directory
-2. Copy/paste file in the Admin > Plugins tab to install
+Click on the button available nearby Body label to open the editor and start writing.
 
+### Basic Ace editor features
 
-How-to Use
-===========
+TomWE use Ace Editor (a Javascript Editor), synchronized with the body textarea. Ace editor offer some feature compared to textarea:
 
-A new icon is now available near Body Label in Textpattern Write tab.
-A click in this button open a editor in full page.
+* Tabs / indent.
+* Simple textile syntaxic coloration.
+* Duplicate / move lines or part of text.
+* Find / replace
+* Macros
+* Snippets
+* etc.
 
-By default a basic Syntax Highlighter for textile in activate.
+### Some specifics features for Textpattern
 
-Features
-===========
+* Display directly since editor Article/images/files/links tab via keyboard shortcuts or buttons in a right panel.
+* Insert a code snippet to editor via drag & drop since open Article/images/files/links tab
+* Add custom Snippets.
+* Save your article with @ctrl-S@ @command-s@
+* See a live preview of your article (the preview is automatically refreshed when you save).
 
-* Ace Editor is a powerfull text Editor with many possibility via [Keyboard Shortcuts](https://github.com/ajaxorg/ace/wiki/Default-Keyboard-Shortcuts).
-* Add some personal snippets to Ace Editor
-* View Textpattern articles, images, files, links tabs from the editor and insert items via drag & drop and custom code.
-* A live preview of your article 
-* Save your article with **ctrl-s, cmd-s** keyboard shortcut.
-	
+### Change Editor prefs
+
+Editor preferencies are stored in a @prefs-default@ json file. Please don't change this file. You risk to loose your changes after update this plugin. A blank @prefs-user@ json file is dedicated for adapte your needs.
+
+Just copy-past preferencies object you want to change and change value.
+
+#### Example
+
+You use _rah_knots_ plugin that allready add a keyboard shortcuts for save your article. Just overwrite Editor save shortcut to @false@ to @prefs-user@ file
+
+	{
+  		"bindKey" : {
+    		"save" : false
+  		}
+	}
+
+### Add custom snippets
+
+Ace editor comes with some snippets. But you can add custom snippets in @additional-snippets@ json file.
+
+#### Example
+
+	[
+		{
+			"name" : "txp_img",
+			"tabTrigger" : "timg",
+			"content" : "<txp:image id='${1:id}' />"
+		}
+	]
 
 
