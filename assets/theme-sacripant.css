@@ -1,8 +1,13 @@
 /*	
- *	ACE editor Wrapper & BTN
+ *	CSS for
+ *	Tom Web Editor
+ *	a Textpattern CMS plugin
  */ 
 
-/* Add some utils class */
+/* 
+ * Add some utils class 
+ */
+
 .hide {
 	display: none;
 }
@@ -13,7 +18,7 @@
 }
 
 /* 
- *	BTN Active Editor 
+ *	Btn open Editor 
  */
 .show-ace:before {
 	content: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4KPCFET0NUWVBFIHN2ZyBQVUJMSUMgIi0vL1czQy8vRFREIFNWRyAxLjEvL0VOIiAiaHR0cDovL3d3dy53My5vcmcvR3JhcGhpY3MvU1ZHLzEuMS9EVEQvc3ZnMTEuZHRkIj4KPHN2ZyB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHg9IjBweCIgeT0iMHB4IgoJIHdpZHRoPSIxNnhwIiBoZWlnaHQ9IjE2cHgiIHZpZXdCb3g9IjAgMCA1MTIgNTEyIiBlbmFibGUtYmFja2dyb3VuZD0ibmV3IDAgMCA1MTIgNTEyIiB4bWw6c3BhY2U9InByZXNlcnZlIj4KPHBvbHlnb24gaWQ9InJlc2l6ZS0xMS1pY29uIiBwb2ludHM9IjQ2MiwyMzIuNDI4IDQ2Miw1MCAyNzkuNTcyLDUwIDMyNC4yMzgsOTQuNzQzIDEwMCwzMTguOTgyIDEwMCwxMDAgMjI5LjUsMTAwIDIyOS41LDUwIDUwLDUwIAoJNTAsNDYyIDQ2Miw0NjIgNDYyLDI3OS43ODYgNDEyLDI3OS43ODYgNDEyLDQxMiAxOTMuMDIxLDQxMiA0MTcuMjU5LDE4Ny43NjMgIi8+Cjwvc3ZnPgoK);
@@ -46,17 +51,11 @@
 	overflow: hidden; 
 }
 
+/* Show messagepane top on Editor */
 .tomWE-on #messagepane {
 	z-index: 10000;
 }
-/* Show messagepane top on Editor */
-.tomWE-on .txp-header {
-	/* position: static; */
-}
 
-.tomWE-on .txp-logout {
-	/* z-index: 1; */
-}
 
 /*
  *	Fullscrenn panel
@@ -88,7 +87,7 @@
 
 
 /* 
- *	Menu	
+ *	Editor Menu	
  */
 
 
@@ -99,10 +98,10 @@
 	height: 2.2em;
 	padding: .1em .33em;
 }
+
 .tomWE-menu-left {
 	flex-grow: 1;
 }
-
 
 /* hidden input radio */
 .tomWE-menu input {
@@ -125,15 +124,10 @@
 }
 
 #tomWE .tomWE-btnsgroup .tomWE-btn {
-	/* border-radius: 0; */
 	margin-right: 1px;
 }
 
-#tomWE .tomWE-btnsgroup .tomWE-btn:first-child {
-	/* border-radius: .33em 0 0 .33em; */
-}
 #tomWE .tomWE-btnsgroup .tomWE-btn:last-child {
-	/* border-radius: 0 .33em .33em 0; */
 	margin-right: 0;
 }
 
@@ -148,12 +142,8 @@
 	-webkit-appearance: none;
 	-moz-appearance: none;
 	appearance: none;
-
-	/* display: inline-block; */
-	/* float: left; */
 	
 	font-size: 1em;
-	/* height: 2em; */
 	line-height: 2em;	
 	padding: 0 .66em;
 
@@ -162,7 +152,6 @@
 	background: #777;
 	color:  #000;
 	text-shadow: none;
-	/* border-radius: .33em; */
 }
 
 /* if btn is radio/checkbox + label */
@@ -236,20 +225,29 @@ span.tomWE-btn input:checked + label .tomWE-icon-size {
 	color:  #fff;	
 }
 
+
+
 /* 
- *	Panels 
+ *	Editor Panels 
  */
+
 .tomWE-panels {
 	display: flex;
 	height: calc(100vh - 2em);
 }
 
-/* ace panel */
+
+/* ace panel (left) 
+-------------------*/
+
 .tomWE-panel-left {
 	flex: 2 1 0%;
 	transition:  800ms flex;
 }
-/* iframe and help panel */
+
+/* iframe and help panel (right)
+----------------------------------*/
+
 .tomWE-panel-right {
 	flex: 0 1 0%;
 	overflow: auto;
@@ -276,9 +274,8 @@ span.tomWE-btn input:checked + label .tomWE-icon-size {
 }
 
 
-/*
- *	Left panel
- */
+/* Left panel Content
+--------------------- */
 
 .tomWE-article_title {
 	/* font-size: 20px; */
@@ -310,9 +307,8 @@ span.tomWE-btn input:checked + label .tomWE-icon-size {
 	line-height: 1.4em;
 }
 
-/* 
- *	right Panel 
- */
+/*	right Panel content
+------------------------ */
 
 .tomWE-panel-right-content {
 	min-width: 30vw;
@@ -338,29 +334,11 @@ span.tomWE-btn input:checked + label .tomWE-icon-size {
 	background-color: #000;	
 } 
 
-/* reset default */
-/* .tomWE-help-table */
-
-/*
- *	Save & Exit buttons
- */
-
-/* keyboard help in button */
-button kbd {
-	/* border: 0 none; */
-	/* background-color: transparent; */
-	
-	/* color: #535353; */
-	/* font-size: 0.8em; */
-	/* font-weight: normal; */
-}
-button kbd:before {
-	/* content: "| "; */
-}
 
 /*	
-*	ACE Editor Theme
-*/ 
+ *	ACE Editor Theme
+ */
+
 .ace_editor { }
 
 .ace_focus .ace_scroller {}
