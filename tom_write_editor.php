@@ -17,7 +17,7 @@ $plugin['name'] = 'tom_write_editor';
 // 1 = Plugin help is in raw HTML.  Not recommended.
 # $plugin['allow_html_help'] = 1;
 
-$plugin['version'] = '0.4beta';
+$plugin['version'] = '1.4beta';
 $plugin['author'] = 'Thomas JUND';
 $plugin['author_uri'] = 'http://sacripant.fr';
 $plugin['description'] = 'Text editor for geek writers';
