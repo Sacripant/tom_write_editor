@@ -32,12 +32,10 @@
         // Store Editor Objects
         initEditorObj = function() {
             editor.btn = {
-                "$show" : $('<a class="show-ace ace-show-hide"><i>fullscreen</i></a>').prependTo('.body'),
+                "$show" : $('<button class="tomWE-open" title="open Tom_write_editor"> > twe</button>').appendTo('.body .txp-form-field-label'),
                 "$hide" : $('#tomWE-hide-btn'),
                 "$save": $('#tomWE-save-btn'),
                 "$settings" : $('#tomWE-settings-btn'),
-                // "$iframeSrcs": $('#tomWE-iframe-btn').find('button'),
-                // "$help" : $('#tomWE-help-btns').find('button'),
                 "$rightContent" : $('#tomWE-rightcontent-btns').find('input'), 
                 "$rightSize" : $('#tomWE-panel-size-btns').find('input')
             };
@@ -398,7 +396,8 @@
             
                     
             // show Editor
-            editor.btn.$show.click(function() {
+            editor.btn.$show.click(function(e) {
+                e.preventDefault();
                 showEditor();
             });
             
