@@ -1,0 +1,399 @@
+/*	
+ *	CSS for
+ *	Tom Web Editor
+ *	a Textpattern CMS plugin
+ */ 
+
+/* 
+ * Add some utils class 
+ */
+
+.hide {
+	display: none;
+}
+
+.pre {
+	white-space: pre-wrap;
+	hyphens:  none;
+}
+
+/* 
+ *	Btn open Editor 
+ */
+.tomWE-open {
+	font-variant: small-caps;
+	margin-left: 0.4em;
+	margin-bottom: 0.4em;
+	background-color: #333;
+	font-weight: bold;
+}
+
+/* 
+ *	Modify Txp CSS when editor is ON 
+ */
+.tomWE-on,
+.tomWE-on body  {
+	height: 100%;
+	padding: 0;	
+}
+
+/* Hide write page scrollbar */
+.tomWE-on body {
+	overflow: hidden; 
+}
+
+/* Show messagepane top on Editor */
+.tomWE-on #messagepane {
+	z-index: 10000;
+}
+
+
+/*
+ *	Fullscrenn panel
+ */
+
+#tomWE * {
+	box-sizing: border-box;
+} 
+		
+#tomWE {
+	display: none;
+	visibility: hidden;
+	position: fixed;
+	top: 0;
+	left: 0;
+	height: 100%;
+	width: 100%;
+	background-color: hsla(0,0%,20%,0.95);
+	color: #ddd;
+	z-index: 9000;
+
+	font-size: 1rem;
+}
+
+.tomWE-on #tomWE {
+	display: block;
+	visibility: visible;
+}
+
+
+/* 
+ *	Editor Menu	
+ */
+
+
+.tomWE-menu {
+	background-color: #000;
+	/* background-color: hsla(0,0%,30%,0.9); */
+	display: flex;
+	height: 2.2em;
+	padding: .1em .33em;
+}
+
+.tomWE-menu-left {
+	flex-grow: 1;
+}
+
+/* hidden input radio */
+.tomWE-menu input {
+	display: none;
+}
+
+/* BTNS group 
+-------------- */
+
+.tomWE-btnsgroup {
+	display: inline-flex;
+	position: relative;
+	z-index: 1;
+	margin: 0 .33em;
+	border-radius: .33em;
+	/* border: 1px solid; */
+	height: 100%;
+	overflow: hidden;
+	vertical-align: top;
+}
+
+#tomWE .tomWE-btnsgroup .tomWE-btn {
+	margin-right: 1px;
+}
+
+#tomWE .tomWE-btnsgroup .tomWE-btn:last-child {
+	margin-right: 0;
+}
+
+/* BTN 
+------- */
+
+#tomWE button.tomWE-btn,
+#tomWE span.tomWE-btn label {
+	position: relative;
+	z-index: 1;
+
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	appearance: none;
+	
+	font-size: 1em;
+	line-height: 2em;	
+	padding: 0 .66em;
+
+	border:  0 none;
+	border-radius: 0;
+	background: #777;
+	color:  #000;
+	text-shadow: none;
+}
+
+/* if btn is radio/checkbox + label */
+
+.tomWE-btn label {
+	cursor: pointer;
+	display: block;
+}
+
+#tomWE .tomWE-btn input:disabled + label {
+	cursor: default;
+}
+#tomWE .tomWE-btn input:disabled:not(:checked) + label {
+	opacity:  .5;
+}
+
+#tomWE button.tomWE-btn:hover,
+#tomWE span.tomWE-btn:hover input:not(:disabled) + label {
+	background-color: #ffda44;
+	box-shadow: 0 0 1.8em .3em #777 inset;
+}
+
+#tomWE button.tomWE-btn:active,
+#tomWE span.tomWE-btn input:checked + label {
+	background-color: #ffda44;
+	box-shadow: 0 0 0.5em 0.2em #777 inset;
+}
+
+
+/* Icons 
+--------- */
+
+.tomWE-menu svg {
+	width: 2em;
+	height: 2em;
+	padding-top: .15em;
+	padding-bottom: .15em;
+	display: block;
+}
+
+.tomWE-icon {
+	stroke-width: 1px;
+	stroke: #000;
+	fill:  hsla(0,0%,100%,.4);
+	stroke-linejoin:bevel	
+}
+
+/* checked styles */
+span.tomWE-btn input:checked + label .tomWE-icon {
+	fill:  #fff;	
+}
+
+.tomWE-icon-shortcuts {
+    fill:  #000 !important;
+}
+
+.tomWE-icon-snippets {
+    fill:  #000 !important;
+    stroke-width: 0;
+}
+
+/* Icon size */
+.tomWE-icon-size {
+	fill:  #333;
+	stroke:  #000;
+	stroke-width:  1px;
+	color:  hsla(0,0%,100%,.4);
+} 
+
+span.tomWE-btn input:checked + label .tomWE-icon-size {
+	color:  #fff;	
+}
+
+
+
+/* 
+ *	Editor Panels 
+ */
+
+.tomWE-panels {
+	display: flex;
+	height: calc(100vh - 2em);
+}
+
+
+/* ace panel (left) 
+-------------------*/
+
+.tomWE-panel-left {
+	flex: 2 1 0%;
+	transition:  800ms flex;
+}
+
+/* iframe and help panel (right)
+----------------------------------*/
+
+.tomWE-panel-right {
+	flex: 0 1 0%;
+	overflow: auto;
+	border-left: 10px solid #000;
+
+	/* Background pattern */
+	background-image: repeating-radial-gradient(
+		circle,
+		transparent, 
+		transparent 9px, 
+		hsl(0,0%,30%) 11px, 
+		hsl(0,0%,30%) 12px,
+		transparent 14px
+	);
+	background-position: center;
+	background-size: 125px 79px;
+
+	/* transition */
+	transition:  flex 800ms, background-size 4s;
+}
+
+.tomWE-panel-right.loading {
+	background-size: 250px 79px;
+}
+
+
+/* Left panel Content
+--------------------- */
+
+.tomWE-article_title {
+	/* font-size: 20px; */
+	line-height: 50px;
+	text-align: left;
+	color: #eee;
+	width: 100%;
+	padding-left: 55px;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;	
+}
+
+.editor-wrapper {
+	height: calc(100% - 75px);
+	position: relative;
+	/*top: 75px;		*/
+}
+
+#tomWE-editor {
+	overflow: visible;
+	position: static;
+	width: 100%; height: 100%;
+	max-width: 50em;
+/*	margin: 0 auto;*/
+/*	padding: 0 30px;*/
+	z-index: 0;
+	font-size: 16px;
+	line-height: 1.4em;
+}
+
+/*	right Panel content
+------------------------ */
+
+.tomWE-panel-right-content {
+	min-width: 30vw;
+}
+
+.tomWE-iframe {
+	width: 100%;
+	height: 100%;
+	overflow-y: auto;
+}
+
+/* help table 
+--------------*/
+
+.tomWE-help-table {
+	margin: 1.5em;
+	padding: 1.5em;
+	background-color: hsla(0,0%,20%,0.95);
+	/* width: auto; */
+} 
+
+.tomWE-help-table tr:hover {
+	background-color: #000;	
+} 
+
+
+/*	
+ *	ACE Editor Theme
+ */
+
+.ace_editor { }
+
+.ace_focus .ace_scroller {}
+
+.ace-sacripant .ace_content { }
+.ace-sacripant .ace_gutter-layer .ace_gutter-cell {
+	color: #666;
+	font-size: 0.9em;
+	/*padding: 0;*/
+}
+.ace-sacripant .ace_print_margin {
+    width: 1px;
+    background:#fff;
+}
+.ace-sacripant .ace_scroller {
+    /*max-width: 850px;*/
+    overflow: hidden; 
+}
+.ace-sacripant .ace_scrollbar	{  }
+.ace-sacripant .ace_text-layer {
+    cursor: text;
+    color: #ddd;
+    overflow: visible;
+}
+.ace-sacripant .ace_cursor {
+    border-left: 1px solid #8AC164;
+}
+.ace-sacripant .ace_cursor.ace_overwrite {
+    border-left: 0px;
+    border-bottom: 1px solid #000000;
+}
+.ace-sacripant .ace_marker-layer .ace_selection {
+    background: rgba(38, 171, 63, 0.5);
+}
+
+.ace-sacripant .ace_marker-layer .ace_step {
+    background: rgb(198, 219, 174);
+}
+.ace-sacripant .ace_marker-layer .ace_bracket {
+    margin: -1px 0 0 -1px;
+    border: 1px solid rgba(75, 75, 126, 0.50);
+}
+.ace-sacripant .ace_marker-layer .ace_active_line {
+    background: rgba(0, 0, 0, 0.6);
+}
+       
+.ace-sacripant .ace_invisible {
+    color: rgba(75, 75, 126, 0.50);
+}
+
+.ace-sacripant .ace_line {
+	outline: 1px dotted #222;
+/*	 white-space: normal;*/
+}
+
+/*HIGHITING*/
+
+.ace-sacripant .ace_markup {
+	color: #9E88BE;
+}
+.ace-sacripant .ace_keyword {
+	color: #9298E1;
+}
+.ace-sacripant .ace_string {
+	color: #9E88BE;
+	font-style: italic;
+}
