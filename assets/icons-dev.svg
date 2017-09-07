@@ -35,17 +35,17 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="4.6301893"
-     inkscape:cx="0.78048418"
-     inkscape:cy="9.4324835"
+     inkscape:zoom="13.096153"
+     inkscape:cx="9.7098534"
+     inkscape:cy="10.78232"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="true"
      units="px"
      inkscape:showpageshadow="false"
      inkscape:object-paths="false"
-     inkscape:window-width="1366"
-     inkscape:window-height="720"
+     inkscape:window-width="1920"
+     inkscape:window-height="1152"
      inkscape:window-x="0"
      inkscape:window-y="24"
      inkscape:window-maximized="1"
@@ -431,40 +431,36 @@
      inkscape:label="open"
      style="display:inline">
     <rect
-       style="display:inline;opacity:1;fill:#333333;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:0.96205795;stroke-linecap:round;stroke-linejoin:bevel;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:normal"
+       style="display:inline;opacity:1;fill:#333333;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:0.99015135;stroke-linecap:round;stroke-linejoin:bevel;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:normal"
        id="rect4949-3"
-       width="17"
-       height="14"
+       width="18"
+       height="14.005713"
        x="1"
-       y="3" />
-    <rect
-       style="display:inline;opacity:1;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:0.23333333;stroke-linecap:round;stroke-linejoin:bevel;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:normal"
-       id="rect4949-6-6"
-       width="1"
-       height="14"
-       x="18"
-       y="3" />
+       y="2.9942877" />
     <path
-       style="display:inline;fill:none;fill-rule:evenodd;stroke:#ffffff;stroke-width:1px;stroke-linecap:round;stroke-linejoin:round;stroke-opacity:1"
-       d="M 3,5 5,7 3,9"
+       style="display:inline;fill:none;fill-rule:evenodd;stroke:#ffffff;stroke-width:0.79838723px;stroke-linecap:round;stroke-linejoin:round;stroke-opacity:1"
+       d="M 2.4032256,7.4032256 4,9 2.4032256,10.596774"
        id="path4970-7"
        inkscape:connector-curvature="0" />
     <g
-       aria-label="TWE"
-       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:6.66666651px;line-height:125%;font-family:Colaborate-Bold;-inkscape-font-specification:'Colaborate-Bold, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       id="text4579">
+       id="g4704">
       <path
-         d="M 9.9655212,4.9818869 V 4.1952203 H 6.6655213 v 0.7866666 h 1.1399999 v 3.5266666 h 1.02 V 4.9818869 Z"
-         style=""
-         id="path4581" />
+         d="M 9.4428043,7.3207108 V 6.4999998 H 6 v 0.820711 H 7.1893325 V 11 H 8.2534723 V 7.3207108 Z"
+         id="path4581"
+         inkscape:connector-curvature="0"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:medium;line-height:125%;font-family:Colaborate-Bold;-inkscape-font-specification:'Colaborate-Bold, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:1.04327559px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
       <path
-         d="m 16.619896,4.1952203 h -1 l -0.713333,3.0999999 -0.7,-2.9199999 h -1.28 l -0.913334,2.9266666 -0.62,-3.1066666 h -1.073333 l 0.926667,4.3133332 h 1.273333 l 0.96,-2.8066666 0.78,2.8066666 h 1.273333 z"
-         style=""
-         id="path4583" />
+         d="M 14.996901,7.4999998 14,7.5 13.5,10.015 13,8 H 12 L 11.5,10 11,7.4999998 H 10 L 11,11 h 1 l 0.5,-2 0.5,2 h 1 z"
+         id="path4583"
+         inkscape:connector-curvature="0"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:medium;line-height:125%;font-family:Colaborate-Bold;-inkscape-font-specification:'Colaborate-Bold, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:0.81143647px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         sodipodi:nodetypes="cccccccccccccc" />
       <path
-         d="m 20.164688,8.5085535 v -0.78 h -1.693333 v -1.06 h 1.493333 V 5.8885536 H 18.471355 V 4.9752203 h 1.633333 v -0.78 h -2.646667 v 4.3133332 z"
-         style=""
-         id="path4585" />
+         d="M 18,11 V 10.367079 H 16.822255 V 9.5069547 H 18 V 8.8740337 H 16.822255 V 8.1329208 H 18 V 7.4999998 H 16 V 11 Z"
+         id="path4585"
+         inkscape:connector-curvature="0"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:medium;line-height:125%;font-family:Colaborate-Bold;-inkscape-font-specification:'Colaborate-Bold, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:0.81143641px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         sodipodi:nodetypes="ccccccccccccc" />
     </g>
   </g>
   <g
